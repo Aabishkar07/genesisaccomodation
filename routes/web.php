@@ -18,4 +18,6 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 Route::get('/', [IndexController::class, 'index'])->name('home');
+Route::get('/blog/{blog:slug}', [IndexController::class, 'single'])->name('single');
+Route::get('/aboutus', [IndexController::class, 'aboutus'])->name('aboutus');
 

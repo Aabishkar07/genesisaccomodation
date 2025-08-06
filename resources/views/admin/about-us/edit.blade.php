@@ -89,7 +89,7 @@
 
                     @if($aboutUs->image)
                         <div class="mb-4">
-                            <img src="{{ asset('storage/' . $aboutUs->image) }}" alt="{{ $aboutUs->title }}" class="w-full h-32 object-cover rounded-lg">
+                            <img src="{{ asset('uploads/' . $aboutUs->image) }}" alt="{{ $aboutUs->title }}" class="w-full h-32 object-cover rounded-lg">
                         </div>
                     @endif
 

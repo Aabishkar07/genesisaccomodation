@@ -80,7 +80,7 @@
 
                     @if($blog->featured_image)
                         <div class="mb-4">
-                            <img src="{{ asset('storage/' . $blog->featured_image) }}" alt="{{ $blog->title }}" class="w-full h-32 object-cover rounded-lg">
+                            <img src="{{ asset('uploads/' . $blog->featured_image) }}" alt="{{ $blog->title }}" class="w-full h-32 object-cover rounded-lg">
                         </div>
                     @endif
 
@@ -129,7 +129,7 @@
                         @if($blog->meta_image)
                             <div class="mb-4">
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Current Meta Image</label>
-                                <img src="{{ asset('storage/' . $blog->meta_image) }}" alt="Meta Image" class="w-full h-24 object-cover rounded-lg">
+                                <img src="{{ asset('uploads/' . $blog->meta_image) }}" alt="Meta Image" class="w-full h-24 object-cover rounded-lg">
                             </div>
                         @endif
 
@@ -170,7 +170,7 @@
                         @if($blog->og_image)
                             <div class="mb-4">
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Current OG Image</label>
-                                <img src="{{ asset('storage/' . $blog->og_image) }}" alt="OG Image" class="w-full h-24 object-cover rounded-lg">
+                                <img src="{{ asset('uploads/' . $blog->og_image) }}" alt="OG Image" class="w-full h-24 object-cover rounded-lg">
                             </div>
                         @endif
 
@@ -204,7 +204,7 @@
                         @if($blog->twitter_image)
                             <div class="mb-4">
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Current Twitter Image</label>
-                                <img src="{{ asset('storage/' . $blog->twitter_image) }}" alt="Twitter Image" class="w-full h-24 object-cover rounded-lg">
+                                <img src="{{ asset('uploads/' . $blog->twitter_image) }}" alt="Twitter Image" class="w-full h-24 object-cover rounded-lg">
                             </div>
                         @endif
 

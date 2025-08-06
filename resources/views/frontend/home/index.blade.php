@@ -6,6 +6,8 @@
 
 @include('frontend.home.accomodation')
 @include('frontend.home.testimonial')
+@include('frontend.home.blog')
+
 
 
 @endsection

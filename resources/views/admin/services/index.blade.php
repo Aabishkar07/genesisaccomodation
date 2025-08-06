@@ -34,7 +34,7 @@
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     @if($service->image)
-                                        <img src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->name }}" class="h-12 w-12 object-cover rounded-lg">
+                                        <img src="{{ asset('uploads/' . $service->image) }}" alt="{{ $service->name }}" class="h-12 w-12 object-cover rounded-lg">
                                     @else
                                         <div class="h-12 w-12 bg-gray-200 rounded-lg flex items-center justify-center">
                                             <i class="fas fa-image text-gray-400"></i>

@@ -6,22 +6,24 @@
             <div class="flex justify-between items-center h-16">
                 <!-- Logo -->
                 <div class="flex items-center">
-                    <h1
+                    <a href="/"
                         class="text-2xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
                         Genesis
-                    </h1>
+                    </a>
                 </div>
 
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex space-x-4 ml-10">
-                    <a href="#"
-                        class="flex items-center gap-2 text-white hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition">
+                    <a href="/"
+                        class="flex items-center gap-2 text-white hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition {{ Route::is('home') ? 'border-b-2 border-white' : '' }}">
                         <span>Home</span>
                     </a>
-                    <a href="#"
-                        class="flex items-center gap-2 text-white hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition">
-                        <span>About</span>
-                    </a>
+               <a href="{{ route('aboutus') }}"
+    class="flex items-center gap-2 text-white hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition
+        {{ Route::is('aboutus') ? 'border-b-2 border-white' : '' }}">
+    <span>About</span>
+</a>
+
                       <a href="#"
                         class="flex items-center gap-2 text-white hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition">
                         <span>Service</span>

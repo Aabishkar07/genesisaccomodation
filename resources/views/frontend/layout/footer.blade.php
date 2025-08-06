@@ -1,5 +1,5 @@
 
-    <footer class="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 text-white">
+    <footer class="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 text-white mt-10">
         <div class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Main Footer Content -->
             <div class="py-12 lg:py-16">

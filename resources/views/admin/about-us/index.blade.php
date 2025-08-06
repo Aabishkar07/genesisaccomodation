@@ -83,7 +83,7 @@
                     @if($aboutUs->image)
                         <div class="bg-gray-50 p-4 rounded-lg">
                             <h4 class="text-sm font-medium text-gray-900 mb-4">Featured Image</h4>
-                            <img src="{{ asset('storage/' . $aboutUs->image) }}" alt="{{ $aboutUs->title }}" class="w-full h-48 object-cover rounded-lg">
+                            <img src="{{ asset('uploads/' . $aboutUs->image) }}" alt="{{ $aboutUs->title }}" class="w-full h-48 object-cover rounded-lg">
                         </div>
                     @endif
 
@@ -184,13 +184,26 @@
                             <a href="{{ route('admin.about-us.edit', $aboutUs) }}" class="block w-full text-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
                                 Edit Content
                             </a>
-                            <form action="{{ route('admin.about-us.destroy', $aboutUs) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this content?')">
+                            {{-- <form action="{{ route('admin.about-us.destroy', $aboutUs) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this content?')">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="block w-full px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700">
                                     Delete Content
                                 </button>
-                            </form>
+                            </form> --}}
+
+
+                                    <form action="{{ route('admin.about-us.destroy', $aboutUs) }}" method="POST"
+                                        class="delete-form-{{ $aboutUs->id }} inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="button" onclick="deleteItem('{{ $aboutUs->id }}')"
+                                            class="block w-full px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 mt-3">
+                                            <i class="fas fa-trash"></i> Delete Content
+                                        </button>
+                                    </form>
+
+
                         </div>
                     </div>
                 </div>

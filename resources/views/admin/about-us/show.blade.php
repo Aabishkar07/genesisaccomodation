@@ -25,10 +25,11 @@
             <!-- Main Content -->
             <div class="space-y-6">
                 <!-- Featured Image -->
+               
                 @if($aboutUs->image)
                     <div>
                         <h4 class="text-sm font-medium text-gray-900 mb-2">Featured Image</h4>
-                        <img src="{{ asset('storage/' . $aboutUs->image) }}" alt="{{ $aboutUs->title }}" class="w-full h-64 object-cover rounded-lg">
+                        <img src="{{ asset('uploads/' . $aboutUs->image) }}" alt="{{ $aboutUs->title }}" class="w-full h-64 object-cover rounded-lg">
                     </div>
                 @endif
 

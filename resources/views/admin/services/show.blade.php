@@ -28,7 +28,7 @@
                 @if($service->image)
                     <div>
                         <h4 class="text-sm font-medium text-gray-900 mb-2">Featured Image</h4>
-                        <img src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->name }}" class="w-full h-64 object-cover rounded-lg">
+                        <img src="{{ asset('uploads/' . $service->image) }}" alt="{{ $service->name }}" class="w-full h-64 object-cover rounded-lg">
                     </div>
                 @endif
 
@@ -39,16 +39,19 @@
                         {!! nl2br(e($service->description)) !!}
                     </div>
                 </div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-                @if($service->icon)
-                    <div>
-                        <h4 class="text-sm font-medium text-gray-900 mb-2">Icon</h4>
-                        <div class="flex items-center">
-                            <i class="{{ $service->icon }} text-2xl text-blue-600 mr-3"></i>
-                            <span class="text-gray-700">{{ $service->icon }}</span>
-                        </div>
-                    </div>
-                @endif
+@if($service->icon)
+    <div>
+        <h4 class="text-sm font-medium text-gray-900 mb-2">Icon</h4>
+        <div class="flex items-center">
+            <i class="{{ $service->icon }} text-2xl text-blue-600 mr-3"></i>
+            <span class="text-gray-700">{{ $service->icon }}</span>
+        </div>
+    </div>
+@endif
+
+
             </div>
 
             <!-- Sidebar -->

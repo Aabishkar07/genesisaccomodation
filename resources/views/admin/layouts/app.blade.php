@@ -211,6 +211,28 @@
         });
     </script>
 
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+        <script>
+            function deleteItem(itemSlug) {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: 'You will not be able to recover this !',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // alert("delete-form-"+itemSlug)
+                        let form = document.querySelector(".delete-form-" + itemSlug)
+                        form.submit();
+                    }
+                });
+            }
+        </script>
+
     @stack('scripts')
 </body>
 </html>

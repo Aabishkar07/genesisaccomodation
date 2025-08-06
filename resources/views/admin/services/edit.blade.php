@@ -18,7 +18,7 @@
             <div class="lg:col-span-2 space-y-6">
                 <div>
                     <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Service Name *</label>
-                    <input type="text" name="name" id="name" value="{{ old('name', $service->name) }}" required
+                    <input type="text" name="name" id="name" value="{{ old('name', $service->title) }}" required
                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                     @error('name')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -80,7 +80,7 @@
 
                     @if($service->image)
                         <div class="mb-4">
-                            <img src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->name }}" class="w-full h-32 object-cover rounded-lg">
+                            <img src="{{ asset('uploads/' . $service->image) }}" alt="{{ $service->name }}" class="w-full h-32 object-cover rounded-lg">
                         </div>
                     @endif
 

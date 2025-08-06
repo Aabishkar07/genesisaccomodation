@@ -1,3 +1,9 @@
+@php
+use App\Models\AboutUs;
+
+$aboutUs = AboutUs::first();
+@endphp
+
 <section class="py-16 bg-gradient-card">
       <div class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -15,8 +21,7 @@
             </div>
 
             <p class="text-muted-foreground text-lg leading-relaxed">
-              Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet
-            </p>
+{{$aboutUs->content}}            </p>
 
             <div class="grid grid-cols-3 gap-6">
               <div class="text-center p-6 border-2 border-dashed border-primary/30 rounded-lg hover:border-primary/50 transition-colors">
@@ -25,11 +30,7 @@
                 <div class="text-sm text-muted-foreground">Rooms</div>
               </div>
 
-              <div class="text-center p-6 border-2 border-dashed border-primary/30 rounded-lg hover:border-primary/50 transition-colors">
-                <Users class="h-8 w-8 text-primary mx-auto mb-3" />
-                <div class="text-3xl font-bold text-foreground">100</div>
-                <div class="text-sm text-muted-foreground">About us</div>
-              </div>
+
 
               <div class="text-center p-6 border-2 border-dashed border-primary/30 rounded-lg hover:border-primary/50 transition-colors">
                 <User class="h-8 w-8 text-primary mx-auto mb-3" />
@@ -38,15 +39,20 @@
               </div>
             </div>
 
-            <Button variant="default" size="lg" class="bg-primary p-2 rounded-md text-white hover:bg-primary-dark">
-              Explore more about us
-            </Button>
+           @if (!Route::is('aboutus'))
+
+    <Button variant="default" size="lg" class="bg-primary p-2 rounded-md text-white hover:bg-primary-dark">
+      <a class="mt-20" href="{{ route('aboutus') }}" >   Explore more about us </a>
+    </Button>
+
+@endif
+
           </div>
 
           <div class="grid grid-cols-2 gap-4 h-96">
             <div class="col-span-1 row-span-2 rounded-2xl overflow-hidden shadow-medium">
               <img
-                src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                src="{{ asset('uploads/' . $aboutUs->image) }}"
                 alt="Modern bedroom interior"
                 class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
               />
