@@ -1,33 +1,216 @@
 <!DOCTYPE html>
-<html lang="{{ $page->language ?? 'en' }}">
-
+<html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@yield('title', 'Admin Dashboard') - Genesis Accommodation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <style>
+        /* Ensure sidebar works properly */
+        .sidebar-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            z-index: 50;
+        }
 
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-          <link rel="icon" href="" type="image/x-icon">
-    @include('admin.links.style')
-    @include('admin.links.javascript')
-    <title> | Admin</title>
+        /* Prevent body scroll when sidebar is open on mobile */
+        body.sidebar-open {
+            overflow: hidden;
+        }
+
+        /* Ensure smooth transitions */
+        .sidebar-transition {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Desktop sidebar should always be visible */
+        @media (min-width: 1024px) {
+            .sidebar-desktop {
+                transform: translateX(0) !important;
+            }
+        }
+    </style>
+    @stack('styles')
 </head>
-
-<body>
-    <div x-cloak x-data="{ sidebarOpen: true }" class="flex ">
-        <div class="fixed w-full top-0 z-[999] bg-white">
-
-            @include('admin.layouts.navbar')
-        </div>
-        @include('admin.layouts.sidebar')
-        <main :class="sidebarOpen ? 'ml-64' : 'ml-0'" class="flex-1 w-full mt-10 mb-2 overflow-x-hidden ">
-            <div class="w-full px-6 py-8 max-sm:px-4 mt-7">
-                @yield('body')
+<body class="bg-gray-50">
+    <div x-data="{ sidebarOpen: false }" class="min-h-screen">
+        <!-- Sidebar -->
+        <div class="fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out lg:translate-x-0 sidebar-fixed sidebar-transition"
+             :class="{'translate-x-0': sidebarOpen, '-translate-x-full': !sidebarOpen}"
+             :class="{'sidebar-desktop': window.innerWidth >= 1024}">
+            <div class="flex items-center justify-between h-16 px-6 bg-blue-600 text-white">
+                <h1 class="text-xl font-bold">Admin Panel</h1>
+                <button @click="sidebarOpen = false" class="lg:hidden">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
-        </main>
+
+            <nav class="mt-6">
+                <div class="px-4 mb-4">
+                    <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Main</h3>
+                </div>
+
+                <a href="{{ route('dashboard') }}" class="flex items-center px-6 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-tachometer-alt w-5 h-5 mr-3"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <div class="px-4 mt-6 mb-4">
+                    <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Content</h3>
+                </div>
+
+                <a href="{{ route('admin.blogs.index') }}" class="flex items-center px-6 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-blog w-5 h-5 mr-3"></i>
+                    <span>Blogs</span>
+                </a>
+
+                <a href="{{ route('admin.about-us.index') }}" class="flex items-center px-6 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-info-circle w-5 h-5 mr-3"></i>
+                    <span>About Us</span>
+                </a>
+
+                <a href="{{ route('admin.services.index') }}" class="flex items-center px-6 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-concierge-bell w-5 h-5 mr-3"></i>
+                    <span>Services</span>
+                </a>
+
+                <a href="{{ route('admin.accommodations.index') }}" class="flex items-center px-6 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-hotel w-5 h-5 mr-3"></i>
+                    <span>Accommodations</span>
+                </a>
+
+                <a href="{{ route('admin.room-types.index') }}" class="flex items-center px-6 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-bed w-5 h-5 mr-3"></i>
+                    <span>Room Types</span>
+                </a>
+
+                <a href="{{ route('admin.testimonials.index') }}" class="flex items-center px-6 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-star w-5 h-5 mr-3"></i>
+                    <span>Testimonials</span>
+                </a>
+
+                <div class="px-4 mt-6 mb-4">
+                    <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Settings</h3>
+                </div>
+
+                <a href="{{ route('admin.settings.index') }}" class="flex items-center px-6 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-cog w-5 h-5 mr-3"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- Overlay for mobile -->
+        <div x-show="sidebarOpen"
+             x-transition:enter="transition-opacity ease-linear duration-300"
+             x-transition:enter-start="opacity-0"
+             x-transition:enter-end="opacity-100"
+             x-transition:leave="transition-opacity ease-linear duration-300"
+             x-transition:leave-start="opacity-100"
+             x-transition:leave-end="opacity-0"
+             class="fixed inset-0 z-40 bg-gray-600 bg-opacity-75 lg:hidden"
+             @click="sidebarOpen = false">
+        </div>
+
+        <!-- Main Content -->
+        <div class="lg:ml-64">
+            <!-- Top Navigation -->
+            <div class="bg-white shadow-sm border-b">
+                <div class="flex items-center justify-between h-16 px-6">
+                    <div class="flex items-center">
+                        <button @click="sidebarOpen = true" class="lg:hidden mr-4 p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <h2 class="text-xl font-semibold text-gray-800">@yield('page-title', 'Dashboard')</h2>
+                    </div>
+
+                    <div class="flex items-center space-x-4">
+                        <div class="relative">
+                            <button class="flex items-center text-gray-600 hover:text-gray-800">
+                                <i class="fas fa-bell mr-2"></i>
+                                <span class="bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+                            </button>
+                        </div>
+
+                        <div class="relative">
+                            <button class="flex items-center text-gray-600 hover:text-gray-800">
+                                <img class="h-8 w-8 rounded-full" src="https://ui-avatars.com/api/?name=Admin&background=0D9488&color=fff" alt="Admin">
+                                <span class="ml-2">Admin</span>
+                                <i class="fas fa-chevron-down ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page Content -->
+            <main class="p-6">
+                @if(session('success'))
+                    <div class="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if(session('error'))
+                    <div class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
+                @yield('content')
+            </main>
+        </div>
     </div>
 
+    <script>
+        // Ensure sidebar works properly on all screen sizes
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                const sidebar = document.querySelector('[x-data]');
+                if (window.innerWidth >= 1024) { // lg breakpoint
+                    // On desktop, ensure sidebar is visible
+                    if (sidebar && sidebar.__x) {
+                        sidebar.__x.$data.sidebarOpen = true;
+                    }
+                } else {
+                    // On mobile, ensure sidebar is hidden by default
+                    if (sidebar && sidebar.__x) {
+                        sidebar.__x.$data.sidebarOpen = false;
+                    }
+                }
+            });
 
+            // Initialize sidebar state based on screen size
+            if (window.innerWidth >= 1024) {
+                const sidebar = document.querySelector('[x-data]');
+                if (sidebar && sidebar.__x) {
+                    sidebar.__x.$data.sidebarOpen = true;
+                }
+            }
+
+            // Handle body scroll when sidebar is open on mobile
+            const body = document.body;
+            const sidebarToggle = document.querySelector('[x-data]');
+
+            if (sidebarToggle && sidebarToggle.__x) {
+                sidebarToggle.__x.$watch('sidebarOpen', function(value) {
+                    if (window.innerWidth < 1024) {
+                        if (value) {
+                            body.classList.add('sidebar-open');
+                        } else {
+                            body.classList.remove('sidebar-open');
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+
+    @stack('scripts')
 </body>
-
-
 </html>
