@@ -16,16 +16,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->text('description');
-            $table->decimal('price_per_night', 10, 2);
-            $table->integer('capacity');
-            $table->integer('bedrooms');
-            $table->integer('bathrooms');
-            $table->string('size')->nullable(); // e.g., "500 sq ft"
             $table->string('featured_image')->nullable();
-            $table->json('gallery')->nullable();
-            $table->json('amenities')->nullable();
             $table->enum('status', ['available', 'unavailable'])->default('available');
-            $table->integer('sort_order')->default(0);
+            $table->integer('sort_order')->default(1);
 
             // SEO Meta Fields
             $table->string('meta_title')->nullable();

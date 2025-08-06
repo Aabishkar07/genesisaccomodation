@@ -14,14 +14,7 @@ class RoomType extends Model
         'name',
         'slug',
         'description',
-        'price_per_night',
-        'capacity',
-        'bedrooms',
-        'bathrooms',
-        'size',
         'featured_image',
-        'gallery',
-        'amenities',
         'status',
         'sort_order',
         'meta_title',
@@ -39,12 +32,7 @@ class RoomType extends Model
     protected $casts = [
         'status' => 'string',
         'sort_order' => 'integer',
-        'price_per_night' => 'decimal:2',
-        'capacity' => 'integer',
-        'bedrooms' => 'integer',
-        'bathrooms' => 'integer',
-        'gallery' => 'array',
-        'amenities' => 'array',
+
     ];
 
     protected static function boot()
