@@ -69,14 +69,14 @@ Route::middleware(["admin"])->group(function () {
     ]);
 
     // Room Types
-    Route::resource('room-types', RoomTypeController::class)->names([
-        'index' => 'admin.room-types.index',
-        'create' => 'admin.room-types.create',
-        'store' => 'admin.room-types.store',
-        'show' => 'admin.room-types.show',
-        'edit' => 'admin.room-types.edit',
-        'update' => 'admin.room-types.update',
-        'destroy' => 'admin.room-types.destroy',
+    Route::resource('room_types', RoomTypeController::class)->names([
+        'index' => 'admin.room_types.index',
+        'create' => 'admin.room_types.create',
+        'store' => 'admin.room_types.store',
+        'show' => 'admin.room_types.show',
+        'edit' => 'admin.room_types.edit',
+        'update' => 'admin.room_types.update',
+        'destroy' => 'admin.room_types.destroy',
     ]);
 
     // Testimonials
