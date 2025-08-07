@@ -20,4 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [IndexController::class, 'index'])->name('home');
 Route::get('/blog/{blog:slug}', [IndexController::class, 'single'])->name('single');
 Route::get('/aboutus', [IndexController::class, 'aboutus'])->name('aboutus');
+Route::get('/services', [IndexController::class, 'services'])->name('services');
+Route::get('/blogs', [IndexController::class, 'blogs'])->name('blogs');
+
 

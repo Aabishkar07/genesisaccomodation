@@ -1,4 +1,4 @@
-<section class="flex flex-col items-center bg-white mt-10">
+<section class="flex flex-col items-center bg-white my-10">
   <!-- Blue line with "Testimonial" text -->
   <div>
     <div class="flex items-center justify-center mb-4">
@@ -21,10 +21,14 @@
   </div>
 
   <!-- View More button -->
+
+          {{-- @if ($service->count() > 9) --}}
+
   <div class="mt-8 w-full flex justify-center">
     <button
       class="bg-primary text-white font-semibold px-6 py-3 rounded hover:bg-primary-dark transition">
       View More
     </button>
   </div>
+  {{-- @endsection --}}
 </section>

@@ -41,7 +41,7 @@ class ServiceController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
-            'icon' => 'nullable|string|max:255',
+            'icon' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'status' => 'required|in:active,inactive',
             'sort_order' => 'nullable|integer|min:0',
@@ -112,7 +112,7 @@ public function update(Request $request, Service $service)
     $request->validate([
         'name' => 'required|string|max:255',
         'description' => 'required|string',
-        'icon' => 'nullable|string|max:255',
+        'icon' => 'nullable|string',
         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         'status' => 'required|in:active,inactive',
         'sort_order' => 'nullable|integer|min:0',
@@ -129,6 +129,7 @@ public function update(Request $request, Service $service)
     ]);
 
     $data = $request->all();
+            $data['title'] = $request->name;
     $data['slug'] = Str::slug($request->name);
 
     // Custom image upload using ImageService

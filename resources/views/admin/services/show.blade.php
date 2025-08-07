@@ -39,17 +39,16 @@
                         {!! nl2br(e($service->description)) !!}
                     </div>
                 </div>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
 @if($service->icon)
     <div>
         <h4 class="text-sm font-medium text-gray-900 mb-2">Icon</h4>
         <div class="flex items-center">
-            <i class="{{ $service->icon }} text-2xl text-blue-600 mr-3"></i>
-            <span class="text-gray-700">{{ $service->icon }}</span>
+            {!! $service->icon !!}
         </div>
     </div>
 @endif
+
+
 
 
             </div>

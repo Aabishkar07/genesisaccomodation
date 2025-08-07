@@ -41,7 +41,7 @@ $aboutUs = AboutUs::first();
 
            @if (!Route::is('aboutus'))
 
-    <Button variant="default" size="lg" class="bg-primary p-2 rounded-md text-white hover:bg-primary-dark">
+    <Button variant="default" size="lg" class="bg-primary p-2 rounded-md text-white hover:bg-white border border-primary hover:text-primary transition ease-in duration-200">
       <a class="mt-20" href="{{ route('aboutus') }}" >   Explore more about us </a>
     </Button>
 

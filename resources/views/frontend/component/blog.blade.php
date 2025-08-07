@@ -5,6 +5,6 @@
             <div class="p-6">
               <h3 class="text-lg font-semibold text-slate-900 mb-3">{{ $blog->title }}</h3>
               <p class="text-slate-600 text-[15px] leading-relaxed line-clamp-3">{{ Str::limit($blog->excerpt, 230, '...') }}.</p>
-              <a href="{{ route('single', $blog->slug) }}" class="mt-6 inline-block px-3 py-1.5 rounded-md tracking-wider bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium">Read More</a>
+              <a href="{{ route('single', $blog->slug) }}" class="mt-6 inline-block px-3 py-1.5 rounded-md tracking-wider bg-primary hover:bg-indigo-700 text-white text-sm font-medium">Read More</a>
             </div>
           </div>

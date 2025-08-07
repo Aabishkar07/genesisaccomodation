@@ -26,5 +26,21 @@
 
 
         </div>
+
+
+                   @if (!Route::is('blogs'))
+
+          @if ($blogs->count() > 6)
+
+
+        <div class="mt-8 w-full flex justify-center">
+            <a href="{{ route('blogs') }}" >
+            <button class="bg-primary text-white font-semibold px-6 py-3 rounded hover:bg-primary-dark transition">
+                View More
+            </button>
+            </a>
+        </div>
+          @endif
+          @endif
       </div>
     </div>
