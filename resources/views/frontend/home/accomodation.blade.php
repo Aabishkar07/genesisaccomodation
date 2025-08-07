@@ -1,5 +1,5 @@
 <section class="py-16 bg-gradient-to-br from-gray-50 to-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class=" px-4 sm:px-6 lg:px-8">
         <!-- Section Header -->
         <div class="text-center mb-16">
             <!-- Decorative Line with Text -->

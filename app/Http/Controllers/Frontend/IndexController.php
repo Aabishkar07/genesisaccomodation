@@ -89,10 +89,6 @@ class IndexController extends Controller
         $relatedAccommodations = Accommodation::with('roomType')
             ->where('id', '!=', $accommodation->id)
             ->where('status', 'active')
-            ->where(function($query) use ($accommodation) {
-                $query->where('room_type_id', $accommodation->room_type_id)
-                      ->orWhereBetween('price', [$accommodation->price * 0.8, $accommodation->price * 1.2]);
-            })
             ->limit(3)
             ->get();
 
