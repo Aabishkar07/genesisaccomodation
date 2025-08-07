@@ -37,25 +37,20 @@
                         @enderror
                     </div>
 
-                    <div>
-                        <label for="address" class="block text-sm font-medium text-gray-700 mb-2">Address *</label>
-                        <textarea name="address" id="address" rows="3" required
-                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">{{ old('address', $accommodation->address) }}</textarea>
-                        @error('address')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
+
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label for="city" class="block text-sm font-medium text-gray-700 mb-2">City *</label>
-                            <input type="text" name="city" id="city"
-                                value="{{ old('city', $accommodation->city) }}" required
+                            <label for="postal_code" class="block text-sm font-medium text-gray-700 mb-2">Postal Code
+                                *</label>
+                            <input type="text" name="postal_code" id="postal_code"
+                                value="{{ old('postal_code', $accommodation->postal_code) }}" required
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                            @error('city')
+                            @error('postal_code')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
+
 
                         <div>
                             <label for="state" class="block text-sm font-medium text-gray-700 mb-2">State/Province
@@ -69,69 +64,36 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="country" class="block text-sm font-medium text-gray-700 mb-2">Country *</label>
-                            <input type="text" name="country" id="country"
-                                value="{{ old('country', $accommodation->country) }}" required
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                            @error('country')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
+                    <div>
+                        <label for="city" class="block text-sm font-medium text-gray-700 mb-2">City *</label>
+                        <input type="text" name="city" id="city" value="{{ old('city', $accommodation->city) }}"
+                            required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        @error('city')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
 
-                        <div>
-                            <label for="postal_code" class="block text-sm font-medium text-gray-700 mb-2">Postal Code
-                                *</label>
-                            <input type="text" name="postal_code" id="postal_code"
-                                value="{{ old('postal_code', $accommodation->postal_code) }}" required
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                            @error('postal_code')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
+                    <div>
+                        <label for="address" class="block text-sm font-medium text-gray-700 mb-2">Address *</label>
+                        <textarea name="address" id="address" rows="3" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">{{ old('address', $accommodation->address) }}</textarea>
+                        @error('address')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Phone</label>
-                            <input type="text" name="phone" id="phone"
-                                value="{{ old('phone', $accommodation->phone) }}"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                            @error('phone')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
 
-                        <div>
-                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                            <input type="email" name="email" id="email"
-                                value="{{ old('email', $accommodation->email) }}"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                            @error('email')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="website" class="block text-sm font-medium text-gray-700 mb-2">Website</label>
-                            <input type="url" name="website" id="website"
-                                value="{{ old('website', $accommodation->website) }}"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                            @error('website')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
 
                         <div>
                             <label for="room_type_id" class="block text-sm font-medium text-gray-700 mb-2">Room Type</label>
                             <select name="room_type_id" id="room_type_id"
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                                 <option value="">Select Room Type</option>
-                                @foreach($roomTypes as $roomType)
-                                    <option value="{{ $roomType->id }}" {{ old('room_type_id', $accommodation->room_type_id) == $roomType->id ? 'selected' : '' }}>
+                                @foreach ($roomTypes as $roomType)
+                                    <option value="{{ $roomType->id }}"
+                                        {{ old('room_type_id', $accommodation->room_type_id) == $roomType->id ? 'selected' : '' }}>
                                         {{ $roomType->name }} - ${{ $roomType->price_per_night }}/night
                                     </option>
                                 @endforeach
@@ -142,29 +104,6 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="latitude" class="block text-sm font-medium text-gray-700 mb-2">Latitude</label>
-                            <input type="number" name="latitude" id="latitude"
-                                value="{{ old('latitude', $accommodation->latitude) }}" step="0.00000001" min="-90"
-                                max="90"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                            @error('latitude')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div>
-                            <label for="longitude" class="block text-sm font-medium text-gray-700 mb-2">Longitude</label>
-                            <input type="number" name="longitude" id="longitude"
-                                value="{{ old('longitude', $accommodation->longitude) }}" step="0.00000001"
-                                min="-180" max="180"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                            @error('longitude')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-                    </div>
 
                     <div>
                         <label for="amenities" class="block text-sm font-medium text-gray-700 mb-2">Amenities</label>
@@ -280,7 +219,7 @@
 
                         @if ($accommodation->featured_image)
                             <div class="mb-4">
-                                <img src="{{ asset('storage/' . $accommodation->featured_image) }}"
+                                <img src="{{ asset('uploads/' . $accommodation->featured_image) }}"
                                     alt="{{ $accommodation->name }}" class="w-full h-32 object-cover rounded-lg">
                             </div>
                         @endif
@@ -305,7 +244,7 @@
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Current Gallery Images</label>
                                 <div class="grid grid-cols-2 gap-2">
                                     @foreach (json_decode($accommodation->gallery, true) as $image)
-                                        <img src="{{ asset('storage/' . $image) }}" alt="Gallery Image"
+                                        <img src="{{ asset('uploads/' . $image) }}" alt="Gallery Image"
                                             class="w-full h-20 object-cover rounded-lg">
                                     @endforeach
                                 </div>
@@ -364,7 +303,7 @@
                             @if ($accommodation->meta_image)
                                 <div class="mb-4">
                                     <label class="block text-sm font-medium text-gray-700 mb-2">Current Meta Image</label>
-                                    <img src="{{ asset('storage/' . $accommodation->meta_image) }}" alt="Meta Image"
+                                    <img src="{{ asset('uploads/' . $accommodation->meta_image) }}" alt="Meta Image"
                                         class="w-full h-24 object-cover rounded-lg">
                                 </div>
                             @endif
@@ -410,7 +349,7 @@
                             @if ($accommodation->og_image)
                                 <div class="mb-4">
                                     <label class="block text-sm font-medium text-gray-700 mb-2">Current OG Image</label>
-                                    <img src="{{ asset('storage/' . $accommodation->og_image) }}" alt="OG Image"
+                                    <img src="{{ asset('uploads/' . $accommodation->og_image) }}" alt="OG Image"
                                         class="w-full h-24 object-cover rounded-lg">
                                 </div>
                             @endif
@@ -425,45 +364,7 @@
                                 @enderror
                             </div>
 
-                            <div>
-                                <label for="twitter_title" class="block text-sm font-medium text-gray-700 mb-2">Twitter
-                                    Title</label>
-                                <input type="text" name="twitter_title" id="twitter_title"
-                                    value="{{ old('twitter_title', $accommodation->twitter_title) }}"
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                                @error('twitter_title')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                                @enderror
-                            </div>
-
-                            <div>
-                                <label for="twitter_description"
-                                    class="block text-sm font-medium text-gray-700 mb-2">Twitter Description</label>
-                                <textarea name="twitter_description" id="twitter_description" rows="3"
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">{{ old('twitter_description', $accommodation->twitter_description) }}</textarea>
-                                @error('twitter_description')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                                @enderror
-                            </div>
-
-                            @if ($accommodation->twitter_image)
-                                <div class="mb-4">
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">Current Twitter
-                                        Image</label>
-                                    <img src="{{ asset('storage/' . $accommodation->twitter_image) }}"
-                                        alt="Twitter Image" class="w-full h-24 object-cover rounded-lg">
-                                </div>
-                            @endif
-
-                            <div>
-                                <label for="twitter_image" class="block text-sm font-medium text-gray-700 mb-2">Upload New
-                                    Twitter Image</label>
-                                <input type="file" name="twitter_image" id="twitter_image" accept="image/*"
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                                @error('twitter_image')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                                @enderror
-                            </div>
+                          
                         </div>
                     </div>
                 </div>

@@ -95,7 +95,7 @@
                     </div>
                 </a>
 
-                <a href="{{ route('admin.room-types.create') }}" class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                <a href="{{ route('admin.room_types.create') }}" class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
                     <div class="flex-shrink-0">
                         <div class="w-10 h-10 bg-yellow-500 rounded-lg flex items-center justify-center">
                             <i class="fas fa-plus text-white"></i>
