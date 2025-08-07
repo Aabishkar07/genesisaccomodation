@@ -24,7 +24,7 @@
                 <a href="{{ route('blogs') }}" class="flex items-center gap-2 text-white hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition {{ Route::is('blogs') ? 'border-b-2 border-white' : '' }}">
                     <span>Blogs</span>
                 </a>
-                <a href="#" class="flex items-center gap-2 text-white hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition">
+                <a href="{{ route('contact') }}" class="flex items-center gap-2 text-white hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition" {{ Route::is('contact') ? 'border-b-2 border-white' : '' }}>
                     <span>Contact</span>
                 </a>
             </div>

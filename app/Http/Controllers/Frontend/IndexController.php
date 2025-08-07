@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\AboutUs;
 use App\Models\Blog;
+use App\Models\Contact;
 use App\Models\Service;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
@@ -12,15 +13,15 @@ use Illuminate\Http\Request;
 class IndexController extends Controller
 {
     //
-       public function index()
+    public function index()
     {
         $services = Service::latest()->limit(3)->get();
         $testimonials = Testimonial::get();
         $blogs = Blog::orderBy('sort_order', 'asc')->orderBy('created_at', 'desc')->limit(6)->get();
-        return view("frontend.home.index", compact('blogs','services','testimonials'));
+        return view("frontend.home.index", compact('blogs', 'services', 'testimonials'));
     }
 
-        public function single(Request $request, Blog $blog)
+    public function single(Request $request, Blog $blog)
     {
 
         $allblogs = Blog::where('id', '!=', $blog->id)->get();
@@ -39,26 +40,66 @@ class IndexController extends Controller
     }
 
 
-         public function aboutus()
+    public function aboutus()
     {
 
         $aboutus = AboutUs::first();
-                $testimonials = Testimonial::orderBy('sort_order')->paginate(10);
+        $testimonials = Testimonial::orderBy('sort_order')->paginate(10);
 
-        return view("frontend.about.index", compact('aboutus','testimonials'));
+        return view("frontend.about.index", compact('aboutus', 'testimonials'));
     }
 
-          public function services()
+    public function services()
     {
 
         $services = Service::get();
         return view("frontend.service.index", compact('services'));
     }
 
-            public function blogs()
+    public function blogs()
     {
 
         $blogs = Blog::get();
         return view("frontend.blog.allblogs", compact('blogs'));
+    }
+
+    public function contact()
+    {
+
+        $contact = Contact::get();
+        return view("frontend.contact.index", compact('contact'));
+    }
+
+
+    public function store(Request $request)
+    {
+
+        $request->validate([
+            'name' => "required",
+            'email' => "required",
+            'subject' => "required",
+            'message' => "required",
+            'phone' => "required",
+        ]);
+        Contact::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'subject' => $request->subject,
+            'message' => $request->message,
+            'phone' => $request->phone,
+        ]);
+
+        $mailData = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'subject' => $request->subject,
+            'message' => $request->message,
+            'phone' => $request->phone,
+        ];
+
+        // Mail::to('aaviscar09@gmail.com')->send(new MailContact($mailData));
+
+
+        return redirect()->back()->with('popsuccess', 'Feedback Submitted Sucessfully');
     }
 }

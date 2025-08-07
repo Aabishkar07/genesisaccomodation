@@ -9,7 +9,7 @@
                         class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300">
                         Book Now
                     </a>
-                    <a href="#contact"
+                    <a href="{{ route('contact') }}"
                         class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition duration-300">
                         Contact Us
                     </a>
