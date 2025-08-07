@@ -139,7 +139,7 @@
                                 class="text-white hover:text-white transition-colors text-sm hover:translate-x-1 transform duration-200 inline-block">Login</a>
                         </li>
                         <li><a href=""
-                                class="text-white hover:text-white transition-colors text-sm hover:translate-x-1 transform duration-200 inline-block">SignIn</a>
+                                class="text-white hover:text-white transition-colors text-sm hover:translate-x-1 transform duration-200 inline-block">Register</a>
                         </li>
 
                     </ul>

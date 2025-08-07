@@ -152,7 +152,7 @@
             <!-- Desktop Action Buttons -->
             <div class="hidden md:flex items-center space-x-4">
                 <button class="btn-secondary px-6 py-2.5 text-sm font-semibold text-gray-700 rounded-lg">
-                    Sign In
+                    Register
                 </button>
                 <button class="btn-primary px-6 py-2.5 text-sm font-semibold text-white rounded-lg">
                     Login
