@@ -5,7 +5,7 @@
 
 @section('content')
 <div class="bg-white rounded-lg shadow-sm">
-    <div class="px-6 py-4 border-b border-gray-200">
+    {{-- <div class="px-6 py-4 border-b border-gray-200">
         <div class="flex items-center justify-between">
             <h3 class="text-lg font-medium text-gray-900">Website Settings</h3>
             <a href="{{ route('admin.settings.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center">
@@ -13,7 +13,7 @@
                 Add New Setting
             </a>
         </div>
-    </div>
+    </div> --}}
 
     <form action="{{ route('admin.settings.bulk-update') }}" method="POST" class="p-6">
         @csrf
@@ -35,13 +35,14 @@
                             <a href="{{ route('admin.settings.edit', $setting) }}" class="text-indigo-600 hover:text-indigo-900">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <form action="{{ route('admin.settings.destroy', $setting) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this setting?')">
+
+                            {{-- <form action="{{ route('admin.settings.destroy', $setting) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this setting?')">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="text-red-600 hover:text-red-900">
                                     <i class="fas fa-trash"></i>
                                 </button>
-                            </form>
+                            </form> --}}
                         </div>
                     </div>
 
