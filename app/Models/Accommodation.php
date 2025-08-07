@@ -17,13 +17,9 @@ class Accommodation extends Model
         'address',
         'city',
         'state',
-        'country',
+
         'postal_code',
-        'phone',
-        'email',
-        'website',
-        'latitude',
-        'longitude',
+
         'room_type_id',
         'featured_image',
         'gallery',
@@ -37,9 +33,7 @@ class Accommodation extends Model
         'og_title',
         'og_description',
         'og_image',
-        'twitter_title',
-        'twitter_description',
-        'twitter_image',
+      
         'price',
     ];
 

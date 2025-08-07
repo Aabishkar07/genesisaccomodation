@@ -25,4 +25,8 @@ Route::get('/blogs', [IndexController::class, 'blogs'])->name('blogs');
 Route::get('/contact', [IndexController::class, 'contact'])->name('contact');
 Route::post('/contact', [IndexController::class, 'store'])->name('contact.store');
 
+// Accommodation routes
+Route::get('/accommodations', [IndexController::class, 'accommodations'])->name('accommodations');
+Route::get('/accommodation/{accommodation:slug}', [IndexController::class, 'accommodationSingle'])->name('accommodation.single');
+
 
