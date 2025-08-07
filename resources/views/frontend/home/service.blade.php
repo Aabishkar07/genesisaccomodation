@@ -29,7 +29,7 @@
 
         </div>
 
-        @if ($service->count() > 3)
+        @if ($services->count() > 3)
 
 
         <div class="mt-8 w-full flex justify-center">

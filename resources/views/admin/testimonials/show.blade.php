@@ -25,23 +25,23 @@
                 <!-- Basic Information -->
                 <div class="bg-gray-50 p-6 rounded-lg">
                     <h4 class="text-lg font-medium text-gray-900 mb-4">Basic Information</h4>
-                    
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
                             <p class="text-sm text-gray-900">{{ $testimonial->name }}</p>
                         </div>
-                        
+
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Position</label>
                             <p class="text-sm text-gray-900">{{ $testimonial->position ?: 'Not specified' }}</p>
                         </div>
-                        
+
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Company</label>
                             <p class="text-sm text-gray-900">{{ $testimonial->company ?: 'Not specified' }}</p>
                         </div>
-                        
+
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Rating</label>
                             <div class="flex items-center">
@@ -79,7 +79,7 @@
                 <!-- Status Information -->
                 <div class="bg-gray-50 p-6 rounded-lg">
                     <h4 class="text-lg font-medium text-gray-900 mb-4">Status Information</h4>
-                    
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
@@ -87,17 +87,17 @@
                                 {{ ucfirst($testimonial->status) }}
                             </span>
                         </div>
-                        
+
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Sort Order</label>
                             <p class="text-sm text-gray-900">{{ $testimonial->sort_order ?: 'Not set' }}</p>
                         </div>
-                        
+
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Created At</label>
                             <p class="text-sm text-gray-900">{{ $testimonial->created_at->format('F j, Y \a\t g:i A') }}</p>
                         </div>
-                        
+
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Updated At</label>
                             <p class="text-sm text-gray-900">{{ $testimonial->updated_at->format('F j, Y \a\t g:i A') }}</p>
@@ -111,10 +111,10 @@
                 <!-- Profile Image -->
                 <div class="bg-gray-50 p-6 rounded-lg">
                     <h4 class="text-lg font-medium text-gray-900 mb-4">Profile Image</h4>
-                    
+
                     @if($testimonial->image)
                         <div class="mb-4">
-                            <img src="{{ asset('storage/' . $testimonial->image) }}" alt="{{ $testimonial->name }}" class="w-full h-48 object-cover rounded-lg">
+                            <img src="{{ asset('uploads/' . $testimonial->image) }}" alt="{{ $testimonial->name }}" class="w-full h-48 object-cover rounded-lg">
                         </div>
                     @else
                         <div class="bg-gray-200 h-48 rounded-lg flex items-center justify-center">
@@ -126,23 +126,23 @@
                 <!-- SEO Information -->
                 <div class="bg-gray-50 p-6 rounded-lg">
                     <h4 class="text-lg font-medium text-gray-900 mb-4">SEO Information</h4>
-                    
+
                     <div class="space-y-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Meta Title</label>
                             <p class="text-sm text-gray-900">{{ $testimonial->meta_title ?: 'Not set' }}</p>
                         </div>
-                        
+
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Meta Description</label>
                             <p class="text-sm text-gray-900">{{ $testimonial->meta_description ?: 'Not set' }}</p>
                         </div>
-                        
+
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Meta Keywords</label>
                             <p class="text-sm text-gray-900">{{ $testimonial->meta_keywords ?: 'Not set' }}</p>
                         </div>
-                        
+
                         @if($testimonial->meta_image)
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Meta Image</label>
@@ -155,35 +155,35 @@
                 <!-- Social Media Information -->
                 <div class="bg-gray-50 p-6 rounded-lg">
                     <h4 class="text-lg font-medium text-gray-900 mb-4">Social Media</h4>
-                    
+
                     <div class="space-y-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">OG Title</label>
                             <p class="text-sm text-gray-900">{{ $testimonial->og_title ?: 'Not set' }}</p>
                         </div>
-                        
+
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">OG Description</label>
                             <p class="text-sm text-gray-900">{{ $testimonial->og_description ?: 'Not set' }}</p>
                         </div>
-                        
+
                         @if($testimonial->og_image)
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">OG Image</label>
                                 <img src="{{ asset('storage/' . $testimonial->og_image) }}" alt="OG Image" class="w-full h-24 object-cover rounded-lg">
                             </div>
                         @endif
-                        
+
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Twitter Title</label>
                             <p class="text-sm text-gray-900">{{ $testimonial->twitter_title ?: 'Not set' }}</p>
                         </div>
-                        
+
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Twitter Description</label>
                             <p class="text-sm text-gray-900">{{ $testimonial->twitter_description ?: 'Not set' }}</p>
                         </div>
-                        
+
                         @if($testimonial->twitter_image)
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Twitter Image</label>
@@ -196,4 +196,4 @@
         </div>
     </div>
 </div>
-@endsection 
+@endsection

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\FileService\ImageService;
 use App\Http\Controllers\Controller;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
@@ -13,6 +14,11 @@ class TestimonialController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct(
+        protected ImageService $imageservice
+
+    ) {}
+
     public function index()
     {
         $testimonials = Testimonial::orderBy('sort_order')->paginate(10);
@@ -58,22 +64,22 @@ class TestimonialController extends Controller
 
         // Handle image upload
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('testimonials', 'public');
+            $data['image'] = $this->imageservice->fileUpload($request->file('image'), 'testimonials');
         }
 
         // Handle meta image upload
         if ($request->hasFile('meta_image')) {
-            $data['meta_image'] = $request->file('meta_image')->store('testimonials/meta', 'public');
+            $data['meta_image'] = $this->imageservice->fileUpload($request->file('meta_image'), 'testimonials');
         }
 
         // Handle OG image upload
         if ($request->hasFile('og_image')) {
-            $data['og_image'] = $request->file('og_image')->store('testimonials/og', 'public');
+            $data['og_image'] = $this->imageservice->fileUpload($request->file('og_image'), 'testimonials');
         }
 
         // Handle Twitter image upload
         if ($request->hasFile('twitter_image')) {
-            $data['twitter_image'] = $request->file('twitter_image')->store('testimonials/twitter', 'public');
+                        $data['twitter_image'] = $this->imageservice->fileUpload($request->file('twitter_image'), 'testimonials');
         }
 
         Testimonial::create($data);
@@ -100,90 +106,90 @@ class TestimonialController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Testimonial $testimonial)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'position' => 'nullable|string|max:255',
-            'company' => 'nullable|string|max:255',
-            'testimonial' => 'required|string',
-            'rating' => 'nullable|integer|min:1|max:5',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'status' => 'required|in:active,inactive',
-            'sort_order' => 'nullable|integer|min:0',
-            'meta_title' => 'nullable|string|max:255',
-            'meta_description' => 'nullable|string',
-            'meta_keywords' => 'nullable|string',
-            'meta_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'og_title' => 'nullable|string|max:255',
-            'og_description' => 'nullable|string',
-            'og_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'twitter_title' => 'nullable|string|max:255',
-            'twitter_description' => 'nullable|string',
-            'twitter_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+public function update(Request $request, Testimonial $testimonial)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'position' => 'nullable|string|max:255',
+        'company' => 'nullable|string|max:255',
+        'testimonial' => 'required|string',
+        'rating' => 'nullable|integer|min:1|max:5',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'status' => 'required|in:active,inactive',
+        'sort_order' => 'nullable|integer|min:0',
+        'meta_title' => 'nullable|string|max:255',
+        'meta_description' => 'nullable|string',
+        'meta_keywords' => 'nullable|string',
+        'meta_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'og_title' => 'nullable|string|max:255',
+        'og_description' => 'nullable|string',
+        'og_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'twitter_title' => 'nullable|string|max:255',
+        'twitter_description' => 'nullable|string',
+        'twitter_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
 
-        $data = $request->all();
-        $data['slug'] = Str::slug($request->name);
+    $data = $request->except(['image', 'meta_image', 'og_image', 'twitter_image']);
+    $data['slug'] = Str::slug($request->name);
 
-        // Handle image upload
-        if ($request->hasFile('image')) {
-            if ($testimonial->image) {
-                Storage::disk('public')->delete($testimonial->image);
-            }
-            $data['image'] = $request->file('image')->store('testimonials', 'public');
-        }
+    // Main image
+    if ($request->hasFile('image')) {
+        $this->imageservice->imageDelete($testimonial->image);
 
-        // Handle meta image upload
-        if ($request->hasFile('meta_image')) {
-            if ($testimonial->meta_image) {
-                Storage::disk('public')->delete($testimonial->meta_image);
-            }
-            $data['meta_image'] = $request->file('meta_image')->store('testimonials/meta', 'public');
-        }
-
-        // Handle OG image upload
-        if ($request->hasFile('og_image')) {
-            if ($testimonial->og_image) {
-                Storage::disk('public')->delete($testimonial->og_image);
-            }
-            $data['og_image'] = $request->file('og_image')->store('testimonials/og', 'public');
-        }
-
-        // Handle Twitter image upload
-        if ($request->hasFile('twitter_image')) {
-            if ($testimonial->twitter_image) {
-                Storage::disk('public')->delete($testimonial->twitter_image);
-            }
-            $data['twitter_image'] = $request->file('twitter_image')->store('testimonials/twitter', 'public');
-        }
-
-        $testimonial->update($data);
-
-        return redirect()->route('admin.testimonials.index')->with('success', 'Testimonial updated successfully!');
+        $data['image'] = $this->imageservice->fileUpload($request->file('image'), 'testimonials');
     }
+
+    // Meta image
+    if ($request->hasFile('meta_image')) {
+        $this->imageservice->imageDelete($testimonial->meta_image);
+        $data['meta_image'] = $this->imageservice->fileUpload($request->file('meta_image'), 'testimonials/meta');
+    }
+
+    // OG image
+    if ($request->hasFile('og_image')) {
+        $this->imageservice->imageDelete($testimonial->og_image);
+        $data['og_image'] = $this->imageservice->fileUpload($request->file('og_image'), 'testimonials/og');
+    }
+
+    // Twitter image
+    if ($request->hasFile('twitter_image')) {
+        $this->imageservice->imageDelete($testimonial->twitter_image);
+        $data['twitter_image'] = $this->imageservice->fileUpload($request->file('twitter_image'), 'testimonials/twitter');
+    }
+
+    $testimonial->update($data);
+
+    return redirect()->route('admin.testimonials.index')->with('success', 'Testimonial updated successfully!');
+}
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Testimonial $testimonial)
-    {
-        // Delete associated images
-        if ($testimonial->image) {
-            Storage::disk('public')->delete($testimonial->image);
-        }
-        if ($testimonial->meta_image) {
-            Storage::disk('public')->delete($testimonial->meta_image);
-        }
-        if ($testimonial->og_image) {
-            Storage::disk('public')->delete($testimonial->og_image);
-        }
-        if ($testimonial->twitter_image) {
-            Storage::disk('public')->delete($testimonial->twitter_image);
-        }
+public function destroy(Testimonial $testimonial)
+{
 
-        $testimonial->delete();
-
-        return redirect()->route('admin.testimonials.index')->with('success', 'Testimonial deleted successfully!');
+ if ($testimonial->image) {
+        $this->imageservice->imageDelete($testimonial->image);
     }
+
+    if ($testimonial->meta_image) {
+        $this->imageservice->imageDelete($testimonial->meta_image);
+    }
+
+    if ($testimonial->og_image) {
+        $this->imageservice->imageDelete($testimonial->og_image);
+    }
+
+    if ($testimonial->twitter_image) {
+        $this->imageservice->imageDelete($testimonial->twitter_image);
+    }
+
+
+    // Delete testimonial
+    $testimonial->delete();
+
+    return redirect()->route('admin.testimonials.index')->with('success', 'Testimonial deleted successfully!');
+}
+
 }

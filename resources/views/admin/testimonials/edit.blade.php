@@ -106,7 +106,7 @@
 
                     @if($testimonial->image)
                         <div class="mb-4">
-                            <img src="{{ asset('storage/' . $testimonial->image) }}" alt="{{ $testimonial->name }}" class="w-full h-32 object-cover rounded-lg">
+                            <img src="{{ asset('uploads/' . $testimonial->image) }}" alt="{{ $testimonial->name }}" class="w-full h-32 object-cover rounded-lg">
                         </div>
                     @endif
 
@@ -258,4 +258,4 @@
         </div>
     </form>
 </div>
-@endsection 
+@endsection
