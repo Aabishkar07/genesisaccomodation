@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\AboutUsController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\AccommodationController;
+use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\RoomTypeController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\SettingController;
@@ -103,5 +104,9 @@ Route::middleware(["admin"])->group(function () {
 
     // Settings bulk update
     Route::put('settings/bulk-update', [SettingController::class, 'bulkUpdate'])->name('admin.settings.bulk-update');
+        Route::get('contacts', [ContactController::class, 'contact'])->name('admin.contact');
+                Route::delete('contactdelete/{contact}', [ContactController::class, 'contactdelete'])->name('contactdelete');
+        Route::get('/admin/contacts/export', [ContactController::class, 'export'])->name('admin.contacts.export');
+
 
 });

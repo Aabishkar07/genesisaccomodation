@@ -101,7 +101,7 @@
 
 <!-- Professional Navbar -->
 <nav class="navbar-bg sticky top-0 z-50 shadow-sm">
-    <div class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-screen-2xl mx-auto px-4 ">
         <div class="flex justify-between items-center h-20">
             <!-- Logo -->
             <div class="flex items-center">
@@ -117,23 +117,37 @@
 
             <!-- Desktop Navigation -->
             <div class="hidden md:flex items-center space-x-8">
-                <a href="/"
-                    class="nav-link active text-gray-900 hover:text-blue-600 px-4 py-2 text-sm font-semibold">
+                <a href="{{ route('home') }}"
+                    class="nav-link {{ Route::is('home') ? 'border-b text-blue-600' : 'text-gray-700' }} hover:text-blue-600 px-4 py-2 text-sm font-semibold">
                     Home
                 </a>
-                <a href="/about" class="nav-link text-gray-700 hover:text-blue-600 px-4 py-2 text-sm font-semibold">
-                    About
+
+                <a href="{{ route('aboutus') }}"
+                    class="nav-link {{ Route::is('aboutus') ? 'border-b text-blue-600' : 'text-gray-700' }} hover:text-blue-600 px-4 py-2 text-sm font-semibold">
+                    About Us
                 </a>
-                <a href="/services" class="nav-link text-gray-700 hover:text-blue-600 px-4 py-2 text-sm font-semibold">
+
+                <a href="{{ route('accommodations') }}"
+                    class="nav-link {{ Route::is('accommodations') ? 'border-b text-blue-600' : 'text-gray-700' }} hover:text-blue-600 px-4 py-2 text-sm font-semibold">
+                    Accommodation
+                </a>
+
+                <a href="{{ route('services') }}"
+                    class="nav-link {{ Route::is('services') ? 'border-b text-blue-600' : 'text-gray-700' }} hover:text-blue-600 px-4 py-2 text-sm font-semibold">
                     Services
                 </a>
-                <a href="/blog" class="nav-link text-gray-700 hover:text-blue-600 px-4 py-2 text-sm font-semibold">
+
+                <a href="{{ route('blogs') }}"
+                    class="nav-link {{ Route::is('blogs') ? 'border-b  text-blue-600' : 'text-gray-700' }} hover:text-blue-600 px-4 py-2 text-sm font-semibold">
                     Blog
                 </a>
-                <a href="/contact" class="nav-link text-gray-700 hover:text-blue-600 px-4 py-2 text-sm font-semibold">
-                    Contact
+
+                <a href="{{ route('contact') }}"
+                    class="nav-link {{ Route::is('contact') ? 'border-b text-blue-600' : 'text-gray-700' }} hover:text-blue-600 px-4 py-2 text-sm font-semibold">
+                    Contact Us
                 </a>
             </div>
+
 
             <!-- Desktop Action Buttons -->
             <div class="hidden md:flex items-center space-x-4">
@@ -141,7 +155,7 @@
                     Sign In
                 </button>
                 <button class="btn-primary px-6 py-2.5 text-sm font-semibold text-white rounded-lg">
-                   Login
+                    Login
                 </button>
             </div>
 

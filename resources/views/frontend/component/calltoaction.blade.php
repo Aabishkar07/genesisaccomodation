@@ -5,7 +5,7 @@
                     Experience exceptional hospitality and comfort. Book now and enjoy our premium services.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="#booking"
+                    <a href="{{ route('accommodations') }}"
                         class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300">
                         Book Now
                     </a>
