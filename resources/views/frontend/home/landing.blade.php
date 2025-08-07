@@ -19,7 +19,7 @@
         </h1>
 
         <!-- CTA Button -->
-        <a href="#"
+        <a href="{{ route('accommodations') }}"
             class="mt-8 inline-block px-10 py-4 bg-primary hover:bg-blue-700 text-white font-semibold rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 ease-in-out">
             Book a Room
         </a>
