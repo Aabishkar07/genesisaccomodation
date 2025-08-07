@@ -34,13 +34,13 @@ class SettingController extends Controller
         $request->validate([
             'key' => 'required|string|max:255|unique:settings,key',
             'value' => 'nullable|string',
-            'type' => 'required|in:text,textarea,image,select,url,email',
+            // 'type' => 'required|in:text,textarea,image,select,url,email',
             'group' => 'required|string|max:255',
             'description' => 'nullable|string',
             'value_file' => 'nullable|file|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $data = $request->only(['key', 'type', 'group', 'description']);
+        $data = $request->only(['key', 'group', 'description']);
 
         // Handle file upload for image type
         if ($request->type === 'image' && $request->hasFile('value_file')) {
