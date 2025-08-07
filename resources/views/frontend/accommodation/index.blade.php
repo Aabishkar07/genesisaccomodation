@@ -4,7 +4,7 @@
 <!-- Hero Section -->
 <section class="relative bg-gradient-to-br from-primary to-blue-600 py-20">
     <div class="absolute inset-0 bg-black opacity-20"></div>
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="relative  px-4 sm:px-6 lg:px-8">
         <div class="text-center">
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
                 Our Accommodations
@@ -18,12 +18,14 @@
 
 <!-- Search and Filter Section -->
 <section class="bg-white py-8 border-b border-gray-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col lg:flex-row gap-6 items-center justify-between">
+    <div class=" px-4 sm:px-6 lg:px-8">
+        <form method="GET" action="{{ route('accommodations') }}" class="flex flex-col lg:flex-row gap-6 items-center justify-between">
             <!-- Search -->
             <div class="flex-1 max-w-md">
                 <div class="relative">
                     <input type="text"
+                           name="search"
+                           value="{{ request('search') }}"
                            placeholder="Search accommodations..."
                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
                     <svg class="absolute left-3 top-3.5 h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -34,31 +36,39 @@
 
             <!-- Filters -->
             <div class="flex gap-4">
-                <select class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
-                    <option>All Room Types</option>
-                    <option>Standard</option>
-                    <option>Deluxe</option>
-                    <option>Suite</option>
+                <select name="room_type" class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                    <option value="">All Room Types</option>
+                    @foreach($roomTypes as $roomType)
+                        <option value="{{ $roomType->id }}" {{ request('room_type') == $roomType->id ? 'selected' : '' }}>
+                            {{ $roomType->name }}
+                        </option>
+                    @endforeach 
                 </select>
 
-                <select class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
-                    <option>Price Range</option>
-                    <option>$0 - $100</option>
-                    <option>$100 - $200</option>
-                    <option>$200+</option>
+                <select name="price_range" class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                    <option value="">Price Range</option>
+                    <option value="0-100" {{ request('price_range') == '0-100' ? 'selected' : '' }}>$0 - $100</option>
+                    <option value="100-200" {{ request('price_range') == '100-200' ? 'selected' : '' }}>$100 - $200</option>
+                    <option value="200+" {{ request('price_range') == '200+' ? 'selected' : '' }}>$200+</option>
                 </select>
 
-                <button class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors duration-300">
+                <button type="submit" class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors duration-300">
                     Filter
                 </button>
+
+                @if(request('search') || request('room_type') || request('price_range') || request('sort'))
+                    <a href="{{ route('accommodations') }}" class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors duration-300">
+                        Clear
+                    </a>
+                @endif
             </div>
-        </div>
+        </form>
     </div>
 </section>
 
 <!-- Accommodations Grid -->
 <section class="py-16 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class=" px-4 sm:px-6 lg:px-8">
         <!-- Results Info -->
         <div class="flex justify-between items-center mb-8">
             <div>
@@ -70,17 +80,29 @@
 
             <div class="flex items-center gap-4">
                 <span class="text-sm text-gray-600">Sort by:</span>
-                <select class="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-transparent">
-                    <option>Latest</option>
-                    <option>Price: Low to High</option>
-                    <option>Price: High to Low</option>
-                    <option>Name: A to Z</option>
-                </select>
+                <form method="GET" action="{{ route('accommodations') }}" class="flex items-center gap-2">
+                    @if(request('search'))
+                        <input type="hidden" name="search" value="{{ request('search') }}">
+                    @endif
+                    @if(request('room_type'))
+                        <input type="hidden" name="room_type" value="{{ request('room_type') }}">
+                    @endif
+                    @if(request('price_range'))
+                        <input type="hidden" name="price_range" value="{{ request('price_range') }}">
+                    @endif
+                    <select name="sort" onchange="this.form.submit()" class="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-transparent">
+                        <option value="latest" {{ request('sort', 'latest') == 'latest' ? 'selected' : '' }}>Latest</option>
+                        <option value="price_low" {{ request('sort') == 'price_low' ? 'selected' : '' }}>Price: Low to High</option>
+                        <option value="price_high" {{ request('sort') == 'price_high' ? 'selected' : '' }}>Price: High to Low</option>
+                        <option value="name_asc" {{ request('sort') == 'name_asc' ? 'selected' : '' }}>Name: A to Z</option>
+                    </select>
+                </form>
             </div>
         </div>
 
         <!-- Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        @if($accommodations->count() > 0)
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 mb-12">
             @foreach($accommodations as $accommodation)
             <article class="group relative overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:shadow-xl hover-scale">
                 <!-- Image Container -->
@@ -171,15 +193,37 @@
                                class="px-4 py-2 text-sm font-medium text-primary border border-primary rounded-lg hover:bg-primary hover:text-white transition-colors duration-300">
                                 View Details
                             </a>
-                            <button class="px-4 py-2 text-sm font-medium bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors duration-300">
-                                Book Now
-                            </button>
+
                         </div>
                     </div>
                 </div>
             </article>
             @endforeach
         </div>
+        @else
+        <!-- No Results Found -->
+        <div class="text-center py-16">
+            <div class="max-w-md mx-auto">
+                <svg class="mx-auto h-16 w-16 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">No accommodations found</h3>
+                <p class="text-gray-600 mb-6">
+                    @if(request('search') || request('room_type') || request('price_range'))
+                        Try adjusting your search criteria or
+                        <a href="{{ route('accommodations') }}" class="text-primary hover:underline">clear all filters</a>
+                    @else
+                        No accommodations are currently available.
+                    @endif
+                </p>
+                @if(request('search') || request('room_type') || request('price_range'))
+                    <a href="{{ route('accommodations') }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-dark">
+                        View All Accommodations
+                    </a>
+                @endif
+            </div>
+        </div>
+        @endif
 
         <!-- Pagination -->
         @if($accommodations->hasPages())
@@ -191,3 +235,55 @@
 </section>
 
 @endsection
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Auto-submit search form when user stops typing
+    const searchInput = document.querySelector('input[name="search"]');
+    let searchTimeout;
+
+    searchInput.addEventListener('input', function() {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+            showLoading();
+            this.closest('form').submit();
+        }, 500); // Submit after 500ms of no typing
+    });
+
+    // Auto-submit when room type or price range changes
+    const filterSelects = document.querySelectorAll('select[name="room_type"], select[name="price_range"]');
+    filterSelects.forEach(select => {
+        select.addEventListener('change', function() {
+            showLoading();
+            this.closest('form').submit();
+        });
+    });
+
+    // Show loading indicator
+    function showLoading() {
+        const loadingDiv = document.createElement('div');
+        loadingDiv.id = 'loading-overlay';
+        loadingDiv.innerHTML = `
+            <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <div class="flex items-center space-x-3">
+                        <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
+                        <span class="text-gray-700">Searching accommodations...</span>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(loadingDiv);
+    }
+
+    // Remove loading indicator when page loads
+    window.addEventListener('load', function() {
+        const loadingDiv = document.getElementById('loading-overlay');
+        if (loadingDiv) {
+            loadingDiv.remove();
+        }
+    });
+});
+</script>
+@endpush
