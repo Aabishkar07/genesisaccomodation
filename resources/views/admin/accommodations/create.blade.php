@@ -143,6 +143,44 @@
                         </div>
                     </div>
 
+                    <div>
+                        <label for="max_guest" class="block text-sm font-medium text-gray-700 mb-2">Max Guest</label>
+                        <input type="number" name="max_guest" id="max_guest" value="{{ old('max_guest') }}"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        @error('max_guest')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div>
+                        <label for="map" class="block text-sm font-medium text-gray-700 mb-2">Map Link</label>
+                        <input type="text" name="map" id="map" value="{{ old('map') }}"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        @error('map')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="bathroom" class="block text-sm font-medium text-gray-700 mb-2">Total
+                                Bathroom</label>
+                            <input type="number" name="bathroom" id="bathroom" value="{{ old('bathroom') }}"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            @error('bathroom')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label for="bedroom" class="block text-sm font-medium text-gray-700 mb-2">Bedroom</label>
+                            <input type="number" name="bedroom" id="bedroom" value="{{ old('bedroom') }}"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            @error('bedroom')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+
 
 
 
