@@ -1,21 +1,32 @@
 <div class="relative">
     <!-- Background Image -->
-    <div class="max-sm:mt-0 md:h-[700px] relative">
-        <img src="{{ asset('images/bg.jpg   ') }}" alt="Banner Image"
-            class="w-full h-full max-sm:object-contain md:object-cover" />
+  <div class="relative md:h-[700px] max-sm:mt-0 overflow-hidden">
+    <!-- Background Image -->
+    <img src="{{ asset('images/bg.jpg') }}" alt="Banner Image"
+        class="w-full h-full object-cover max-sm:object-contain transition-transform duration-500 ease-in-out hover:scale-105" />
 
-        <!-- Overlaid Text Content -->
-        <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-4 text-white">
-            <p class="text-lg md:text-xl font-medium tracking-wide text-blue-100">Luxury Living</p>
-            <h1 class="text-3xl md:text-5xl font-extrabold text-white md:leading-tight">
-                Discover Your <span class="text-blue-500">Next Room</span>
-            </h1>
-            <a href="#"
-                class="mt-6 inline-block px-6 py-3 bg-primary text-white font-semibold rounded-lg shadow hover:bg-blue-100 transition">
-                BOOK A ROOM
-            </a>
-        </div>
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40 flex flex-col items-center justify-center text-center px-4 animate-fade-in">
+
+        <!-- Subtitle -->
+        <p class="text-sm md:text-lg font-semibold tracking-widest text-white uppercase mb-3">
+            Luxury Living
+        </p>
+
+        <!-- Main Heading -->
+        <h1 class="text-3xl md:text-6xl font-extrabold text-white leading-tight md:leading-snug drop-shadow-xl">
+            Discover Your Next Room
+        </h1>
+
+        <!-- CTA Button -->
+        <a href="#"
+            class="mt-8 inline-block px-10 py-4 bg-primary hover:bg-blue-700 text-white font-semibold rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 ease-in-out">
+            Book a Room
+        </a>
     </div>
+</div>
+
+
 
     <!-- Search Form -->
     <div class="relative m-4 -mt-32 max-sm:-mt-20">
