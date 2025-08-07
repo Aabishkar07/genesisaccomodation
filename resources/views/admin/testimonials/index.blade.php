@@ -36,7 +36,7 @@
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     @if($testimonial->image)
-                                        <img src="{{ asset('storage/' . $testimonial->image) }}" alt="{{ $testimonial->name }}" class="h-12 w-12 object-cover rounded-lg">
+                                        <img src="{{ asset('uploads/' . $testimonial->image) }}" alt="{{ $testimonial->name }}" class="h-12 w-12 object-cover rounded-lg">
                                     @else
                                         <div class="h-12 w-12 bg-gray-200 rounded-lg flex items-center justify-center">
                                             <i class="fas fa-user text-gray-400"></i>
@@ -95,13 +95,25 @@
                                         <a href="{{ route('admin.testimonials.edit', $testimonial) }}" class="text-indigo-600 hover:text-indigo-900">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <form action="{{ route('admin.testimonials.destroy', $testimonial) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this testimonial?')">
+                                        {{-- <form action="{{ route('admin.testimonials.destroy', $testimonial) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this testimonial?')">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="text-red-600 hover:text-red-900">
                                                 <i class="fas fa-trash"></i>
                                             </button>
-                                        </form>
+                                        </form> --}}
+
+  <form action="{{ route('admin.testimonials.destroy', $testimonial) }}" method="POST"
+                                        class="delete-form-{{ $testimonial->id }} inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="button" onclick="deleteItem('{{ $testimonial->id }}')"
+                                            class="text-red-600 hover:text-red-900">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+
+
                                     </div>
                                 </td>
                             </tr>
