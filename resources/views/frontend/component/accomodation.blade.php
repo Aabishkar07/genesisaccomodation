@@ -1,6 +1,6 @@
 @foreach ($accomodations as $accommodation)
     <article
-        class="group relative overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:shadow-xl hover-scale">
+        class="group relative  overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:shadow-xl hover-scale">
         <!-- Image Container -->
         <div class="relative overflow-hidden">
             <img src="{{ $accommodation->featured_image ? asset('uploads/' . $accommodation->featured_image) : asset('images/b.png') }}"
@@ -119,10 +119,7 @@
                                 class="px-4 py-2 text-sm font-medium text-primary border border-primary rounded-lg hover:bg-primary hover:text-white transition-colors duration-300">
                                  View Details
                              </a>
-                             <button
-                                 class="px-4 py-2 text-sm font-medium bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors duration-300">
-                                 Book Now
-                             </button>
+                          
                          </div>
             </div>
         </div>
