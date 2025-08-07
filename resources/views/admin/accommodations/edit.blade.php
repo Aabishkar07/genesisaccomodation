@@ -37,25 +37,20 @@
                         @enderror
                     </div>
 
-                    <div>
-                        <label for="address" class="block text-sm font-medium text-gray-700 mb-2">Address *</label>
-                        <textarea name="address" id="address" rows="3" required
-                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">{{ old('address', $accommodation->address) }}</textarea>
-                        @error('address')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
+
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label for="city" class="block text-sm font-medium text-gray-700 mb-2">City *</label>
-                            <input type="text" name="city" id="city"
-                                value="{{ old('city', $accommodation->city) }}" required
+                            <label for="postal_code" class="block text-sm font-medium text-gray-700 mb-2">Postal Code
+                                *</label>
+                            <input type="text" name="postal_code" id="postal_code"
+                                value="{{ old('postal_code', $accommodation->postal_code) }}" required
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                            @error('city')
+                            @error('postal_code')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
+
 
                         <div>
                             <label for="state" class="block text-sm font-medium text-gray-700 mb-2">State/Province
@@ -69,70 +64,37 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="country" class="block text-sm font-medium text-gray-700 mb-2">Country *</label>
-                            <input type="text" name="country" id="country"
-                                value="{{ old('country', $accommodation->country) }}" required
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                            @error('country')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
+                    <div>
+                        <label for="city" class="block text-sm font-medium text-gray-700 mb-2">City *</label>
+                        <input type="text" name="city" id="city" value="{{ old('city', $accommodation->city) }}"
+                            required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        @error('city')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
 
-                        <div>
-                            <label for="postal_code" class="block text-sm font-medium text-gray-700 mb-2">Postal Code
-                                *</label>
-                            <input type="text" name="postal_code" id="postal_code"
-                                value="{{ old('postal_code', $accommodation->postal_code) }}" required
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                            @error('postal_code')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
+                    <div>
+                        <label for="address" class="block text-sm font-medium text-gray-700 mb-2">Address *</label>
+                        <textarea name="address" id="address" rows="3" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">{{ old('address', $accommodation->address) }}</textarea>
+                        @error('address')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Phone</label>
-                            <input type="text" name="phone" id="phone"
-                                value="{{ old('phone', $accommodation->phone) }}"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                            @error('phone')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
 
-                        <div>
-                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                            <input type="email" name="email" id="email"
-                                value="{{ old('email', $accommodation->email) }}"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                            @error('email')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="website" class="block text-sm font-medium text-gray-700 mb-2">Website</label>
-                            <input type="url" name="website" id="website"
-                                value="{{ old('website', $accommodation->website) }}"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                            @error('website')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
 
                         <div>
                             <label for="room_type_id" class="block text-sm font-medium text-gray-700 mb-2">Room Type</label>
                             <select name="room_type_id" id="room_type_id"
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                                 <option value="">Select Room Type</option>
-                                @foreach($roomTypes as $roomType)
-                                    <option value="{{ $roomType->id }}" {{ old('room_type_id', $accommodation->room_type_id) == $roomType->id ? 'selected' : '' }}>
-                                        {{ $roomType->name }} - ${{ $roomType->price_per_night }}/night
+                                @foreach ($roomTypes as $roomType)
+                                    <option value="{{ $roomType->id }}"
+                                        {{ old('room_type_id', $accommodation->room_type_id) == $roomType->id ? 'selected' : '' }}>
+                                        {{ $roomType->name }}
                                     </option>
                                 @endforeach
                             </select>
@@ -142,29 +104,6 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="latitude" class="block text-sm font-medium text-gray-700 mb-2">Latitude</label>
-                            <input type="number" name="latitude" id="latitude"
-                                value="{{ old('latitude', $accommodation->latitude) }}" step="0.00000001" min="-90"
-                                max="90"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                            @error('latitude')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div>
-                            <label for="longitude" class="block text-sm font-medium text-gray-700 mb-2">Longitude</label>
-                            <input type="number" name="longitude" id="longitude"
-                                value="{{ old('longitude', $accommodation->longitude) }}" step="0.00000001"
-                                min="-180" max="180"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                            @error('longitude')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-                    </div>
 
                     <div>
                         <label for="amenities" class="block text-sm font-medium text-gray-700 mb-2">Amenities</label>
@@ -280,7 +219,7 @@
 
                         @if ($accommodation->featured_image)
                             <div class="mb-4">
-                                <img src="{{ asset('storage/' . $accommodation->featured_image) }}"
+                                <img src="{{ asset('uploads/' . $accommodation->featured_image) }}"
                                     alt="{{ $accommodation->name }}" class="w-full h-32 object-cover rounded-lg">
                             </div>
                         @endif
@@ -303,10 +242,15 @@
                         @if ($accommodation->gallery)
                             <div class="mb-4">
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Current Gallery Images</label>
-                                <div class="grid grid-cols-2 gap-2">
+                                <div id="current-gallery-images" class="flex flex-wrap gap-2">
                                     @foreach (json_decode($accommodation->gallery, true) as $image)
-                                        <img src="{{ asset('storage/' . $image) }}" alt="Gallery Image"
-                                            class="w-full h-20 object-cover rounded-lg">
+                                        <div class="relative inline-block">
+                                            <img src="{{ asset('uploads/' . $image) }}" alt="Gallery Image"
+                                                class="w-full h-20 object-cover rounded-lg">
+                                            <button type="button"
+                                                class="absolute top-1 right-1 bg-black bg-opacity-50 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold cross-btn"
+                                                data-image="{{ $image }}">&times;</button>
+                                        </div>
                                     @endforeach
                                 </div>
                             </div>
@@ -321,6 +265,8 @@
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                             <p class="mt-1 text-xs text-gray-500">You can select multiple images</p>
+                            <div id="gallery-preview" class="flex flex-wrap gap-2 mt-2"></div>
+                            <input type="hidden" name="deleted_gallery_images" id="deleted_gallery_images">
                         </div>
                     </div>
 
@@ -364,7 +310,7 @@
                             @if ($accommodation->meta_image)
                                 <div class="mb-4">
                                     <label class="block text-sm font-medium text-gray-700 mb-2">Current Meta Image</label>
-                                    <img src="{{ asset('storage/' . $accommodation->meta_image) }}" alt="Meta Image"
+                                    <img src="{{ asset('uploads/' . $accommodation->meta_image) }}" alt="Meta Image"
                                         class="w-full h-24 object-cover rounded-lg">
                                 </div>
                             @endif
@@ -410,7 +356,7 @@
                             @if ($accommodation->og_image)
                                 <div class="mb-4">
                                     <label class="block text-sm font-medium text-gray-700 mb-2">Current OG Image</label>
-                                    <img src="{{ asset('storage/' . $accommodation->og_image) }}" alt="OG Image"
+                                    <img src="{{ asset('uploads/' . $accommodation->og_image) }}" alt="OG Image"
                                         class="w-full h-24 object-cover rounded-lg">
                                 </div>
                             @endif
@@ -425,45 +371,7 @@
                                 @enderror
                             </div>
 
-                            <div>
-                                <label for="twitter_title" class="block text-sm font-medium text-gray-700 mb-2">Twitter
-                                    Title</label>
-                                <input type="text" name="twitter_title" id="twitter_title"
-                                    value="{{ old('twitter_title', $accommodation->twitter_title) }}"
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                                @error('twitter_title')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                                @enderror
-                            </div>
 
-                            <div>
-                                <label for="twitter_description"
-                                    class="block text-sm font-medium text-gray-700 mb-2">Twitter Description</label>
-                                <textarea name="twitter_description" id="twitter_description" rows="3"
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">{{ old('twitter_description', $accommodation->twitter_description) }}</textarea>
-                                @error('twitter_description')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                                @enderror
-                            </div>
-
-                            @if ($accommodation->twitter_image)
-                                <div class="mb-4">
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">Current Twitter
-                                        Image</label>
-                                    <img src="{{ asset('storage/' . $accommodation->twitter_image) }}"
-                                        alt="Twitter Image" class="w-full h-24 object-cover rounded-lg">
-                                </div>
-                            @endif
-
-                            <div>
-                                <label for="twitter_image" class="block text-sm font-medium text-gray-700 mb-2">Upload New
-                                    Twitter Image</label>
-                                <input type="file" name="twitter_image" id="twitter_image" accept="image/*"
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                                @error('twitter_image')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                                @enderror
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -480,5 +388,123 @@
                 </button>
             </div>
         </form>
+        <script>
+            // Initial old images
+            const oldImages = @json(json_decode($accommodation->gallery, true) ?? []);
+            const galleryPreview = document.getElementById('gallery-preview');
+            let deletedImages = [];
+            let newImages = [];
+
+            function renderGalleryPreview() {
+                galleryPreview.innerHTML = '';
+                // Old images (for preview section only)
+                oldImages.forEach((img, idx) => {
+                    if (!deletedImages.includes(img)) {
+                        const wrapper = document.createElement('div');
+                        wrapper.style.position = 'relative';
+                        wrapper.style.display = 'inline-block';
+                        const image = document.createElement('img');
+                        image.src = '/uploads/' + img;
+                        image.style.width = '70px';
+                        image.style.marginBottom = '2px';
+                        image.style.borderRadius = '6px';
+                        image.style.boxShadow = '0 1px 4px rgba(0,0,0,0.08)';
+                        // Cross button
+                        const cross = document.createElement('button');
+                        cross.innerHTML = '&times;';
+                        cross.style.position = 'absolute';
+                        cross.style.top = '2px';
+                        cross.style.right = '2px';
+                        cross.style.background = 'rgba(0,0,0,0.5)';
+                        cross.style.color = '#fff';
+                        cross.style.border = 'none';
+                        cross.style.borderRadius = '50%';
+                        cross.style.width = '20px';
+                        cross.style.height = '20px';
+                        cross.style.cursor = 'pointer';
+                        cross.onclick = function() {
+                            deletedImages.push(img);
+                            document.getElementById('deleted_gallery_images').value = JSON.stringify(deletedImages);
+                            renderGalleryPreview();
+                            // Also remove from Current Gallery Images section
+                            const currentGalleryImages = document.getElementById('current-gallery-images');
+                            if (currentGalleryImages) {
+                                const btns = currentGalleryImages.querySelectorAll('button.cross-btn');
+                                btns.forEach(btn => {
+                                    if (btn.getAttribute('data-image') === img) {
+                                        btn.parentElement.style.display = 'none';
+                                    }
+                                });
+                            }
+                        };
+                        wrapper.appendChild(image);
+                        wrapper.appendChild(cross);
+                        galleryPreview.appendChild(wrapper);
+                    }
+                });
+                // New images
+                newImages.forEach((file, idx) => {
+                    const wrapper = document.createElement('div');
+                    wrapper.style.position = 'relative';
+                    wrapper.style.display = 'inline-block';
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const image = document.createElement('img');
+                        image.src = e.target.result;
+                        image.style.width = '70px';
+                        image.style.marginBottom = '2px';
+                        image.style.borderRadius = '6px';
+                        image.style.boxShadow = '0 1px 4px rgba(0,0,0,0.08)';
+                        // Cross button
+                        const cross = document.createElement('button');
+                        cross.innerHTML = '&times;';
+                        cross.style.position = 'absolute';
+                        cross.style.top = '2px';
+                        cross.style.right = '2px';
+                        cross.style.background = 'rgba(0,0,0,0.5)';
+                        cross.style.color = '#fff';
+                        cross.style.border = 'none';
+                        cross.style.borderRadius = '50%';
+                        cross.style.width = '20px';
+                        cross.style.height = '20px';
+                        cross.style.cursor = 'pointer';
+                        cross.onclick = function() {
+                            newImages.splice(idx, 1);
+                            renderGalleryPreview();
+                        };
+                        wrapper.appendChild(image);
+                        wrapper.appendChild(cross);
+                        galleryPreview.appendChild(wrapper);
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            document.getElementById('gallery').addEventListener('change', function(event) {
+                // Append new images
+                newImages = newImages.concat(Array.from(event.target.files));
+                renderGalleryPreview();
+            });
+
+            // Add cross button functionality to Current Gallery Images section
+            document.addEventListener('DOMContentLoaded', function() {
+                const currentGalleryImages = document.getElementById('current-gallery-images');
+                if (currentGalleryImages) {
+                    currentGalleryImages.querySelectorAll('button.cross-btn').forEach(function(btn) {
+                        btn.addEventListener('click', function() {
+                            const img = btn.getAttribute('data-image');
+                            deletedImages.push(img);
+                            document.getElementById('deleted_gallery_images').value = JSON.stringify(
+                                deletedImages);
+                            btn.parentElement.style.display = 'none';
+                            renderGalleryPreview();
+                        });
+                    });
+                }
+            });
+
+            // Initial render
+            renderGalleryPreview();
+        </script>
     </div>
 @endsection

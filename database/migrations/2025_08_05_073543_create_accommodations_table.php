@@ -13,16 +13,16 @@ return new class extends Migration
     {
         Schema::create('accommodations', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('slug')->unique();
-            $table->text('description');
-            $table->string('address');
-            $table->string('city');
-            $table->string('state');
-            $table->string('country');
-            $table->string('postal_code');
-            $table->string('phone');
-            $table->string('email');
+            $table->text('description')->nullable();
+            $table->string('address')->nullable();
+            $table->string('city')->nullable();
+            $table->string('state')->nullable();
+            $table->string('country')->nullable();
+            $table->string('postal_code')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
             $table->string('website')->nullable();
             $table->decimal('latitude', 10, 8)->nullable();
             $table->decimal('longitude', 11, 8)->nullable();
@@ -33,6 +33,7 @@ return new class extends Migration
             $table->integer('sort_order')->default(0);
 
             // SEO Meta Fields
+            $table->string('price')->nullable();
             $table->string('meta_title')->nullable();
             $table->text('meta_description')->nullable();
             $table->string('meta_keywords')->nullable();

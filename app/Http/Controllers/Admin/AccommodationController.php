@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\FileService\ImageService;
 use App\Http\Controllers\Controller;
 use App\Models\Accommodation;
 use Illuminate\Http\Request;
@@ -10,6 +11,12 @@ use Illuminate\Support\Str;
 
 class AccommodationController extends Controller
 {
+    public function __construct(
+        protected ImageService $imageservice
+
+    ) {
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -39,13 +46,10 @@ class AccommodationController extends Controller
             'address' => 'required|string',
             'city' => 'required|string|max:255',
             'state' => 'required|string|max:255',
-            'country' => 'required|string|max:255',
+            // 'country' => 'required|string|max:255',
             'postal_code' => 'required|string|max:20',
-            'phone' => 'nullable|string|max:255',
-            'email' => 'nullable|email|max:255',
-            'website' => 'nullable|url|max:255',
-            'latitude' => 'nullable|numeric|between:-90,90',
-            'longitude' => 'nullable|numeric|between:-180,180',
+            // 'phone' => 'nullable|string|max:255',
+            // 'email' => 'nullable|email|max:255',
             'room_type_id' => 'nullable|exists:room_types,id',
             'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'gallery' => 'nullable|array',
@@ -70,14 +74,16 @@ class AccommodationController extends Controller
 
         // Handle featured image upload
         if ($request->hasFile('featured_image')) {
-            $data['featured_image'] = $request->file('featured_image')->store('accommodations', 'public');
+            $data['featured_image'] = $this->imageservice->fileUpload($request->file('featured_image'), 'featured');
         }
 
         // Handle gallery upload
         if ($request->hasFile('gallery')) {
             $gallery = [];
             foreach ($request->file('gallery') as $file) {
-                $gallery[] = $file->store('accommodations/gallery', 'public');
+                $galleryimg = $this->imageservice->fileUpload($file, 'gallery');
+                // $gallery[] = $file->store('accommodations/gallery', 'public');
+                $gallery[] = $galleryimg;
             }
             $data['gallery'] = json_encode($gallery);
         }
@@ -100,12 +106,14 @@ class AccommodationController extends Controller
 
         // Handle meta image upload
         if ($request->hasFile('meta_image')) {
-            $data['meta_image'] = $request->file('meta_image')->store('accommodations/meta', 'public');
+            $data['meta_image'] = $this->imageservice->fileUpload($request->file('meta_image'), 'meta');
+            // $data['meta_image'] = $request->file('meta_image')->store('accommodations/meta', 'public');
         }
 
         // Handle OG image upload
         if ($request->hasFile('og_image')) {
-            $data['og_image'] = $request->file('og_image')->store('accommodations/og', 'public');
+            $data['og_image'] = $this->imageservice->fileUpload($request->file('og_image'), 'featured');
+
         }
 
         // Handle Twitter image upload
@@ -146,13 +154,9 @@ class AccommodationController extends Controller
             'address' => 'required|string',
             'city' => 'required|string|max:255',
             'state' => 'required|string|max:255',
-            'country' => 'required|string|max:255',
+            // 'country' => 'required|string|max:255',
             'postal_code' => 'required|string|max:20',
-            'phone' => 'nullable|string|max:255',
-            'email' => 'nullable|email|max:255',
-            'website' => 'nullable|url|max:255',
-            'latitude' => 'nullable|numeric|between:-90,90',
-            'longitude' => 'nullable|numeric|between:-180,180',
+
             'room_type_id' => 'nullable|exists:room_types,id',
             'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'gallery' => 'nullable|array',
@@ -178,27 +182,39 @@ class AccommodationController extends Controller
         // Handle featured image upload
         if ($request->hasFile('featured_image')) {
             if ($accommodation->featured_image) {
-                Storage::disk('public')->delete($accommodation->featured_image);
+                $this->imageservice->imageDelete($accommodation->featured_image);
             }
             $data['featured_image'] = $request->file('featured_image')->store('accommodations', 'public');
         }
 
-        // Handle gallery upload
-        if ($request->hasFile('gallery')) {
-            // Delete old gallery images
-            if ($accommodation->gallery) {
-                $oldGallery = json_decode($accommodation->gallery, true);
-                foreach ($oldGallery as $image) {
-                    Storage::disk('public')->delete($image);
-                }
-            }
-
-            $gallery = [];
-            foreach ($request->file('gallery') as $file) {
-                $gallery[] = $file->store('accommodations/gallery', 'public');
-            }
-            $data['gallery'] = json_encode($gallery);
+        // Handle gallery upload and deletion
+        if (is_array($accommodation->gallery)) {
+            $oldGallery = $accommodation->gallery;
+        } elseif (!empty($accommodation->gallery) && is_string($accommodation->gallery)) {
+            $oldGallery = json_decode($accommodation->gallery, true);
+        } else {
+            $oldGallery = [];
         }
+        $deletedGalleryImages = json_decode($request->input('deleted_gallery_images', '[]'), true);
+        if (!is_array($deletedGalleryImages)) {
+            $deletedGalleryImages = [];
+        }
+        // Remove only images marked for deletion
+        $gallery = array_diff($oldGallery, $deletedGalleryImages);
+
+        // Delete files marked for deletion
+        foreach ($deletedGalleryImages as $image) {
+            $this->imageservice->imageDelete($image);
+        }
+
+        // Handle new uploads and append
+        if ($request->hasFile('gallery')) {
+            foreach ($request->file('gallery') as $file) {
+                $galleryimg = $this->imageservice->fileUpload($file, 'gallery');
+                $gallery[] = $galleryimg;
+            }
+        }
+        $data['gallery'] = json_encode(array_values($gallery));
 
         // Handle amenities as array
         $amenities = [];
@@ -219,25 +235,26 @@ class AccommodationController extends Controller
         // Handle meta image upload
         if ($request->hasFile('meta_image')) {
             if ($accommodation->meta_image) {
-                Storage::disk('public')->delete($accommodation->meta_image);
+                $this->imageservice->imageDelete($accommodation->meta_image);
             }
-            $data['meta_image'] = $request->file('meta_image')->store('accommodations/meta', 'public');
+            $data['meta_image'] = $this->imageservice->fileUpload($request->file('meta_image'), 'meta');
         }
+
 
         // Handle OG image upload
         if ($request->hasFile('og_image')) {
             if ($accommodation->og_image) {
-                Storage::disk('public')->delete($accommodation->og_image);
+                $this->imageservice->imageDelete($accommodation->og_image);
             }
-            $data['og_image'] = $request->file('og_image')->store('accommodations/og', 'public');
+            $data['og_image'] = $this->imageservice->fileUpload($request->file('og_image'), 'og');
         }
 
         // Handle Twitter image upload
         if ($request->hasFile('twitter_image')) {
             if ($accommodation->twitter_image) {
-                Storage::disk('public')->delete($accommodation->twitter_image);
+                $this->imageservice->imageDelete($accommodation->twitter_image);
             }
-            $data['twitter_image'] = $request->file('twitter_image')->store('accommodations/twitter', 'public');
+            $data['twitter_image'] = $this->imageservice->fileUpload($request->file('twitter_image'), 'twitter');
         }
 
         $accommodation->update($data);
@@ -252,25 +269,26 @@ class AccommodationController extends Controller
     {
         // Delete associated images
         if ($accommodation->featured_image) {
-            Storage::disk('public')->delete($accommodation->featured_image);
+            $this->imageservice->imageDelete($accommodation->featured_image);
+
         }
 
         if ($accommodation->gallery) {
             $gallery = json_decode($accommodation->gallery, true);
             foreach ($gallery as $image) {
-                Storage::disk('public')->delete($image);
+                $this->imageservice->imageDelete($image);
+
             }
         }
 
         if ($accommodation->meta_image) {
-            Storage::disk('public')->delete($accommodation->meta_image);
+            $this->imageservice->imageDelete($accommodation->meta_image);
+
         }
         if ($accommodation->og_image) {
-            Storage::disk('public')->delete($accommodation->og_image);
+            $this->imageservice->imageDelete($accommodation->og_image);
         }
-        if ($accommodation->twitter_image) {
-            Storage::disk('public')->delete($accommodation->twitter_image);
-        }
+
 
         $accommodation->delete();
 

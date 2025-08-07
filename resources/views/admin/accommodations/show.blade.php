@@ -28,7 +28,7 @@
                 @if($accommodation->featured_image)
                     <div>
                         <h4 class="text-sm font-medium text-gray-900 mb-2">Featured Image</h4>
-                        <img src="{{ asset('storage/' . $accommodation->featured_image) }}" alt="{{ $accommodation->name }}" class="w-full h-64 object-cover rounded-lg">
+                        <img src="{{ asset('uploads/' . $accommodation->featured_image) }}" alt="{{ $accommodation->name }}" class="w-full h-64 object-contain rounded-lg">
                     </div>
                 @endif
 
@@ -38,7 +38,7 @@
                         <h4 class="text-sm font-medium text-gray-900 mb-2">Gallery Images</h4>
                         <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                             @foreach(json_decode($accommodation->gallery, true) as $image)
-                                <img src="{{ asset('storage/' . $image) }}" alt="Gallery Image" class="w-full h-32 object-cover rounded-lg">
+                                <img src="{{ asset('uploads/' . $image) }}" alt="Gallery Image" class="w-full h-32 object-cover rounded-lg">
                             @endforeach
                         </div>
                     </div>
@@ -189,7 +189,7 @@
                                 <div>
                                     <span class="text-xs font-medium text-gray-500 uppercase">Meta Image</span>
                                     <div class="mt-2">
-                                        <img src="{{ asset('storage/' . $accommodation->meta_image) }}" alt="Meta Image" class="w-full h-24 object-cover rounded-lg">
+                                        <img src="{{ asset('uploads/' . $accommodation->meta_image) }}" alt="Meta Image" class="w-full h-24 object-cover rounded-lg">
                                     </div>
                                 </div>
                             @endif
@@ -221,7 +221,7 @@
                                 <div>
                                     <span class="text-xs font-medium text-gray-500 uppercase">OG Image</span>
                                     <div class="mt-2">
-                                        <img src="{{ asset('storage/' . $accommodation->og_image) }}" alt="OG Image" class="w-full h-24 object-cover rounded-lg">
+                                        <img src="{{ asset('uploads/' . $accommodation->og_image) }}" alt="OG Image" class="w-full h-24 object-cover rounded-lg">
                                     </div>
                                 </div>
                             @endif
@@ -240,14 +240,7 @@
                                 </div>
                             @endif
 
-                            @if($accommodation->twitter_image)
-                                <div>
-                                    <span class="text-xs font-medium text-gray-500 uppercase">Twitter Image</span>
-                                    <div class="mt-2">
-                                        <img src="{{ asset('storage/' . $accommodation->twitter_image) }}" alt="Twitter Image" class="w-full h-24 object-cover rounded-lg">
-                                    </div>
-                                </div>
-                            @endif
+
                         </div>
                     </div>
                 @endif

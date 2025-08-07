@@ -40,6 +40,7 @@ class Accommodation extends Model
         'twitter_title',
         'twitter_description',
         'twitter_image',
+        'price',
     ];
 
     protected $casts = [
