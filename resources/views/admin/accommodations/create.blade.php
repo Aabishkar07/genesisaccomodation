@@ -133,7 +133,7 @@
                                 @foreach ($roomTypes as $roomType)
                                     <option value="{{ $roomType->id }}"
                                         {{ old('room_type_id') == $roomType->id ? 'selected' : '' }}>
-                                        {{ $roomType->name }} - ${{ $roomType->price_per_night }}/night
+                                        {{ $roomType->name }}
                                     </option>
                                 @endforeach
                             </select>
@@ -264,6 +264,7 @@
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                             <p class="mt-1 text-xs text-gray-500">You can select multiple images</p>
+                            <div id="gallery-preview" class="flex flex-wrap gap-2 mt-2"></div>
                         </div>
                     </div>
 
@@ -371,5 +372,28 @@
                 </button>
             </div>
         </form>
+        <script>
+            function previewGalleryImages(event) {
+                const preview = document.getElementById('gallery-preview');
+                preview.innerHTML = '';
+                const files = event.target.files;
+                if (files) {
+                    Array.from(files).forEach(file => {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            const img = document.createElement('img');
+                            img.src = e.target.result;
+                            img.style.width = '70px';
+                            img.style.marginBottom = '2px';
+                            img.style.borderRadius = '6px';
+                            img.style.boxShadow = '0 1px 4px rgba(0,0,0,0.08)';
+                            preview.appendChild(img);
+                        };
+                        reader.readAsDataURL(file);
+                    });
+                }
+            }
+            document.getElementById('gallery').addEventListener('change', previewGalleryImages);
+        </script>
     </div>
 @endsection

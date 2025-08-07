@@ -187,24 +187,34 @@ class AccommodationController extends Controller
             $data['featured_image'] = $request->file('featured_image')->store('accommodations', 'public');
         }
 
-        // Handle gallery upload
+        // Handle gallery upload and deletion
+        if (is_array($accommodation->gallery)) {
+            $oldGallery = $accommodation->gallery;
+        } elseif (!empty($accommodation->gallery) && is_string($accommodation->gallery)) {
+            $oldGallery = json_decode($accommodation->gallery, true);
+        } else {
+            $oldGallery = [];
+        }
+        $deletedGalleryImages = json_decode($request->input('deleted_gallery_images', '[]'), true);
+        if (!is_array($deletedGalleryImages)) {
+            $deletedGalleryImages = [];
+        }
+        // Remove only images marked for deletion
+        $gallery = array_diff($oldGallery, $deletedGalleryImages);
+
+        // Delete files marked for deletion
+        foreach ($deletedGalleryImages as $image) {
+            $this->imageservice->imageDelete($image);
+        }
+
+        // Handle new uploads and append
         if ($request->hasFile('gallery')) {
-            // Delete old gallery images
-            if ($accommodation->gallery) {
-                $oldGallery = json_decode($accommodation->gallery, true);
-                foreach ($oldGallery as $image) {
-                    $this->imageservice->imageDelete($image);
-
-                }
-            }
-
-            $gallery = [];
             foreach ($request->file('gallery') as $file) {
                 $galleryimg = $this->imageservice->fileUpload($file, 'gallery');
                 $gallery[] = $galleryimg;
             }
-            $data['gallery'] = json_encode($gallery);
         }
+        $data['gallery'] = json_encode(array_values($gallery));
 
         // Handle amenities as array
         $amenities = [];
@@ -259,25 +269,26 @@ class AccommodationController extends Controller
     {
         // Delete associated images
         if ($accommodation->featured_image) {
-            Storage::disk('public')->delete($accommodation->featured_image);
+            $this->imageservice->imageDelete($accommodation->featured_image);
+
         }
 
         if ($accommodation->gallery) {
             $gallery = json_decode($accommodation->gallery, true);
             foreach ($gallery as $image) {
-                Storage::disk('public')->delete($image);
+                $this->imageservice->imageDelete($image);
+
             }
         }
 
         if ($accommodation->meta_image) {
-            Storage::disk('public')->delete($accommodation->meta_image);
+            $this->imageservice->imageDelete($accommodation->meta_image);
+
         }
         if ($accommodation->og_image) {
-            Storage::disk('public')->delete($accommodation->og_image);
+            $this->imageservice->imageDelete($accommodation->og_image);
         }
-        if ($accommodation->twitter_image) {
-            Storage::disk('public')->delete($accommodation->twitter_image);
-        }
+
 
         $accommodation->delete();
 

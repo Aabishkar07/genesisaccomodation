@@ -34,16 +34,16 @@
                     <tbody class="bg-white divide-y divide-gray-200">
                         @foreach($accommodations as $accommodation)
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="px-6 py-4 ">
                                     @if($accommodation->featured_image)
-                                        <img src="{{ asset('storage/' . $accommodation->featured_image) }}" alt="{{ $accommodation->name }}" class="h-12 w-12 object-cover rounded-lg">
+                                        <img src="{{ asset('uploads/' . $accommodation->featured_image) }}" alt="{{ $accommodation->name }}" class="h-12 w-12 object-cover rounded-lg">
                                     @else
                                         <div class="h-12 w-12 bg-gray-200 rounded-lg flex items-center justify-center">
                                             <i class="fas fa-hotel text-gray-400"></i>
                                         </div>
                                     @endif
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="px-6 py-4 ">
                                     <div>
                                         <div class="text-sm font-medium text-gray-900">{{ $accommodation->name }}</div>
                                         <div class="text-sm text-gray-500">{{ Str::limit($accommodation->description, 50) }}</div>
@@ -52,7 +52,7 @@
                                         @endif
                                     </div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                <td class="px-6 py-4  text-sm text-gray-900">
                                     @if($accommodation->roomType)
                                         <div class="text-sm font-medium text-gray-900">{{ $accommodation->roomType->name }}</div>
                                         <div class="text-xs text-gray-500">${{ $accommodation->roomType->price_per_night }}/night</div>
@@ -60,14 +60,14 @@
                                         <span class="text-gray-400">-</span>
                                     @endif
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                <td class="px-6 py-4  text-sm text-gray-900">
                                     @if($accommodation->city)
                                         {{ $accommodation->city }}, {{ $accommodation->state }}
                                     @else
                                         -
                                     @endif
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="px-6 py-4 ">
                                     @if($accommodation->status === 'active')
                                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                                             Active
@@ -78,13 +78,13 @@
                                         </span>
                                     @endif
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                <td class="px-6 py-4  text-sm text-gray-900">
                                     {{ $accommodation->sort_order ?? 0 }}
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                <td class="px-6 py-4  text-sm text-gray-500">
                                     {{ $accommodation->created_at->format('M d, Y') }}
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <td class="px-6 py-4  text-right text-sm font-medium">
                                     <div class="flex items-center justify-end space-x-2">
                                         <a href="{{ route('admin.accommodations.show', $accommodation) }}" class="text-blue-600 hover:text-blue-900">
                                             <i class="fas fa-eye"></i>

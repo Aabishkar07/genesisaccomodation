@@ -94,7 +94,7 @@
                                 @foreach ($roomTypes as $roomType)
                                     <option value="{{ $roomType->id }}"
                                         {{ old('room_type_id', $accommodation->room_type_id) == $roomType->id ? 'selected' : '' }}>
-                                        {{ $roomType->name }} - ${{ $roomType->price_per_night }}/night
+                                        {{ $roomType->name }}
                                     </option>
                                 @endforeach
                             </select>
@@ -242,10 +242,15 @@
                         @if ($accommodation->gallery)
                             <div class="mb-4">
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Current Gallery Images</label>
-                                <div class="grid grid-cols-2 gap-2">
+                                <div id="current-gallery-images" class="flex flex-wrap gap-2">
                                     @foreach (json_decode($accommodation->gallery, true) as $image)
-                                        <img src="{{ asset('uploads/' . $image) }}" alt="Gallery Image"
-                                            class="w-full h-20 object-cover rounded-lg">
+                                        <div class="relative inline-block">
+                                            <img src="{{ asset('uploads/' . $image) }}" alt="Gallery Image"
+                                                class="w-full h-20 object-cover rounded-lg">
+                                            <button type="button"
+                                                class="absolute top-1 right-1 bg-black bg-opacity-50 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold cross-btn"
+                                                data-image="{{ $image }}">&times;</button>
+                                        </div>
                                     @endforeach
                                 </div>
                             </div>
@@ -260,6 +265,8 @@
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                             <p class="mt-1 text-xs text-gray-500">You can select multiple images</p>
+                            <div id="gallery-preview" class="flex flex-wrap gap-2 mt-2"></div>
+                            <input type="hidden" name="deleted_gallery_images" id="deleted_gallery_images">
                         </div>
                     </div>
 
@@ -364,7 +371,7 @@
                                 @enderror
                             </div>
 
-                          
+
                         </div>
                     </div>
                 </div>
@@ -381,5 +388,123 @@
                 </button>
             </div>
         </form>
+        <script>
+            // Initial old images
+            const oldImages = @json(json_decode($accommodation->gallery, true) ?? []);
+            const galleryPreview = document.getElementById('gallery-preview');
+            let deletedImages = [];
+            let newImages = [];
+
+            function renderGalleryPreview() {
+                galleryPreview.innerHTML = '';
+                // Old images (for preview section only)
+                oldImages.forEach((img, idx) => {
+                    if (!deletedImages.includes(img)) {
+                        const wrapper = document.createElement('div');
+                        wrapper.style.position = 'relative';
+                        wrapper.style.display = 'inline-block';
+                        const image = document.createElement('img');
+                        image.src = '/uploads/' + img;
+                        image.style.width = '70px';
+                        image.style.marginBottom = '2px';
+                        image.style.borderRadius = '6px';
+                        image.style.boxShadow = '0 1px 4px rgba(0,0,0,0.08)';
+                        // Cross button
+                        const cross = document.createElement('button');
+                        cross.innerHTML = '&times;';
+                        cross.style.position = 'absolute';
+                        cross.style.top = '2px';
+                        cross.style.right = '2px';
+                        cross.style.background = 'rgba(0,0,0,0.5)';
+                        cross.style.color = '#fff';
+                        cross.style.border = 'none';
+                        cross.style.borderRadius = '50%';
+                        cross.style.width = '20px';
+                        cross.style.height = '20px';
+                        cross.style.cursor = 'pointer';
+                        cross.onclick = function() {
+                            deletedImages.push(img);
+                            document.getElementById('deleted_gallery_images').value = JSON.stringify(deletedImages);
+                            renderGalleryPreview();
+                            // Also remove from Current Gallery Images section
+                            const currentGalleryImages = document.getElementById('current-gallery-images');
+                            if (currentGalleryImages) {
+                                const btns = currentGalleryImages.querySelectorAll('button.cross-btn');
+                                btns.forEach(btn => {
+                                    if (btn.getAttribute('data-image') === img) {
+                                        btn.parentElement.style.display = 'none';
+                                    }
+                                });
+                            }
+                        };
+                        wrapper.appendChild(image);
+                        wrapper.appendChild(cross);
+                        galleryPreview.appendChild(wrapper);
+                    }
+                });
+                // New images
+                newImages.forEach((file, idx) => {
+                    const wrapper = document.createElement('div');
+                    wrapper.style.position = 'relative';
+                    wrapper.style.display = 'inline-block';
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const image = document.createElement('img');
+                        image.src = e.target.result;
+                        image.style.width = '70px';
+                        image.style.marginBottom = '2px';
+                        image.style.borderRadius = '6px';
+                        image.style.boxShadow = '0 1px 4px rgba(0,0,0,0.08)';
+                        // Cross button
+                        const cross = document.createElement('button');
+                        cross.innerHTML = '&times;';
+                        cross.style.position = 'absolute';
+                        cross.style.top = '2px';
+                        cross.style.right = '2px';
+                        cross.style.background = 'rgba(0,0,0,0.5)';
+                        cross.style.color = '#fff';
+                        cross.style.border = 'none';
+                        cross.style.borderRadius = '50%';
+                        cross.style.width = '20px';
+                        cross.style.height = '20px';
+                        cross.style.cursor = 'pointer';
+                        cross.onclick = function() {
+                            newImages.splice(idx, 1);
+                            renderGalleryPreview();
+                        };
+                        wrapper.appendChild(image);
+                        wrapper.appendChild(cross);
+                        galleryPreview.appendChild(wrapper);
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            document.getElementById('gallery').addEventListener('change', function(event) {
+                // Append new images
+                newImages = newImages.concat(Array.from(event.target.files));
+                renderGalleryPreview();
+            });
+
+            // Add cross button functionality to Current Gallery Images section
+            document.addEventListener('DOMContentLoaded', function() {
+                const currentGalleryImages = document.getElementById('current-gallery-images');
+                if (currentGalleryImages) {
+                    currentGalleryImages.querySelectorAll('button.cross-btn').forEach(function(btn) {
+                        btn.addEventListener('click', function() {
+                            const img = btn.getAttribute('data-image');
+                            deletedImages.push(img);
+                            document.getElementById('deleted_gallery_images').value = JSON.stringify(
+                                deletedImages);
+                            btn.parentElement.style.display = 'none';
+                            renderGalleryPreview();
+                        });
+                    });
+                }
+            });
+
+            // Initial render
+            renderGalleryPreview();
+        </script>
     </div>
 @endsection
