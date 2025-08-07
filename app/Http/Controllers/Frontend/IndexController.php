@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\AboutUs;
+use App\Models\Accommodation;
 use App\Models\Blog;
 use App\Models\Contact;
 use App\Models\Service;
@@ -17,8 +18,9 @@ class IndexController extends Controller
     {
         $services = Service::latest()->limit(3)->get();
         $testimonials = Testimonial::get();
+        $accomodations = Accommodation::with('roomType')->where('status', 'active')->orderBy('sort_order', 'asc')->orderBy('created_at', 'desc')->limit(6)->get();
         $blogs = Blog::orderBy('sort_order', 'asc')->orderBy('created_at', 'desc')->limit(6)->get();
-        return view("frontend.home.index", compact('blogs', 'services', 'testimonials'));
+        return view("frontend.home.index", compact('blogs', 'services', 'testimonials', 'accomodations'));
     }
 
     public function single(Request $request, Blog $blog)
@@ -68,6 +70,33 @@ class IndexController extends Controller
 
         $contact = Contact::get();
         return view("frontend.contact.index", compact('contact'));
+    }
+
+    public function accommodations()
+    {
+        $accommodations = Accommodation::with('roomType')
+            ->where('status', 'active')
+            ->orderBy('sort_order', 'asc')
+            ->orderBy('created_at', 'desc')
+            ->paginate(12);
+
+        return view("frontend.accommodation.index", compact('accommodations'));
+    }
+
+    public function accommodationSingle(Accommodation $accommodation)
+    {
+        // Get related accommodations (same room type or similar price range)
+        $relatedAccommodations = Accommodation::with('roomType')
+            ->where('id', '!=', $accommodation->id)
+            ->where('status', 'active')
+            ->where(function($query) use ($accommodation) {
+                $query->where('room_type_id', $accommodation->room_type_id)
+                      ->orWhereBetween('price', [$accommodation->price * 0.8, $accommodation->price * 1.2]);
+            })
+            ->limit(3)
+            ->get();
+
+        return view("frontend.accommodation.single", compact('accommodation', 'relatedAccommodations'));
     }
 
 
