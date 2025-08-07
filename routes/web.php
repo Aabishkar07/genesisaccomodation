@@ -22,5 +22,7 @@ Route::get('/blog/{blog:slug}', [IndexController::class, 'single'])->name('singl
 Route::get('/aboutus', [IndexController::class, 'aboutus'])->name('aboutus');
 Route::get('/services', [IndexController::class, 'services'])->name('services');
 Route::get('/blogs', [IndexController::class, 'blogs'])->name('blogs');
+Route::get('/contact', [IndexController::class, 'contact'])->name('contact');
+Route::post('/contact', [IndexController::class, 'store'])->name('contact.store');
 
 
