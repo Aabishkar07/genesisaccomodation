@@ -67,7 +67,7 @@ class AuthController extends Controller
         if (Auth::guard('customer')->attempt($credentials)) {
             return redirect()->route('home')->with('popsuccess', 'Login Successful');
         }
-        return redirect()->route('login')->with('error', 'Invalid Credentials');
+        return redirect()->route('login')->with('poperror', 'Invalid Credentials');
     }
 
 
@@ -107,11 +107,11 @@ public function forgotpassword()
             $checkemail->save();
             $mailData = $otpnumber;
 
-            Mail::to($checkemail->email)->send(new ForgotPassword($mailData));
+            // Mail::to($checkemail->email)->send(new ForgotPassword($mailData));
 
             // return view("frontend.Auth.checkotp", compact("checkemail"));
 
-            return redirect()->route("viewcheckotp", $membercode_number)->with("success", "Email Found .");
+            return redirect()->route("viewcheckotp", $membercode_number)->with("popsuccess", "Email Found .");
         } else {
             // dd("err");
             return redirect()->back()->with("poperror", "Email Not Found .");
@@ -140,9 +140,9 @@ public function forgotpassword()
         ]);
         $otpMatched = CustomerRegistration::where('membercode', $checkotp)->where("otp", $request->userotp)->first();
         if ($otpMatched) {
-            return redirect()->route("getchangepassword", $checkotp)->with("success", "OTP Matched.");
+            return redirect()->route("getchangepassword", $checkotp)->with("popsuccess", "OTP Matched.");
         } else {
-            return redirect()->back()->with("error", "OTP does not Matched.");
+            return redirect()->back()->with("poperror", "OTP does not Matched.");
         }
     }
 
@@ -166,7 +166,7 @@ public function forgotpassword()
         $checkmember->password = Hash::make($request->newpassword);
         $checkmember->save();
 
-        return redirect()->route('login')->with('success', 'Your Password Successfully changed .');
+        return redirect()->route('login')->with('popsuccess', 'Your Password Successfully changed .');
     }
 
 
