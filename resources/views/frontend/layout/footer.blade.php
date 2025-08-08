@@ -5,7 +5,7 @@
 @endphp
 
 <footer class="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 text-white mt-10">
-    <div class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8" >
         <!-- Main Footer Content -->
         <div class="py-12 lg:py-16">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-8 lg:gap-12">
@@ -135,7 +135,7 @@
                         <li><a href="{{ route('contact') }}"
                                 class="text-white hover:text-white transition-colors text-sm hover:translate-x-1 transform duration-200 inline-block">Contact
                                 Us</a></li>
-                        <li><a href=""
+                        <li><a href="{{ route('login') }}"
                                 class="text-white hover:text-white transition-colors text-sm hover:translate-x-1 transform duration-200 inline-block">Login</a>
                         </li>
                         <li><a href=""
