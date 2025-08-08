@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\RoomTypeController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\BookingController;
+use App\Http\Controllers\Admin\BannerController;
 use Illuminate\Support\Facades\Route;
 
 // Admin login route (outside middleware group for now)
@@ -105,9 +106,9 @@ Route::middleware(["admin"])->group(function () {
 
     // Settings bulk update
     Route::put('settings/bulk-update', [SettingController::class, 'bulkUpdate'])->name('admin.settings.bulk-update');
-        Route::get('contacts', [ContactController::class, 'contact'])->name('admin.contact');
-                Route::delete('contactdelete/{contact}', [ContactController::class, 'contactdelete'])->name('contactdelete');
-        Route::get('/admin/contacts/export', [ContactController::class, 'export'])->name('admin.contacts.export');
+    Route::get('contacts', [ContactController::class, 'contact'])->name('admin.contact');
+    Route::delete('contactdelete/{contact}', [ContactController::class, 'contactdelete'])->name('contactdelete');
+    Route::get('/admin/contacts/export', [ContactController::class, 'export'])->name('admin.contacts.export');
 
     // Bookings
     Route::resource('bookings', BookingController::class)->only(['index', 'show'])->names([
@@ -121,5 +122,15 @@ Route::middleware(["admin"])->group(function () {
     Route::put('bookings/{booking}/reject', [BookingController::class, 'reject'])->name('admin.bookings.reject');
     Route::get('bookings/export', [BookingController::class, 'export'])->name('admin.bookings.export');
 
+    // Banners
+    Route::resource('banners', BannerController::class)->names([
+        'index' => 'admin.banners.index',
+        'create' => 'admin.banners.create',
+        'store' => 'admin.banners.store',
+        'show' => 'admin.banners.show',
+        'edit' => 'admin.banners.edit',
+        'update' => 'admin.banners.update',
+        'destroy' => 'admin.banners.destroy',
+    ]);
 
 });
