@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Frontend\AuthController;
 use App\Http\Controllers\Frontend\IndexController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,8 +25,18 @@ Route::get('/services', [IndexController::class, 'services'])->name('services');
 Route::get('/blogs', [IndexController::class, 'blogs'])->name('blogs');
 Route::get('/contact', [IndexController::class, 'contact'])->name('contact');
 Route::post('/contact', [IndexController::class, 'store'])->name('contact.store');
+Route::get('register', [AuthController::class, 'register'])->name('register');
+Route::post('register', [AuthController::class, 'storeuser'])->name('user.register');
+Route::get('login', [AuthController::class, 'login'])->name('login');
+Route::post('login', [AuthController::class, 'customerlogin'])->name('customerlogin');
 
-// Accommodation routes
+Route::get('forgotpassword', [AuthController::class, 'forgotpassword'])->name('forgotpassword');
+Route::post('forgotpassword', [AuthController::class, 'checkemail'])->name('checkemail');
+Route::get('checkotp/{checkotp}', [AuthController::class, 'viewcheckotp'])->name('viewcheckotp');
+Route::post('checkotp/{checkotp}', [AuthController::class, 'checkotp'])->name('checkotp');
+Route::get('changepassword/{getchangepassword}', [AuthController::class, 'getchangepassword'])->name('getchangepassword');
+Route::post('changepassword/{changepassword}', [AuthController::class, 'changepassword'])->name('changepassword');
+
 Route::get('/accommodations', [IndexController::class, 'accommodations'])->name('accommodations');
 Route::get('/accommodation/{accommodation:slug}', [IndexController::class, 'accommodationSingle'])->name('accommodation.single');
 
