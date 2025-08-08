@@ -11,6 +11,7 @@ use App\Models\RoomType;
 use App\Models\Service;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class IndexController extends Controller
 {
@@ -26,7 +27,6 @@ class IndexController extends Controller
 
     public function single(Request $request, Blog $blog)
     {
-
         $allblogs = Blog::where('id', '!=', $blog->id)->get();
         // $blog->views++;
         // $blog->save();
@@ -141,6 +141,7 @@ class IndexController extends Controller
 
     public function accommodationSingle(Accommodation $accommodation)
     {
+        $user = Auth::guard("customer")->user() ?? "";
         // Get related accommodations (same room type or similar price range)
         $relatedAccommodations = Accommodation::with('roomType')
             ->where('id', '!=', $accommodation->id)
@@ -148,7 +149,7 @@ class IndexController extends Controller
             ->limit(3)
             ->get();
 
-        return view("frontend.accommodation.single", compact('accommodation', 'relatedAccommodations'));
+        return view("frontend.accommodation.single", compact('accommodation', 'relatedAccommodations', "user"));
     }
 
 

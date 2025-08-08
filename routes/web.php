@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Frontend\AuthController;
 use App\Http\Controllers\Frontend\IndexController;
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,5 +41,23 @@ Route::post('changepassword/{changepassword}', [AuthController::class, 'changepa
 
 Route::get('/accommodations', [IndexController::class, 'accommodations'])->name('accommodations');
 Route::get('/accommodation/{accommodation:slug}', [IndexController::class, 'accommodationSingle'])->name('accommodation.single');
+
+// Booking Routes
+Route::post('/accommodation/{accommodation}/book', [BookingController::class, 'store'])->name('booking.store');
+
+// Logout Route
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// User Panel Routes (Protected by auth:customer middleware)
+Route::middleware(['auth:customer'])->prefix('user')->name('user.')->group(function () {
+    Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
+    Route::get('/bookings', [UserController::class, 'bookings'])->name('bookings');
+    Route::get('/booking/{id}', [UserController::class, 'bookingDetails'])->name('booking.details');
+    Route::put('/booking/{id}/cancel', [UserController::class, 'cancelBooking'])->name('booking.cancel');
+    Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+    Route::put('/profile', [UserController::class, 'updateProfile'])->name('profile.update');
+    Route::get('/change-password', [UserController::class, 'changePassword'])->name('change-password');
+    Route::put('/change-password', [UserController::class, 'updatePassword'])->name('change-password.update');
+});
 
 

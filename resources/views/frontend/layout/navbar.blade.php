@@ -151,17 +151,59 @@
 
             <!-- Desktop Action Buttons -->
             <div class="hidden md:flex items-center space-x-4">
-                <a href="{{ route('register') }}" >
-                <button class="btn-secondary px-6 py-2.5 text-sm font-semibold text-gray-700 rounded-lg">
-                    Register
-                </button>
-                </a>
-                                <a href="{{ route('login') }}" >
+                @auth('customer')
+                    <!-- User Menu -->
+                    <div class="relative group">
+                        <button class="flex items-center space-x-2 px-4 py-2 text-sm font-semibold text-gray-700 hover:text-blue-600 rounded-lg hover:bg-gray-100 transition-colors">
+                            <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                                <i class="fas fa-user text-white text-sm"></i>
+                            </div>
+                            <span>{{ Auth::guard('customer')->user()->name }}</span>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
 
-                <button class="btn-primary px-6 py-2.5 text-sm font-semibold text-white rounded-lg">
-                    Login
-                </button>
+                        <!-- Dropdown Menu -->
+                        <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                            <div class="py-2">
+                                <a href="{{ route('user.dashboard') }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <i class="fas fa-tachometer-alt mr-3"></i>
+                                    Dashboard
                                 </a>
+                                <a href="{{ route('user.bookings') }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <i class="fas fa-calendar-check mr-3"></i>
+                                    My Bookings
+                                </a>
+                                <a href="{{ route('user.profile') }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <i class="fas fa-user-cog mr-3"></i>
+                                    Profile
+                                </a>
+                                <a href="{{ route('user.change-password') }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <i class="fas fa-key mr-3"></i>
+                                    Change Password
+                                </a>
+                                <div class="border-t border-gray-200 my-2"></div>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="w-full flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left">
+                                        <i class="fas fa-sign-out-alt mr-3"></i>
+                                        Logout
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                @else
+                    <a href="{{ route('register') }}" >
+                    <button class="btn-secondary px-6 py-2.5 text-sm font-semibold text-gray-700 rounded-lg">
+                        Register
+                    </button>
+                    </a>
+                    <a href="{{ route('login') }}" >
+                    <button class="btn-primary px-6 py-2.5 text-sm font-semibold text-white rounded-lg">
+                        Login
+                    </button>
+                    </a>
+                @endauth
             </div>
 
             <!-- Mobile Menu Button -->

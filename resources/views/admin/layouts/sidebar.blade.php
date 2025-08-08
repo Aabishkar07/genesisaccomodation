@@ -102,6 +102,14 @@
                     </svg>
                     Accommodations
                 </a>
+
+                <a href="{{ route('admin.bookings.index') }}"
+                    class="group flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors {{ request()->routeIs('admin.bookings.*') ? 'bg-blue-100 text-blue-700' : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900' }}">
+                    <svg class="mr-3 h-5 w-5 {{ request()->routeIs('admin.bookings.*') ? 'text-blue-500' : 'text-gray-400 group-hover:text-gray-500' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v6a2 2 0 002 2h2m0-8V5a2 2 0 012-2h2a2 2 0 012 2v2M7 7h10M7 7v8a2 2 0 002 2h8a2 2 0 002-2V7M7 7H5a2 2 0 00-2 2v8a2 2 0 002 2h2m10-8v8a2 2 0 01-2 2H9a2 2 0 01-2-2v-8m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v2"></path>
+                    </svg>
+                    Bookings
+                </a>
             </div>
         </div>
 

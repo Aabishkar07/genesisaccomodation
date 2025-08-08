@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\RoomTypeController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\BookingController;
 use Illuminate\Support\Facades\Route;
 
 // Admin login route (outside middleware group for now)
@@ -107,6 +108,18 @@ Route::middleware(["admin"])->group(function () {
         Route::get('contacts', [ContactController::class, 'contact'])->name('admin.contact');
                 Route::delete('contactdelete/{contact}', [ContactController::class, 'contactdelete'])->name('contactdelete');
         Route::get('/admin/contacts/export', [ContactController::class, 'export'])->name('admin.contacts.export');
+
+    // Bookings
+    Route::resource('bookings', BookingController::class)->only(['index', 'show'])->names([
+        'index' => 'admin.bookings.index',
+        'show' => 'admin.bookings.show',
+    ]);
+
+    // Booking status management
+    Route::put('bookings/{booking}/status', [BookingController::class, 'updateStatus'])->name('admin.bookings.update-status');
+    Route::put('bookings/{booking}/approve', [BookingController::class, 'approve'])->name('admin.bookings.approve');
+    Route::put('bookings/{booking}/reject', [BookingController::class, 'reject'])->name('admin.bookings.reject');
+    Route::get('bookings/export', [BookingController::class, 'export'])->name('admin.bookings.export');
 
 
 });
