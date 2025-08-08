@@ -54,9 +54,9 @@
         transition: transform 0.3s ease;
     }
 
-    .logo-container:hover {
+    /* .logo-container:hover {
         transform: scale(1.05);
-    }
+    } */
 
     /* Smooth navbar background */
     .navbar-bg {
@@ -108,8 +108,10 @@
                 <div class="logo-container cursor-pointer">
                     <div class="flex  space-x-3">
                         <!-- Replace with your actual logo -->
+                        <a href="/" >
                         <img src="{{ asset('images/logo.png') }}" alt="Logo"
                             class="w-24 h-36 rounded-lg object-contain" />
+                        </a>
                     </div>
                 </div>
             </div>
