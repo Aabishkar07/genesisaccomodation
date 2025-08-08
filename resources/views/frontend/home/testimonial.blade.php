@@ -8,18 +8,27 @@
         top: 40%;
         transform: translateY(-50%);
         background-color: #e2e8f0;
-        padding: 0.5rem 1rem;
+        width: 22px !important;
+        height: 22px !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         border-radius: 9999px;
         font-size: 1.25rem;
         font-weight: bold;
+        padding: 0;
     }
 
     .owl-nav .owl-prev {
-        left: -40px;
+        left: -32px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        transition: background 0.2s;
     }
 
     .owl-nav .owl-next {
-        right: -40px;
+        right: -32px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        transition: background 0.2s;
     }
 </style>
 
@@ -41,7 +50,7 @@
 </div>
 
 
-<div class="relative p-8 max-w-screen-2xl mx-auto mb-20">
+<div class="relative p-8  mb-20">
 
     <div class="owl-carousel owl-theme">
 
@@ -52,8 +61,8 @@
                 <div class="flex items-center gap-4 mb-4">
                     <!-- Image -->
                     <div class="w-24 h-24 rounded-full overflow-hidden">
-                        <img src="{{ asset('uploads/' . $testimonial->image) }}"
-                            alt="{{ $testimonial->name }}" class="w-full h-full object-cover border border-blue-200" />
+                        <img src="{{ asset('uploads/' . $testimonial->image) }}" alt="{{ $testimonial->name }}"
+                            class="w-full h-full object-cover border border-blue-200" />
                     </div>
 
                     <!-- Name (centered vertically) -->
@@ -97,7 +106,10 @@
             margin: 24,
             nav: true,
             dots: true,
-            navText: ["‹", "›"],
+            navText: [
+                `<svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='2' stroke='currentColor' class='w-4 h-4'><path stroke-linecap='round' stroke-linejoin='round' d='M15.75 19.5L8.25 12l7.5-7.5' /></svg>`,
+                `<svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='2' stroke='currentColor' class='w-4 h-4'><path stroke-linecap='round' stroke-linejoin='round' d='M8.25 4.5l7.5 7.5-7.5 7.5' /></svg>`
+            ],
             responsive: {
                 0: {
                     items: 1
