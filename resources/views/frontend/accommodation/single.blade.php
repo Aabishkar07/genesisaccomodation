@@ -255,59 +255,278 @@
 
                     </div>
 
+
                     <!-- Enhanced Sidebar -->
                     <div class="lg:col-span-1">
                         <!-- Enhanced Booking Card -->
-                        <div class="bg-white border border-gray-200 rounded-xl shadow-lg p-4 md:p-6 sticky top-8">
+                        <div class="bg-white border border-gray-200 rounded-xl shadow-lg p-4 md:p-6 sticky top-24">
                             <div class="text-center mb-4 md:mb-6">
                                 <div class="text-2xl md:text-3xl font-bold text-primary mb-2">
                                     ${{ number_format($accommodation->price ?? 0) }}
                                 </div>
-                                <div class="text-gray-600 text-sm md:text-base">per night</div>
-                                <div class="text-xs md:text-sm text-gray-500 mt-1">+ taxes & fees</div>
+                                <div class="text-gray-600 text-sm md:text-base">per month</div>
+                                {{-- <div class="text-xs md:text-sm text-gray-500 mt-1">+ taxes & fees</div> --}}
                             </div>
 
                             <!-- Enhanced Booking Form -->
-                            <form class="space-y-3 md:space-y-4">
+                            <form class="space-y-3 md:space-y-4" id="bookingForm" method="POST" action="{{ route('booking.store', $accommodation) }}">
+                                @csrf
+                                <!-- Personal Information -->
+                                <div>
+                                    <label class="block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2">Full
+                                        Name</label>
+                                    <input type="text" name="full_name"
+                                        value="{{ old('full_name', Auth::guard('customer')->user()->name ?? '') }}" required
+                                        class="w-full px-2 py-2 md:px-3 md:py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-xs md:text-sm"
+                                        placeholder="Enter your full name">
+                                    @error('full_name')
+                                        <div class="text-red-600 text-sm">
+                                            * {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2">Phone
+                                        Number</label>
+                                    <input type="tel" name="phone_number"
+                                        value="{{ old('phone_number', Auth::guard('customer')->user()->phonenumber ?? '') }}" required
+                                        class="w-full px-2 py-2 md:px-3 md:py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-xs md:text-sm"
+                                        placeholder="Enter your phone number">
+                                    @error('phone_number')
+                                        <div class="text-red-600 text-sm">
+                                            * {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                <!-- Check-in and Check-out Dates -->
                                 <div class="grid grid-cols-2 gap-2 md:gap-3">
                                     <div>
                                         <label
                                             class="block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2">Check-in</label>
-                                        <input type="date"
+                                        <input type="date" name="check_in"
+                                            value="{{ old('check_in') }}"id="checkinDate" required
                                             class="w-full px-2 py-2 md:px-3 md:py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-xs md:text-sm">
+                                        @error('check_in')
+                                            <div class="text-red-600 text-sm">
+                                                * {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
 
                                     <div>
                                         <label
                                             class="block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2">Check-out</label>
-                                        <input type="date"
+                                        <input type="date" name="check_out" value="{{ old('check_out') }}"
+                                            id="checkoutDate" required
                                             class="w-full px-2 py-2 md:px-3 md:py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-xs md:text-sm">
+                                        <div class="text-xs text-gray-500 mt-1">Must be at least 8 weeks after check-in date</div>
+                                        @error('check_out')
+                                            <div class="text-red-600 text-sm">
+                                                * {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
 
+                                <!-- Guests -->
                                 <div>
-                                    <label
-                                        class="block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2">Guests</label>
-                                    <select
+                                    <label class="block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2">Room
+                                        Capacity</label>
+                                    <input type="number" name="room_capacity" value="{{ old('room_capacity') }}"
+                                        id="room_capacity" required min="1" max="{{ $accommodation->max_guest ?? 1 }}"
                                         class="w-full px-2 py-2 md:px-3 md:py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-xs md:text-sm">
-                                        <option>1 Guest</option>
-                                        <option>2 Guests</option>
-                                        <option>3 Guests</option>
-                                        <option>4 Guests</option>
-                                    </select>
+                                    <div class="text-xs text-gray-500 mt-1">Maximum {{ $accommodation->max_guest ?? 1 }} guests allowed</div>
+                                    @error('room_capacity')
+                                        <div class="text-red-600 text-sm">
+                                            * {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
 
+                                <!-- Pickup Option -->
+                                <div>
+                                    <label class="block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2">Pickup
+                                        Service</label>
+                                    <div class="flex space-x-4">
+                                        <label class="flex items-center">
+                                            <input type="radio" name="pickup" value="yes" id="pickupYes"
+                                                class="text-primary focus:ring-primary border-gray-300">
+                                            <span class="ml-2 text-xs md:text-sm text-gray-700">Yes</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="radio" name="pickup" value="no" id="pickupNo" checked
+                                                class="text-primary focus:ring-primary border-gray-300">
+                                            <span class="ml-2 text-xs md:text-sm text-gray-700">No</span>
+                                        </label>
+                                    </div>
+                                    @error('pickup')
+                                        <div class="text-red-600 text-sm">
+                                            * {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
 
+                                <!-- Pickup Details (Hidden by default) -->
+                                <div id="pickupDetails" class="hidden space-y-3">
+                                    <div class="grid grid-cols-2 gap-2 md:gap-3">
+                                        <div>
+                                            <label
+                                                class="block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2">Arrival
+                                                Date</label>
+                                            <input type="date" name="arrival_date" id="arrivalDate"
+                                                value="{{ old('arrival_date') }}"
+                                                class="w-full px-2 py-2 md:px-3 md:py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-xs md:text-sm">
+                                        </div>
+                                        <div>
+                                            <label
+                                                class="block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2">Arrival
+                                                Time</label>
+                                            <input type="time" name="arrival_time" value="{{ old('arrival_time') }}"
+                                                class="w-full px-2 py-2 md:px-3 md:py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-xs md:text-sm">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Special Requests -->
+                                <div>
+                                    <label class="block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2">Special
+                                        Requests</label>
+                                    <textarea name="special_requests" rows="3"
+                                        class="w-full px-2 py-2 md:px-3 md:py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-xs md:text-sm resize-none"
+                                        placeholder="Any special requests or requirements...">{{ old('special_requests') }}</textarea>
+                                    @error('special_requests')
+                                        <div class="text-red-600 text-sm">
+                                            * {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
 
                                 <button type="submit"
                                     class="w-full bg-primary text-white py-2 md:py-3 rounded-lg font-semibold hover:bg-primary-dark transition-colors duration-300 text-sm md:text-base">
-                                    Check Availability
+                                    Book Now
                                 </button>
 
                                 <div class="text-center">
                                     <p class="text-xs text-gray-500">No charge yet</p>
                                 </div>
                             </form>
+
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    const checkinInput = document.getElementById('checkinDate');
+                                    const checkoutInput = document.getElementById('checkoutDate');
+                                    const pickupYes = document.getElementById('pickupYes');
+                                    const pickupNo = document.getElementById('pickupNo');
+                                    const pickupDetails = document.getElementById('pickupDetails');
+                                    const arrivalDate = document.getElementById('arrivalDate');
+                                    const roomCapacityInput = document.getElementById('room_capacity');
+                                    const maxGuests = {{ $accommodation->max_guest ?? 1 }};
+
+                                    // Set minimum date to 8 weeks from today
+                                    const today = new Date();
+                                    const eightWeeksFromNow = new Date(today.getTime() + (8 * 7 * 24 * 60 * 60 * 1000));
+                                    const minDate = eightWeeksFromNow.toISOString().split('T')[0];
+                                    checkinInput.min = minDate;
+
+                                    // Set default check-in date if not already set
+                                    if (!checkinInput.value) {
+                                        checkinInput.value = minDate;
+                                    }
+
+                                    // Set minimum checkout date and default value
+                                    function updateCheckoutDate() {
+                                        if (checkinInput.value) {
+                                            const checkinDate = new Date(checkinInput.value);
+                                            const minCheckoutDate = new Date(checkinDate.getTime() + (8 * 7 * 24 * 60 * 60 * 1000));
+                                            const minCheckoutDateStr = minCheckoutDate.toISOString().split('T')[0];
+
+                                            // Set minimum date for checkout
+                                            checkoutInput.min = minCheckoutDateStr;
+
+                                            // Set default checkout date if not already set or if current value is less than minimum
+                                            if (!checkoutInput.value || new Date(checkoutInput.value) < minCheckoutDate) {
+                                                checkoutInput.value = minCheckoutDateStr;
+                                            }
+                                        }
+                                    }
+
+                                    // Validate check-in date (must be at least 8 weeks from today)
+                                    function validateCheckinDate() {
+                                        if (checkinInput.value) {
+                                            const selectedDate = new Date(checkinInput.value);
+                                            const minAllowedDate = new Date(today.getTime() + (8 * 7 * 24 * 60 * 60 * 1000));
+
+                                            if (selectedDate < minAllowedDate) {
+                                                alert('Check-in date must be at least 8 weeks from today.');
+                                                checkinInput.value = minDate;
+                                                updateCheckoutDate();
+                                            }
+                                        }
+                                    }
+
+                                    // Validate checkout date (must be at least 8 weeks after check-in)
+                                    function validateCheckoutDate() {
+                                        if (checkinInput.value && checkoutInput.value) {
+                                            const checkinDate = new Date(checkinInput.value);
+                                            const checkoutDate = new Date(checkoutInput.value);
+                                            const minCheckoutDate = new Date(checkinDate.getTime() + (8 * 7 * 24 * 60 * 60 * 1000));
+
+                                            if (checkoutDate < minCheckoutDate) {
+                                                alert('Check-out date must be at least 8 weeks after check-in date.');
+                                                checkoutInput.value = minCheckoutDate.toISOString().split('T')[0];
+                                            }
+                                        }
+                                    }
+
+                                    // Room capacity validation
+                                    function validateRoomCapacity() {
+                                        const capacity = parseInt(roomCapacityInput.value);
+                                        if (capacity > maxGuests) {
+                                            alert(`Room capacity cannot exceed ${maxGuests} guests.`);
+                                            roomCapacityInput.value = maxGuests;
+                                        } else if (capacity < 1) {
+                                            alert('Room capacity must be at least 1 guest.');
+                                            roomCapacityInput.value = 1;
+                                        }
+                                    }
+
+                                    // Initialize checkout date
+                                    updateCheckoutDate();
+
+                                    // Event listeners
+                                    checkinInput.addEventListener('change', function() {
+                                        validateCheckinDate();
+                                        updateCheckoutDate();
+                                    });
+
+                                    checkoutInput.addEventListener('change', validateCheckoutDate);
+
+                                    roomCapacityInput.addEventListener('change', validateRoomCapacity);
+                                    roomCapacityInput.addEventListener('input', validateRoomCapacity);
+
+                                    // Handle pickup option toggle
+                                    function togglePickupDetails() {
+                                        if (pickupYes.checked) {
+                                            pickupDetails.classList.remove('hidden');
+                                            arrivalDate.required = true;
+                                            // Set arrival date minimum to today
+                                            arrivalDate.min = today.toISOString().split('T')[0];
+                                        } else {
+                                            pickupDetails.classList.add('hidden');
+                                            arrivalDate.required = false;
+                                            arrivalDate.value = '';
+                                        }
+                                    }
+
+                                    pickupYes.addEventListener('change', togglePickupDetails);
+                                    pickupNo.addEventListener('change', togglePickupDetails);
+
+                                    // Initialize pickup details visibility
+                                    togglePickupDetails();
+                                });
+                            </script>
 
 
                         </div>

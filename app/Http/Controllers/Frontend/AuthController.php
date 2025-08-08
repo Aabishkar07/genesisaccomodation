@@ -65,7 +65,7 @@ class AuthController extends Controller
         ]);
 
         if (Auth::guard('customer')->attempt($credentials)) {
-            return redirect()->route('home')->with('popsuccess', 'Login Successful');
+            return redirect()->route('user.dashboard')->with('popsuccess', 'Login Successful');
         }
         return redirect()->route('login')->with('error', 'Invalid Credentials');
     }
@@ -169,6 +169,12 @@ public function forgotpassword()
         return redirect()->route('login')->with('success', 'Your Password Successfully changed .');
     }
 
+    public function logout(Request $request)
+    {
+        Auth::guard('customer')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
-
+        return redirect()->route('home')->with('success', 'You have been logged out successfully.');
+    }
 }
