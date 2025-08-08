@@ -1,6 +1,7 @@
 @extends('frontend.layout.app')
 @section('body')
-    @include('frontend.home.landing')
+    @include('frontend.home.heronew')
+    {{-- @include('frontend.home.landing') --}}
     @include('frontend.home.service')
 
     @include('frontend.home.about')
