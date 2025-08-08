@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\AboutUs;
 use App\Models\Accommodation;
+use App\Models\Banner;
 use App\Models\Blog;
 use App\Models\Contact;
 use App\Models\RoomType;
@@ -19,10 +20,12 @@ class IndexController extends Controller
     public function index()
     {
         $services = Service::latest()->limit(3)->get();
+        $banners = Banner::first();
+
         $testimonials = Testimonial::get();
         $accomodations = Accommodation::with('roomType')->where('status', 'active')->orderBy('sort_order', 'asc')->orderBy('created_at', 'desc')->limit(6)->get();
         $blogs = Blog::orderBy('sort_order', 'asc')->orderBy('created_at', 'desc')->limit(6)->get();
-        return view("frontend.home.index", compact('blogs', 'services', 'testimonials', 'accomodations'));
+        return view("frontend.home.index", compact('blogs', 'services', 'testimonials', 'accomodations','banners'));
     }
 
     public function single(Request $request, Blog $blog)

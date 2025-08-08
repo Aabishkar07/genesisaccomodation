@@ -1,7 +1,7 @@
 <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
     {{-- {/* Background Image with Overlay */} --}}
     <div class="absolute inset-0 z-0">
-        <img src={{ asset('images/bg.jpg') }} alt="Modern student hostel accommodation"
+        <img src="{{ asset('uploads/' . $banners->image) }}" alt="Modern student hostel accommodation"
             class="w-full h-full object-cover" />
         <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/70"></div>
     </div>
@@ -10,15 +10,14 @@
     <div class="relative z-10  px-4 sm:px-6 lg:px-8 text-center text-white">
         <div class="max-w-5xl mx-auto">
             <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-               Discover Your Next Room
+             {{$banners->title}}
 
             </h1>
 
 
 
             <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-3xl mx-auto">
-                Discover comfortable, affordable hostels near your university. Book rooms, order food,
-                and get airport pickup services - all in one platform.
+                {{$banners->button_text}}
             </p>
 
             {{-- {/* Professional Search Bar */} --}}
