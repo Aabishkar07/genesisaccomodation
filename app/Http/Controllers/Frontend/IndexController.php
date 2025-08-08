@@ -7,6 +7,7 @@ use App\Models\AboutUs;
 use App\Models\Accommodation;
 use App\Models\Blog;
 use App\Models\Contact;
+use App\Models\RoomType;
 use App\Models\Service;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
@@ -72,15 +73,70 @@ class IndexController extends Controller
         return view("frontend.contact.index", compact('contact'));
     }
 
-    public function accommodations()
+    public function accommodations(Request $request)
     {
-        $accommodations = Accommodation::with('roomType')
-            ->where('status', 'active')
-            ->orderBy('sort_order', 'asc')
-            ->orderBy('created_at', 'desc')
-            ->paginate(12);
+        $roomTypes = RoomType::where('status', 'available')->get();
+        $query = Accommodation::with('roomType')
+            ->where('status', 'active');
 
-        return view("frontend.accommodation.index", compact('accommodations'));
+        // Search functionality
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->whereAny([
+                'name',
+                'description',
+                'address',
+                'city',
+                'state'
+            ], 'like', "%{$search}%");
+        }
+
+
+        // Room type filter
+        if ($request->filled('room_type')) {
+            $query->whereHas('roomType', function ($q) use ($request) {
+                $q->where('id', $request->room_type);
+            });
+        }
+
+        // Price range filter
+        if ($request->filled('price_range')) {
+            $priceRange = $request->price_range;
+            switch ($priceRange) {
+                case '0-100':
+                    $query->where('price', '<=', 100);
+                    break;
+                case '100-200':
+                    $query->where('price', '>', 100)->where('price', '<=', 200);
+                    break;
+                case '200+':
+                    $query->where('price', '>', 200);
+                    break;
+            }
+        }
+
+        // Sorting
+        $sortBy = $request->get('sort', 'latest');
+        switch ($sortBy) {
+            case 'price_low':
+                $query->orderBy('price', 'asc');
+                break;
+            case 'price_high':
+                $query->orderBy('price', 'desc');
+                break;
+            case 'name_asc':
+                $query->orderBy('name', 'asc');
+                break;
+            default:
+                $query->orderBy('sort_order', 'asc')->orderBy('created_at', 'desc');
+                break;
+        }
+
+        $accommodations = $query->paginate(12);
+
+
+
+        return view("frontend.accommodation.index", compact('accommodations', 'roomTypes'));
     }
 
     public function accommodationSingle(Accommodation $accommodation)
