@@ -11,21 +11,24 @@ use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\AdminAuthController;
 use Illuminate\Support\Facades\Route;
 
-// Admin login route (outside middleware group for now)
-Route::get('login', function () {
-    return view('admin.auth.login');
-})->name('admin.login');
+// Admin authentication routes (outside middleware group)
+Route::get('login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
+Route::post('login', [AdminAuthController::class, 'login'])->name('admin.login.post');
 
+// Protected admin routes
 Route::middleware(["admin"])->group(function () {
+    // Logout route
+    Route::post('logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 
     // Redirect /admin to /admin/dashboard
     Route::get('/', function () {
-        return redirect()->route('dashboard');
+        return redirect()->route('admin.dashboard');
     });
 
-    Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
 
     // Blogs
     Route::resource('blogs', BlogController::class)->names([

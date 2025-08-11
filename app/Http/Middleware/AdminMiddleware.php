@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class AdminMiddleware
@@ -15,12 +16,16 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // For now, allow all requests to admin panel
-        // In the future, you can add authentication logic here
-        // Example:
-        // if (!auth()->check() || !auth()->user()->isAdmin()) {
-        //     return redirect('/login')->with('error', 'Access denied. Admin privileges required.');
-        // }
+        // Check if user is authenticated
+        if (!Auth::check()) {
+            return redirect()->route('admin.login')->with('error', 'Please login to access the admin panel.');
+        }
+
+        // Check if user has admin role
+        if (Auth::user()->role !== 'admin') {
+            Auth::logout();
+            return redirect()->route('admin.login')->with('error', 'Access denied. Admin privileges required.');
+        }
 
         return $next($request);
     }

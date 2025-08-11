@@ -92,11 +92,11 @@
                 <button @click="userMenuOpen = !userMenuOpen"
                     class="flex items-center text-gray-600 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 rounded-md">
                     <img class="h-8 w-8 rounded-full object-cover"
-                        src="https://ui-avatars.com/api/?name=Admin&background=0D9488&color=fff&size=128"
+                        src="https://ui-avatars.com/api/?name={{ auth()->user()->name ?? 'Admin' }}&background=0D9488&color=fff&size=128"
                         alt="Admin">
                     <div class="ml-3 hidden md:block">
-                        <p class="text-sm font-medium text-gray-700">Admin User</p>
-                        <p class="text-xs text-gray-500">Administrator</p>
+                        <p class="text-sm font-medium text-gray-700">{{ auth()->user()->name ?? 'Admin User' }}</p>
+                        <p class="text-xs text-gray-500">{{ auth()->user()->email ?? 'admin@example.com' }}</p>
                     </div>
                     <svg class="ml-2 h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
@@ -114,8 +114,8 @@
                     class="absolute right-0 z-50 mt-2 w-48 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
                     <div class="py-1">
                         <div class="px-4 py-2 border-b border-gray-100">
-                            <p class="text-sm text-gray-900 font-medium">Admin User</p>
-                            <p class="text-sm text-gray-500">admin@example.com</p>
+                            <p class="text-sm text-gray-900 font-medium">{{ auth()->user()->name ?? 'Admin User' }}</p>
+                            <p class="text-sm text-gray-500">{{ auth()->user()->email ?? 'admin@example.com' }}</p>
                         </div>
                         
                         <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
@@ -128,9 +128,7 @@
                             </div>
                         </a>
                         <div class="border-t border-gray-100"></div>
-                        <form method="POST" action="
-                        {{-- {{ route('logout') }} --}}
-                         ">
+                        <form method="POST" action="{{ route('admin.logout') }}">
                             @csrf
                             <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                 <div class="flex items-center">
