@@ -1,7 +1,7 @@
 @extends('frontend.layout.app')
 @section('body')
 
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+{{-- <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         @forelse($accommodations as $accommodation)
             <div class="border rounded-lg p-4 shadow hover:shadow-lg transition">
                 <img src="{{ asset('uploads/'.$accommodation->featured_image) }}" alt="{{ $accommodation->name }}" class="w-full h-40 object-cover rounded">
@@ -13,6 +13,11 @@
         @empty
             <p class="col-span-3 text-center text-gray-500">No accommodations found.</p>
         @endforelse
-    </div>
+    </div> --}}
+
+
+   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3  my-12 max-w-screen-2xl mx-auto px-4">
+            @include('frontend.component.accomodation')
+        </div>
 
     @endsection

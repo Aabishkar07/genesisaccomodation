@@ -21,11 +21,11 @@ class IndexController extends Controller
     {
         $services = Service::latest()->limit(3)->get();
         $banners = Banner::first();
-$roomTypes=RoomType::get();
+        $roomTypes = RoomType::get();
         $testimonials = Testimonial::get();
         $accomodations = Accommodation::with('roomType')->where('status', 'active')->orderBy('sort_order', 'asc')->orderBy('created_at', 'desc')->limit(6)->get();
         $blogs = Blog::orderBy('sort_order', 'asc')->orderBy('created_at', 'desc')->limit(6)->get();
-        return view("frontend.home.index", compact('blogs', 'services', 'testimonials', 'accomodations','banners','roomTypes'));
+        return view("frontend.home.index", compact('blogs', 'services', 'testimonials', 'accomodations', 'banners', 'roomTypes'));
     }
 
     public function single(Request $request, Blog $blog)
@@ -156,36 +156,33 @@ $roomTypes=RoomType::get();
     }
 
 
-     public function filteraccommodations(Request $request)
+    public function filteraccommodations(Request $request)
     {
-        $query = Accommodation::with('roomType');
 
-        // Filter by Room Type
+        $query = Accommodation::with('roomType');
         if ($request->filled('room_type')) {
             $query->where('room_type_id', $request->room_type);
         }
-
-        // Filter by Price Range
         if ($request->filled('price_range')) {
-            [$min, $max] = explode('-', $request->price_range . '-');
-            if ($max) {
+            $range = $request->price_range;
+
+            if (strpos($range, '-') !== false) {
+                [$min, $max] = explode('-', $range);
                 $query->whereBetween('price', [(int)$min, (int)$max]);
-            } else {
-                $query->where('price', '>=', (int)$min);
+            } elseif (strpos($range, '+') !== false) {
+                $min = (int) rtrim($range, '+');
+                $query->where('price', '>=', $min);
             }
         }
 
-        // Filter by Guests
         if ($request->filled('guests')) {
             $query->where('max_guest', '>=', $request->guests);
         }
 
-        $accommodations = $query->paginate(10);
-
-        // Get all room types for the dropdown
+        $accomodations = $query->paginate(10);
         $roomTypes = RoomType::all();
 
-        return view('frontend.accommodation.filter', compact('accommodations', 'roomTypes'));
+        return view('frontend.accommodation.filter', compact('accomodations', 'roomTypes'));
     }
 
     public function store(Request $request)
