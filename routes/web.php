@@ -41,6 +41,7 @@ Route::post('changepassword/{changepassword}', [AuthController::class, 'changepa
 
 Route::get('/accommodations', [IndexController::class, 'accommodations'])->name('accommodations');
 Route::get('/accommodation/{accommodation:slug}', [IndexController::class, 'accommodationSingle'])->name('accommodation.single');
+Route::get('/filteraccommodations', [IndexController::class, 'filteraccommodations'])->name('filteraccommodations');
 
 // Booking Routes
 Route::post('/accommodation/{accommodation}/book', [BookingController::class, 'store'])->name('booking.store');

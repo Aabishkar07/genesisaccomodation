@@ -131,6 +131,59 @@
 
 
 
+             <form method="GET" action="{{ route('filteraccommodations') }}" class="mb-6">
+        <div class="bg-white/98 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-gray-200/50">
+            <div class="flex flex-col lg:flex-row items-stretch gap-2">
+
+                {{-- Room Type --}}
+                <div class="flex-1 min-w-0">
+                    <select name="room_type" class="bg-gray-50 rounded-lg border p-2 w-full">
+                        <option value="">Room Type</option>
+                        @foreach($roomTypes as $type)
+                            <option value="{{ $type->id }}" {{ request('room_type') == $type->id ? 'selected' : '' }}>
+                                {{ $type->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                {{-- Price Range --}}
+                <div class="flex-1 min-w-0">
+                    <select name="price_range" class="bg-gray-50 rounded-lg border p-2 w-full">
+                        <option value="">Price Range</option>
+                        <option value="0-500" {{ request('price_range')=='0-500' ? 'selected' : '' }}>$0 - $500</option>
+                        <option value="500-1000" {{ request('price_range')=='500-1000' ? 'selected' : '' }}>$500 - $1,000</option>
+                        <option value="1000-1500" {{ request('price_range')=='1000-1500' ? 'selected' : '' }}>$1,000 - $1,500</option>
+                        <option value="1500-2000" {{ request('price_range')=='1500-2000' ? 'selected' : '' }}>$1,500 - $2,000</option>
+                        <option value="2000+" {{ request('price_range')=='2000+' ? 'selected' : '' }}>$2,000+</option>
+                    </select>
+                </div>
+
+                {{-- Guests --}}
+                <div class="flex-1 min-w-0">
+                    <select name="guests" class="bg-gray-50 rounded-lg border p-2 w-full">
+                        <option value="">Guests</option>
+                        <option value="1" {{ request('guests')=='1' ? 'selected' : '' }}>1 Guest</option>
+                        <option value="2" {{ request('guests')=='2' ? 'selected' : '' }}>2 Guests</option>
+                        <option value="3" {{ request('guests')=='3' ? 'selected' : '' }}>3 Guests</option>
+                        <option value="4" {{ request('guests')=='4' ? 'selected' : '' }}>4+ Guests</option>
+                    </select>
+                </div>
+
+                {{-- Search Button --}}
+                <div class="lg:w-auto">
+                    <button type="submit"
+                        class="bg-gradient-to-r from-primary to-secondary text-white font-semibold py-2 px-6 rounded-lg hover:shadow-lg">
+                        Search
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </form>
+
+   
+
             {{-- {/* Stats Section */} --}}
             <div class="grid grid-cols-3 gap-8 mt-16 max-w-3xl mx-auto">
                 <div class="text-center group">
