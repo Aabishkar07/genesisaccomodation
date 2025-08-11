@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\LegalPageController;
 use App\Http\Controllers\Admin\AdminAuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -135,5 +136,19 @@ Route::middleware(["admin"])->group(function () {
         'update' => 'admin.banners.update',
         'destroy' => 'admin.banners.destroy',
     ]);
+
+    // Legal Pages
+    Route::resource('legal-pages', LegalPageController::class)->names([
+        'index' => 'admin.legal-pages.index',
+        'create' => 'admin.legal-pages.create',
+        'store' => 'admin.legal-pages.store',
+        'show' => 'admin.legal-pages.show',
+        'edit' => 'admin.legal-pages.edit',
+        'update' => 'admin.legal-pages.update',
+        'destroy' => 'admin.legal-pages.destroy',
+    ]);
+
+    // Legal Pages Toggle Status
+    Route::put('legal-pages/{legalPage}/toggle-status', [LegalPageController::class, 'toggleStatus'])->name('admin.legal-pages.toggle-status');
 
 });

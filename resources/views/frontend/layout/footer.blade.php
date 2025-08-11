@@ -149,12 +149,12 @@
                 <nav class="space-y-4">
                     <h4 class="text-lg font-semibold text-white border-b border-blue-700 pb-2">Legal</h4>
                     <ul class="space-y-2">
-                        <li><a href="#privacy"
+                        <li><a href="{{ route('privacy-policy') }}"
                                 class="text-white hover:text-white transition-colors text-sm hover:translate-x-1 transform duration-200 inline-block">Privacy
                                 Policy</a></li>
-                        <li><a href="#terms"
+                        <li><a href="{{ route('terms-conditions') }}"
                                 class="text-white hover:text-white transition-colors text-sm hover:translate-x-1 transform duration-200 inline-block">Terms
-                                of Service</a></li>
+                                & Conditions</a></li>
                     </ul>
                 </nav>
             </div>

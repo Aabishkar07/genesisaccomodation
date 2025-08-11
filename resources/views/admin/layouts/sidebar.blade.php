@@ -143,6 +143,20 @@
             </div>
         </div>
 
+        <!-- Legal Section -->
+        <div class="mb-6">
+            <h3 class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Legal</h3>
+            <div class="mt-2 space-y-1">
+                <a href="{{ route('admin.legal-pages.index') }}"
+                    class="group flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors {{ request()->routeIs('admin.legal-pages.*') ? 'bg-blue-100 text-blue-700' : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900' }}">
+                    <svg class="mr-3 h-5 w-5 {{ request()->routeIs('admin.legal-pages.*') ? 'text-blue-500' : 'text-gray-400 group-hover:text-gray-500' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    Legal Pages
+                </a>
+            </div>
+        </div>
+
         <!-- Settings Section -->
         <div class="mb-6">
             <h3 class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Settings</h3>

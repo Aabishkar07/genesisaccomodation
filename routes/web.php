@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Frontend\AuthController;
 use App\Http\Controllers\Frontend\IndexController;
+use App\Http\Controllers\Frontend\LegalPageController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
@@ -42,6 +43,10 @@ Route::post('changepassword/{changepassword}', [AuthController::class, 'changepa
 Route::get('/accommodations', [IndexController::class, 'accommodations'])->name('accommodations');
 Route::get('/accommodation/{accommodation:slug}', [IndexController::class, 'accommodationSingle'])->name('accommodation.single');
 Route::get('/filteraccommodations', [IndexController::class, 'filteraccommodations'])->name('filteraccommodations');
+
+// Legal Pages Routes
+Route::get('/privacy-policy', [LegalPageController::class, 'privacyPolicy'])->name('privacy-policy');
+Route::get('/terms-conditions', [LegalPageController::class, 'termsConditions'])->name('terms-conditions');
 
 // Booking Routes
 Route::post('/accommodation/{accommodation}/book', [BookingController::class, 'store'])->name('booking.store');
