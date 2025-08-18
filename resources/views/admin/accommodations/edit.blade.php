@@ -174,9 +174,8 @@
                                         'Car Rental',
                                         'Airport Shuttle',
                                     ];
-                                    $currentAmenities = json_decode($accommodation->amenities)
-                                        ? json_decode($accommodation->amenities)
-                                        : [];
+                                    // Since amenities is cast as array in the model, it's already decoded
+                                    $currentAmenities = is_array($accommodation->amenities) ? $accommodation->amenities : [];
 
                                     $customAmenities = [];
                                     // dd($customAmenities);
@@ -282,7 +281,7 @@
                             <div class="mb-4">
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Current Gallery Images</label>
                                 <div id="current-gallery-images" class="flex flex-wrap gap-2">
-                                    @foreach (json_decode($accommodation->gallery, true) as $image)
+                                    @foreach ($accommodation->gallery as $image)
                                         <div class="relative inline-block">
                                             <img src="{{ asset('uploads/' . $image) }}" alt="Gallery Image"
                                                 class="w-full h-20 object-cover rounded-lg">
@@ -428,8 +427,8 @@
             </div>
         </form>
         <script>
-            // Initial old images
-            const oldImages = @json(json_decode($accommodation->gallery, true) ?? []);
+            // Initial old images - gallery is already an array from the model cast
+            const oldImages = @json($accommodation->gallery ?? []);
             const galleryPreview = document.getElementById('gallery-preview');
             let deletedImages = [];
             let newImages = [];

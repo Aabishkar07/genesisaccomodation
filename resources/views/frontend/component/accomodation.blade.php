@@ -50,17 +50,17 @@
             @endif
 
             <!-- Room Type -->
-            @if ($accommodation->roomType)
+            {{-- @if ($accommodation->roomType)
                 <div class="mb-4">
                     <span
                         class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
                         {{ $accommodation->roomType->name }}
                     </span>
                 </div>
-            @endif
+            @endif --}}
 
             <!-- Amenities -->
-            @if ($accommodation->amenities && is_array($accommodation->amenities))
+            {{-- @if ($accommodation->amenities && is_array($accommodation->amenities))
                 <div class="mb-4">
                     <div class="flex flex-wrap gap-2">
                         @foreach (array_slice($accommodation->amenities, 0, 3) as $amenity)
@@ -77,35 +77,9 @@
                         @endif
                     </div>
                 </div>
-            @endif
+            @endif --}}
 
-            <!-- Features -->
-            {{-- <div class="border-t border-gray-200 pt-4 mb-4">
-                <div class="flex items-center justify-between text-sm text-gray-600">
-                    <div class="flex items-center">
-                        <svg class="w-4 h-4 mr-1 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                        <span>Modern</span>
-                    </div>
-                    <div class="flex items-center">
-                        <svg class="w-4 h-4 mr-1 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                        <span>Verified</span>
-                    </div>
-                    <div class="flex items-center">
-                        <svg class="w-4 h-4 mr-1 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
-                            <path
-                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
-                            </path>
-                        </svg>
-                        <span>4.8</span>
-                    </div>
-                </div>
-            </div> --}}
+
 
             <!-- Action Buttons -->
             <div class="flex items-center border-t border-gray-200 justify-between">
@@ -119,7 +93,7 @@
                                 class="px-4 py-2 text-sm font-medium text-primary border border-primary rounded-lg hover:bg-primary hover:text-white transition-colors duration-300">
                                  View Details
                              </a>
-                          
+
                          </div>
             </div>
         </div>
