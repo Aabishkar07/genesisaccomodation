@@ -101,7 +101,8 @@
                             <div class="mb-4">
                                 <div class="relative group cursor-pointer">
                                     @php
-                                        $gallery = json_decode($accommodation->gallery, true);
+                                        // Gallery is already an array from the model cast
+                                        $gallery = $accommodation->gallery;
                                     @endphp
                                     <a href="{{ asset('uploads/' . $accommodation->featured_image) }}"
                                         data-fancybox="gallery" data-caption="{{ $accommodation->name }}">

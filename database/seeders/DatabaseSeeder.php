@@ -30,6 +30,11 @@ class DatabaseSeeder extends Seeder
             SettingsSeeder::class,
             BannerSeeder::class,
             LegalPageSeeder::class,
+            RoomTypeSeeder::class,
+            AccommodationSeeder::class,
+            BlogSeeder::class,
+            TestimonialSeeder::class,
+            ImageSeeder::class,
         ]);
     }
 }

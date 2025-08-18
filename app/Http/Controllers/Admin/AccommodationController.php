@@ -23,6 +23,7 @@ class AccommodationController extends Controller
     public function index()
     {
         $accommodations = Accommodation::with('roomType')->orderBy('sort_order')->paginate(10);
+
         return view('admin.accommodations.index', compact('accommodations'));
     }
 
@@ -85,7 +86,7 @@ class AccommodationController extends Controller
                 // $gallery[] = $file->store('accommodations/gallery', 'public');
                 $gallery[] = $galleryimg;
             }
-            $data['gallery'] = json_encode($gallery);
+            $data['gallery'] = $gallery; // Model will handle JSON encoding via cast
         }
 
         // Handle amenities as array
@@ -101,7 +102,7 @@ class AccommodationController extends Controller
         }
 
         if (!empty($amenities)) {
-            $data['amenities'] = json_encode($amenities);
+            $data['amenities'] = $amenities; // Model will handle JSON encoding via cast
         }
 
         // Handle meta image upload
@@ -184,17 +185,12 @@ class AccommodationController extends Controller
             if ($accommodation->featured_image) {
                 $this->imageservice->imageDelete($accommodation->featured_image);
             }
-            $data['featured_image'] = $request->file('featured_image')->store('accommodations', 'public');
+            $data['featured_image'] = $this->imageservice->fileUpload($request->file('featured_image'), 'featured');
         }
 
         // Handle gallery upload and deletion
-        if (is_array($accommodation->gallery)) {
-            $oldGallery = $accommodation->gallery;
-        } elseif (!empty($accommodation->gallery) && is_string($accommodation->gallery)) {
-            $oldGallery = json_decode($accommodation->gallery, true);
-        } else {
-            $oldGallery = [];
-        }
+        // Gallery is already an array from the model cast
+        $oldGallery = $accommodation->gallery ?? [];
         $deletedGalleryImages = json_decode($request->input('deleted_gallery_images', '[]'), true);
         if (!is_array($deletedGalleryImages)) {
             $deletedGalleryImages = [];
@@ -214,7 +210,7 @@ class AccommodationController extends Controller
                 $gallery[] = $galleryimg;
             }
         }
-        $data['gallery'] = json_encode(array_values($gallery));
+        $data['gallery'] = array_values($gallery); // Model will handle JSON encoding via cast
 
         // Handle amenities as array
         $amenities = [];
@@ -229,7 +225,7 @@ class AccommodationController extends Controller
         }
 
         if (!empty($amenities)) {
-            $data['amenities'] = json_encode($amenities);
+            $data['amenities'] = $amenities; // Model will handle JSON encoding via cast
         }
 
         // Handle meta image upload
@@ -274,7 +270,8 @@ class AccommodationController extends Controller
         }
 
         if ($accommodation->gallery) {
-            $gallery = json_decode($accommodation->gallery, true);
+            // Gallery is already an array from the model cast
+            $gallery = $accommodation->gallery;
             foreach ($gallery as $image) {
                 $this->imageservice->imageDelete($image);
 

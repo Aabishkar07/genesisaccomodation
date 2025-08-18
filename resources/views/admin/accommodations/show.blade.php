@@ -37,7 +37,7 @@
                     <div>
                         <h4 class="text-sm font-medium text-gray-900 mb-2">Gallery Images</h4>
                         <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                            @foreach(json_decode($accommodation->gallery, true) as $image)
+                            @foreach($accommodation->gallery as $image)
                                 <img src="{{ asset('uploads/' . $image) }}" alt="Gallery Image" class="w-full h-32 object-cover rounded-lg">
                             @endforeach
                         </div>
