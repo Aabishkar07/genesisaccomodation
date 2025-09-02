@@ -50,12 +50,12 @@ class RoomTypeController extends Controller
             'og_title' => 'nullable|string|max:255',
             'og_description' => 'nullable|string',
             'og_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'status' => 'required|in:available,unavailable',
+            // 'status' => 'required|in:available,unavailable',
         ]);
 
         $data = $request->all();
         $data['slug'] = Str::slug($request->name);
-
+        $data['status'] = "available";
         if ($request->hasFile('featured_image')) {
             $data['featured_image'] = $this->imageservice->fileUpload($request->file('featured_image'), 'featured');
         }
@@ -105,11 +105,12 @@ class RoomTypeController extends Controller
             'og_title' => 'nullable|string|max:255',
             'og_description' => 'nullable|string',
             'og_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'status' => 'required|in:available,unavailable',
+            // 'status' => 'required|in:available,unavailable',
         ]);
 
         $data = $request->all();
         $data['slug'] = Str::slug($request->name);
+
         if ($request->hasFile('featured_image')) {
             if ($roomType->featured_image) {
                 $this->imageservice->imageDelete($roomType->featured_image);

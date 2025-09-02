@@ -24,13 +24,14 @@ class IndexController extends Controller
         $roomTypes = RoomType::get();
         $testimonials = Testimonial::get();
         $accomodations = Accommodation::with('roomType')->where('status', 'active')->orderBy('sort_order', 'asc')->orderBy('created_at', 'desc')->limit(6)->get();
-        $blogs = Blog::orderBy('sort_order', 'asc')->orderBy('created_at', 'desc')->limit(6)->get();
+        $blogs = Blog::where('status', 'published')->orderBy('sort_order', 'asc')->orderBy('created_at', 'desc')->limit(6)->get();
+
         return view("frontend.home.index", compact('blogs', 'services', 'testimonials', 'accomodations', 'banners', 'roomTypes'));
     }
 
     public function single(Request $request, Blog $blog)
     {
-        $allblogs = Blog::where('id', '!=', $blog->id)->get();
+        $allblogs = Blog::where('id', '!=', $blog->id)->where('status', 'published')->get();
         // $blog->views++;
         // $blog->save();
         $slug = $blog->slug;
@@ -58,14 +59,14 @@ class IndexController extends Controller
     public function services()
     {
 
-        $services = Service::get();
+        $services = Service::where('status', 'active')->get();
         return view("frontend.service.index", compact('services'));
     }
 
     public function blogs()
     {
 
-        $blogs = Blog::get();
+        $blogs = Blog::where('status', 'published')->orderBy('sort_order', 'asc')->orderBy('created_at', 'desc')->get();
         return view("frontend.blog.allblogs", compact('blogs'));
     }
 
@@ -168,7 +169,7 @@ class IndexController extends Controller
 
             if (strpos($range, '-') !== false) {
                 [$min, $max] = explode('-', $range);
-                $query->whereBetween('price', [(int)$min, (int)$max]);
+                $query->whereBetween('price', [(int) $min, (int) $max]);
             } elseif (strpos($range, '+') !== false) {
                 $min = (int) rtrim($range, '+');
                 $query->where('price', '>=', $min);

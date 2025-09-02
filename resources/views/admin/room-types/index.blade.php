@@ -52,7 +52,7 @@
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div>
                                             <div class="text-sm font-medium text-gray-900">{{ $roomType->name }}</div>
-                                            <div class="text-sm text-gray-500">{{ Str::limit($roomType->description, 50) }}
+                                            <div class="text-sm text-gray-500">{!! Str::limit($roomType->description, 50) !!}
                                             </div>
                                         </div>
                                     </td>

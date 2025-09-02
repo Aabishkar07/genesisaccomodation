@@ -22,7 +22,7 @@
     </div>
 
     <!-- Booking Statistics -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
             <div class="flex items-center">
                 <div class="flex-shrink-0">
@@ -73,7 +73,7 @@
                 </div>
             </div>
         </div>
-
+{{--
         <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
             <div class="flex items-center">
                 <div class="flex-shrink-0">
@@ -89,7 +89,7 @@
                     <p class="text-xs text-purple-600 font-medium">This month</p>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 
     <!-- Pending Bookings Alert -->

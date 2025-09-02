@@ -147,7 +147,7 @@ public function update(Request $request, Service $service)
         if ($service->meta_image) {
             $this->imageservice->imageDelete($service->meta_image);
         }
-        $data['meta_image'] = $this->imageservice->fileUpload($request->file('meta_image'), 'services/meta');
+        $data['meta_image'] = $this->imageservice->fileUpload($request->file('meta_image'), 'services_meta');
     }
 
     // OG image
@@ -155,7 +155,7 @@ public function update(Request $request, Service $service)
         if ($service->og_image) {
             $this->imageservice->imageDelete($service->og_image);
         }
-        $data['og_image'] = $this->imageservice->fileUpload($request->file('og_image'), 'services/og');
+        $data['og_image'] = $this->imageservice->fileUpload($request->file('og_image'), 'services_og');
     }
 
     // Twitter image
