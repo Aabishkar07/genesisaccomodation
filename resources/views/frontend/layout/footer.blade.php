@@ -5,7 +5,7 @@
 @endphp
 
 <footer class="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 text-white mt-10">
-    <div class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8" >
+    <div class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Main Footer Content -->
         <div class="py-12 lg:py-16">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-8 lg:gap-12">
@@ -17,8 +17,7 @@
                             Genesis
                         </h3>
                         <p class="text-white leading-relaxed max-w-md text-sm lg:text-base">
-                            The ultimate platform connecting peoples with quality hostels, airport services, and 24/7
-                            support.
+                            {{ $settings['footer_description'] }}
                         </p>
                     </div>
 
@@ -163,9 +162,9 @@
         <!-- Bottom Bar -->
         <div class="border-t border-blue-700 py-6">
             <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-               <p class="text-blue-200 text-sm">
-    © {{ date('Y') }} Genesis. All rights reserved.
-</p>
+                <p class="text-blue-200 text-sm">
+                    © {{ date('Y') }} {{ $settings['footer_text'] }}
+                </p>
 
                 <div class="flex items-center gap-6 text-sm text-blue-200">
                     <span class="flex items-center gap-2">
@@ -174,7 +173,7 @@
                             <path
                                 d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                         </svg>
-                        by Softsaro
+                        by <a target="_blank" href="http://softsaro.com"> <span>Softsaro</span></a>
                     </span>
                 </div>
             </div>

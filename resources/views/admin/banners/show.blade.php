@@ -43,17 +43,17 @@
                             <p class="mt-1 text-sm text-gray-900">{{ $banner->title ?? 'N/A' }}</p>
                         </div>
 
-                        <div>
+                        {{-- <div>
                             <label class="block text-sm font-medium text-gray-700">Subtitle</label>
                             <p class="mt-1 text-sm text-gray-900">{{ $banner->subtitle ?? 'N/A' }}</p>
-                        </div>
+                        </div> --}}
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Description</label>
                             <p class="mt-1 text-sm text-gray-900">{{ $banner->description ?? 'N/A' }}</p>
                         </div>
 
-                        <div>
+                        {{-- <div>
                             <label class="block text-sm font-medium text-gray-700">Button Text</label>
                             <p class="mt-1 text-sm text-gray-900">{{ $banner->button_text ?? 'N/A' }}</p>
                         </div>
@@ -69,7 +69,7 @@
                                     N/A
                                 @endif
                             </p>
-                        </div>
+                        </div> --}}
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Status</label>
