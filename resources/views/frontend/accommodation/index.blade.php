@@ -42,7 +42,7 @@
                         <option value="{{ $roomType->id }}" {{ request('room_type') == $roomType->id ? 'selected' : '' }}>
                             {{ $roomType->name }}
                         </option>
-                    @endforeach 
+                    @endforeach
                 </select>
 
                 <select name="price_range" class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
@@ -149,7 +149,7 @@
                     @if($accommodation->description)
                     <div class="mb-4">
                         <p class="text-gray-600 text-sm line-clamp-2">
-                            {{ Str::limit($accommodation->description, 100) }}
+                            {!! Str::limit($accommodation->description, 100) !!}
                         </p>
                     </div>
                     @endif
@@ -164,7 +164,7 @@
                     @endif
 
                     <!-- Amenities -->
-                    @if($accommodation->amenities && is_array($accommodation->amenities))
+                    {{-- @if($accommodation->amenities && is_array($accommodation->amenities))
                     <div class="mb-4">
                         <div class="flex flex-wrap gap-2">
                             @foreach(array_slice($accommodation->amenities, 0, 3) as $amenity)
@@ -179,7 +179,7 @@
                             @endif
                         </div>
                     </div>
-                    @endif
+                    @endif --}}
 
                     <!-- Action Buttons -->
                     <div class="flex items-center justify-between border-t border-gray-200 pt-4">

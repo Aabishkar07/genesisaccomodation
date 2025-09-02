@@ -9,6 +9,6 @@
     @include('frontend.home.accomodation')
     @include('frontend.component.calltoaction')
 
-    @include('frontend.home.testimonial')
     @include('frontend.home.blog')
+    @include('frontend.home.testimonial')
 @endsection

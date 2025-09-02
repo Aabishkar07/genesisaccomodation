@@ -117,6 +117,9 @@ public function update(Request $request, String $id)
         'title' => 'required|string|max:255',
         'content' => 'required|string',
         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'secondary_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'tertiary_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+
         'mission' => 'nullable|string',
         'vision' => 'nullable|string',
         'values' => 'nullable|string',
@@ -143,6 +146,22 @@ public function update(Request $request, String $id)
             $this->imageservice->imageDelete($aboutUs->image);
         }
         $data['image'] = $this->imageservice->fileUpload($request->file('image'), 'about-us');
+    }
+
+    // Handle secondary image
+    if ($request->hasFile('secondary_image')) {
+        if ($aboutUs->secondary_image) {
+            $this->imageservice->imageDelete($aboutUs->secondary_image);
+        }
+        $data['secondary_image'] = $this->imageservice->fileUpload($request->file('secondary_image'), 'about-us');
+    }
+
+    // Handle tertiary image
+    if ($request->hasFile('tertiary_image')) {
+        if ($aboutUs->tertiary_image) {
+            $this->imageservice->imageDelete($aboutUs->tertiary_image);
+        }
+        $data['tertiary_image'] = $this->imageservice->fileUpload($request->file('tertiary_image'), 'about-us');
     }
 
     // Handle meta image

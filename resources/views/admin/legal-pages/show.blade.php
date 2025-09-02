@@ -81,7 +81,7 @@
             </div>
 
             <!-- Action Buttons -->
-            <div class="mt-8 flex items-center justify-between pt-6 border-t border-gray-200">
+            {{-- <div class="mt-8 flex items-center justify-between pt-6 border-t border-gray-200">
                 <div class="flex space-x-3">
                     <form action="{{ route('admin.legal-pages.destroy', $legalPage) }}" method="POST" class="inline">
                         @csrf
@@ -93,7 +93,7 @@
                         </button>
                     </form>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 @endsection

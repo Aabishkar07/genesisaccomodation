@@ -149,9 +149,9 @@
                             </div>
 
                             @if ($aboutUs->meta_image)
-                                <div class="mb-4">
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">Current Meta Image</label>
-                                    <img src="{{ asset('storage/' . $aboutUs->meta_image) }}" alt="Meta Image"
+                                <div class="mb-4 oldimage2">
+                                    <label class="block text-sm font-medium text-gray-700 mb-2 ">Current Meta Image</label>
+                                    <img src="{{ asset('uploads/' . $aboutUs->meta_image) }}" alt="Meta Image"
                                         class="w-full h-24 object-cover rounded-lg">
                                 </div>
                             @endif
