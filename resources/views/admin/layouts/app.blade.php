@@ -13,13 +13,16 @@
         .sidebar-scrollbar::-webkit-scrollbar {
             width: 4px;
         }
+
         .sidebar-scrollbar::-webkit-scrollbar-track {
             background: #f1f5f9;
         }
+
         .sidebar-scrollbar::-webkit-scrollbar-thumb {
             background: #cbd5e1;
             border-radius: 2px;
         }
+
         .sidebar-scrollbar::-webkit-scrollbar-thumb:hover {
             background: #94a3b8;
         }
@@ -62,7 +65,8 @@
         }
 
         .main-content-sidebar-open {
-            margin-left: 16rem; /* 256px = 16rem */
+            margin-left: 16rem;
+            /* 256px = 16rem */
         }
 
         .main-content-sidebar-closed {
@@ -71,6 +75,7 @@
 
         /* Responsive adjustments */
         @media (max-width: 1023px) {
+
             .main-content-sidebar-open,
             .main-content-sidebar-closed {
                 margin-left: 0;
@@ -102,6 +107,93 @@
             scrollbar-color: #cbd5e1 #f8fafc;
         }
     </style>
+
+
+    <script src="{{ asset('tinymce/tinymce.min.js') }}"></script>
+
+    <script type="text/javascript">
+        tinymce.init({
+            selector: '.tinymce',
+            plugins: [
+                "advlist autolink lists link image charmap print preview anchor",
+                "searchreplace visualblocks code fullscreen",
+                "insertdatetime media table paste codesample"
+            ],
+            toolbar: "fullscreen code preview | undo redo | fontselect styleselect fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | codesample action section button",
+            toolbar: 'fullscreen code preview | undo redo | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | numlist bullist | forecolor backcolor removeformat | image media link',
+            font_formats: "Segoe UI=Segoe UI;",
+            plugins: 'advlist autolink lists link image charmap preview searchreplace visualblocks code codesample fullscreen insertdatetime  table',
+            fontsize_formats: "8px 9px 10px 11px 12px 13px 14px 15px 16px 18px 20px 22px 24px 26px 28px 30px 32px 34px 36px 38px 40px 42px 44px 46px 48px 50px 52px 54px 56px 58px 60px 62px 64px 66px 68px 70px 72px 74px 76px 78px 80px 82px 84px 86px 88px 90px 92px 94px 96px",
+            height: 300,
+            remove_script_host: false,
+
+            paste_data_images: true,
+            file_picker_types: 'file image video media',
+
+            file_picker_callback: function(cb, value, meta) {
+                var input = document.createElement('input');
+                input.setAttribute('type', 'file');
+                input.setAttribute('accept', 'image/*');
+
+                input.onchange = function() {
+                    var file = this.files[0];
+
+                    // if (file) {
+                    //     var maxSize = 2 * 1024 * 1024;
+                    //     if (file.size > maxSize) {
+                    //         alert('Selected image is too large. Please choose an image smaller than 2MB.');
+                    //         return;
+                    //     }
+                    var reader = new FileReader();
+                    reader.onload = function() {
+                        var id = 'blobid' + (new Date()).getTime();
+                        var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+                        var base64 = reader.result.split(',')[1];
+                        var blobInfo = blobCache.create(id, file, base64);
+                        blobCache.add(blobInfo);
+
+                        cb(blobInfo.blobUri(), {
+                            title: file.name
+                        });
+                    };
+                    reader.readAsDataURL(file);
+                };
+                // }
+
+                input.click();
+            },
+            setup: function(editor) {
+                editor.on('change', function() {
+                    tinymce.triggerSave();
+                })
+            },
+        });
+    </script>
+
+    <script>
+        var loadFile = function(event) {
+            var output = document.getElementById('output');
+            output.src = URL.createObjectURL(event.target.files[0]);
+            var old = document.getElementsByClassName('oldimage')[0];
+            console.log(old)
+            old.classList.add("hidden");
+        };
+        var loadFile2 = function(event) {
+            var output = document.getElementById('output2');
+            output.src = URL.createObjectURL(event.target.files[0]);
+            var old = document.getElementsByClassName('oldimage2')[0];
+            console.log(old)
+            old.classList.add("hidden");
+        };
+        var loadFile3 = function(event) {
+            var output = document.getElementById('output3`');
+            output.src = URL.createObjectURL(event.target.files[0]);
+            var old = document.getElementsByClassName('oldimage3')[0];
+            console.log(old)
+            old.classList.add("hidden");
+        };
+    </script>
+
     @stack('styles')
 </head>
 
@@ -123,7 +215,9 @@
                     <div class="mb-6 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg shadow-sm">
                         <div class="flex items-center">
                             <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                    clip-rule="evenodd"></path>
                             </svg>
                             {{ session('success') }}
                         </div>
@@ -134,7 +228,9 @@
                     <div class="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg shadow-sm">
                         <div class="flex items-center">
                             <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                    clip-rule="evenodd"></path>
                             </svg>
                             {{ session('error') }}
                         </div>
@@ -142,10 +238,13 @@
                 @endif
 
                 @if (session('warning'))
-                    <div class="mb-6 bg-yellow-50 border border-yellow-200 text-yellow-700 px-4 py-3 rounded-lg shadow-sm">
+                    <div
+                        class="mb-6 bg-yellow-50 border border-yellow-200 text-yellow-700 px-4 py-3 rounded-lg shadow-sm">
                         <div class="flex items-center">
                             <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                <path fill-rule="evenodd"
+                                    d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                                    clip-rule="evenodd"></path>
                             </svg>
                             {{ session('warning') }}
                         </div>
@@ -156,7 +255,9 @@
                     <div class="mb-6 bg-blue-50 border border-blue-200 text-blue-700 px-4 py-3 rounded-lg shadow-sm">
                         <div class="flex items-center">
                             <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                                <path fill-rule="evenodd"
+                                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                    clip-rule="evenodd"></path>
                             </svg>
                             {{ session('info') }}
                         </div>

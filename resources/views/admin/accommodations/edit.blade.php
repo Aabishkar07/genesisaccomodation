@@ -31,7 +31,7 @@
                     <div>
                         <label for="description" class="block text-sm font-medium text-gray-700 mb-2">Description *</label>
                         <textarea name="description" id="description" rows="8" required
-                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">{{ old('description', $accommodation->description) }}</textarea>
+                            class="w-full px-3 py-2 tinymce border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">{{ old('description', $accommodation->description) }}</textarea>
                         @error('description')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -258,14 +258,16 @@
                         @if ($accommodation->featured_image)
                             <div class="mb-4">
                                 <img src="{{ asset('uploads/' . $accommodation->featured_image) }}"
-                                    alt="{{ $accommodation->name }}" class="w-full h-32 object-cover rounded-lg">
+                                    alt="{{ $accommodation->name }}" class="w-full  h-32 object-cover rounded-lg oldimage">
                             </div>
                         @endif
+                        <img id="output" style="width: 100px; margin-bottom: 2px;" />
 
                         <div>
-                            <label for="featured_image" class="block text-sm font-medium text-gray-700 mb-2">Upload New
+                            <label for="featured_image" class="block text-sm font-medium text-gray-700 mb-2 ">Upload New
                                 Image</label>
                             <input type="file" name="featured_image" id="featured_image" accept="image/*"
+                                onchange="loadFile(event)"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                             @error('featured_image')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -349,14 +351,16 @@
                                 <div class="mb-4">
                                     <label class="block text-sm font-medium text-gray-700 mb-2">Current Meta Image</label>
                                     <img src="{{ asset('uploads/' . $accommodation->meta_image) }}" alt="Meta Image"
-                                        class="w-full h-24 object-cover rounded-lg">
+                                        class="w-full h-44 object-contain rounded-lg oldimage1">
                                 </div>
                             @endif
+                            <img id="output1" style="width: 100px; margin-bottom: 2px;" />
 
                             <div>
                                 <label for="meta_image" class="block text-sm font-medium text-gray-700 mb-2">Upload New
                                     Meta Image</label>
                                 <input type="file" name="meta_image" id="meta_image" accept="image/*"
+                                    onchange="loadFile1(event)"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                                 @error('meta_image')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -366,7 +370,7 @@
                     </div>
 
                     <!-- Social Media -->
-                    <div class="bg-gray-50 p-4 rounded-lg">
+                    {{-- <div class="bg-gray-50 p-4 rounded-lg">
                         <h4 class="text-sm font-medium text-gray-900 mb-4">Social Media</h4>
 
                         <div class="space-y-4">
@@ -411,7 +415,7 @@
 
 
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
 
