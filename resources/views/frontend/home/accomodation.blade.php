@@ -10,12 +10,12 @@
             </div>
 
             <!-- Main Heading -->
-            <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4">
-                Discover Our
-                <span
-                    class="text-primary bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">Premium
-                    Rooms</span>
-            </h2>
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4">
+                    Find Your Perfect
+                    <span
+                        class="text-primary bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
+                        Hostel Stay</span>
+                </h2>
 
             <!-- Subtitle -->
             <p class="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
@@ -43,6 +43,6 @@
              </div>
          @endif
 
-     
+
     </div>
 </section>

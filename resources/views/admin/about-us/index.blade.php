@@ -87,6 +87,20 @@
                         </div>
                     @endif
 
+                          @if($aboutUs->secondary_image)
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="text-sm font-medium text-gray-900 mb-4">Secondary Image</h4>
+                            <img src="{{ asset('uploads/' . $aboutUs->secondary_image) }}" alt="{{ $aboutUs->title }}" class="w-full h-48 object-cover rounded-lg">
+                        </div>
+                    @endif
+
+                          @if($aboutUs->tertiary_image)
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="text-sm font-medium text-gray-900 mb-4">Tertiary Image</h4>
+                            <img src="{{ asset('uploads/' . $aboutUs->tertiary_image) }}" alt="{{ $aboutUs->title }}" class="w-full h-48 object-cover rounded-lg">
+                        </div>
+                    @endif
+
                     <!-- SEO Information -->
                     @if($aboutUs->meta_title || $aboutUs->meta_description || $aboutUs->meta_keywords)
                         <div class="bg-gray-50 p-4 rounded-lg">

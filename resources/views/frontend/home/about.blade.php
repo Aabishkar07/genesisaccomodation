@@ -15,8 +15,8 @@ $aboutUs = AboutUs::first();
                 <div class="absolute bottom-0 left-0 w-16 h-0.5 bg-primary mt-1"></div>
               </h2>
               <h3 class="text-4xl md:text-5xl font-bold text-foreground leading-tight">
-                Welcome to
-                <span class="text-primary">Room Finder</span>
+               Stay Smart 
+                <span class="text-primary">with Genesis</span>
               </h3>
             </div>
 
@@ -60,7 +60,7 @@ $aboutUs = AboutUs::first();
 
             <div class="rounded-2xl overflow-hidden shadow-medium">
               <img
-                src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                src="{{ asset('uploads/' . $aboutUs->secondary_image) }}"
                 alt="Cozy bedroom with warm lighting"
                 class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
               />
@@ -68,7 +68,7 @@ $aboutUs = AboutUs::first();
 
             <div class="rounded-2xl overflow-hidden shadow-medium">
               <img
-                src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                src="{{ asset('uploads/' . $aboutUs->tertiary_image) }}"
                 alt="Modern living space"
                 class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
               />

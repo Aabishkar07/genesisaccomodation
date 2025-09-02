@@ -103,6 +103,44 @@
                     </div>
                 </div>
 
+                  <div class="bg-gray-50 p-4 rounded-lg">
+                    <h4 class="text-sm font-medium text-gray-900 mb-4">Secondary Image</h4>
+
+                    @if($aboutUs->secondary_image)
+                        <div class="mb-4">
+                            <img src="{{ asset('uploads/' . $aboutUs->secondary_image) }}" alt="{{ $aboutUs->title }}" class="w-full h-32 object-cover rounded-lg">
+                        </div>
+                    @endif
+
+                    <div>
+                        <label for="image" class="block text-sm font-medium text-gray-700 mb-2">Upload New Image</label>
+                        <input type="file" name="secondary_image" id="image" accept="image/*"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        @error('secondary_image')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+                  <div class="bg-gray-50 p-4 rounded-lg">
+                    <h4 class="text-sm font-medium text-gray-900 mb-4">Tertiary Image</h4>
+
+                    @if($aboutUs->tertiary_image)
+                        <div class="mb-4">
+                            <img src="{{ asset('uploads/' . $aboutUs->tertiary_image) }}" alt="{{ $aboutUs->title }}" class="w-full h-32 object-cover rounded-lg">
+                        </div>
+                    @endif
+
+                    <div>
+                        <label for="image" class="block text-sm font-medium text-gray-700 mb-2">Upload New Image</label>
+                        <input type="file" name="tertiary_image" id="image" accept="image/*"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        @error('tertiary_image')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
                 <!-- SEO Settings -->
                 <div class="bg-gray-50 p-4 rounded-lg">
                     <h4 class="text-sm font-medium text-gray-900 mb-4">SEO Settings</h4>

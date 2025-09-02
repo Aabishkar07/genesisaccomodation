@@ -50,7 +50,7 @@
 </div>
 
 
-<div class="relative p-8  mb-20">
+<div class="relative p-8  mb-20 max-w-screen-2xl mx-auto">
 
     <div class="owl-carousel owl-theme">
 

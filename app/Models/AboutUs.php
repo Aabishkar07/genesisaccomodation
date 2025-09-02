@@ -27,6 +27,8 @@ class AboutUs extends Model
         'twitter_title',
         'twitter_description',
         'twitter_image',
+        'secondary_image',
+        'tertiary_image',
     ];
 
     protected $casts = [
