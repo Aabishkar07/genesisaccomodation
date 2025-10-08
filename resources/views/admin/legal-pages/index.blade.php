@@ -90,7 +90,7 @@
                                             </a>
 
                                             <!-- Toggle Status Button -->
-                                            <form action="{{ route('admin.legal-pages.toggle-status', $legalPage) }}" method="POST" class="inline">
+                                            {{-- <form action="{{ route('admin.legal-pages.toggle-status', $legalPage) }}" method="POST" class="inline">
                                                 @csrf
                                                 @method('PUT')
                                                 <button type="submit"
@@ -116,10 +116,10 @@
                                                         </svg>
                                                     @endif
                                                 </button>
-                                            </form>
+                                            </form> --}}
 
                                             <!-- Delete Button -->
-                                            <form action="{{ route('admin.legal-pages.destroy', $legalPage) }}" method="POST"
+                                            {{-- <form action="{{ route('admin.legal-pages.destroy', $legalPage) }}" method="POST"
                                                 class="delete-form-{{ $legalPage->id }} inline">
                                                 @csrf
                                                 @method('DELETE')
@@ -127,7 +127,7 @@
                                                     class="text-red-600 hover:text-red-900">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
-                                            </form>
+                                            </form> --}}
                                         </div>
                                     </td>
                                 </tr>

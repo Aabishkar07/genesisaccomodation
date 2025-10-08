@@ -208,7 +208,7 @@
                             </form> --}}
 
 
-                                <form action="{{ route('admin.about-us.destroy', $aboutUs) }}" method="POST"
+                                {{-- <form action="{{ route('admin.about-us.destroy', $aboutUs) }}" method="POST"
                                     class="delete-form-{{ $aboutUs->id }} inline">
                                     @csrf
                                     @method('DELETE')
@@ -216,7 +216,7 @@
                                         class="block w-full px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 mt-3">
                                         <i class="fas fa-trash"></i> Delete Content
                                     </button>
-                                </form>
+                                </form> --}}
 
 
                             </div>

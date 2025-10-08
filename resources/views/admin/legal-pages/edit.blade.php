@@ -56,9 +56,9 @@
                 <div class="mt-6">
                     <label for="content" class="block text-sm font-medium text-gray-700 mb-2">Page Content</label>
                     <textarea name="content" id="content" rows="15" required
-                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        class="w-full px-3 tinymce py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         placeholder="Enter page content (HTML supported)">{{ old('content', $legalPage->content) }}</textarea>
-                    <p class="text-sm text-gray-500 mt-1">You can use HTML tags for formatting. Example: &lt;h1&gt;, &lt;p&gt;, &lt;ul&gt;, &lt;li&gt;, etc.</p>
+                    {{-- <p class="text-sm text-gray-500 mt-1">You can use HTML tags for formatting. Example: &lt;h1&gt;, &lt;p&gt;, &lt;ul&gt;, &lt;li&gt;, etc.</p> --}}
                     @error('content')
                         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror

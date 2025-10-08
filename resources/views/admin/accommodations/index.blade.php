@@ -110,11 +110,11 @@
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             <form action="{{ route('admin.accommodations.destroy', $accommodation) }}"
-                                                method="POST" class="inline"
-                                                onsubmit="return confirm('Are you sure you want to delete this accommodation?')">
+                                                method="POST" class="delete-form-{{ $accommodation->id }} inline">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="text-red-600 hover:text-red-900">
+                                                <button type="button" onclick="deleteItem('{{ $accommodation->id }}')"
+                                                    class="text-red-600 hover:text-red-900">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
                                             </form>

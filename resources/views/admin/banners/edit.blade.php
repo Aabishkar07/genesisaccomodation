@@ -14,7 +14,7 @@
                 @csrf
                 @method('PUT')
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="">
                     <!-- Title -->
                     <div>
                         <label for="title" class="block text-sm font-medium text-gray-700 mb-2">Title</label>
@@ -27,7 +27,7 @@
                     </div>
 
                     <!-- Subtitle -->
-                    <div>
+                    {{-- <div>
                         <label for="subtitle" class="block text-sm font-medium text-gray-700 mb-2">Subtitle</label>
                         <input type="text" name="subtitle" id="subtitle"
                             value="{{ old('subtitle', $banner->subtitle) }}"
@@ -36,10 +36,10 @@
                         @error('subtitle')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
-                    </div>
+                    </div> --}}
 
                     <!-- Button Text -->
-                    <div>
+                    {{-- <div>
                         <label for="button_text" class="block text-sm font-medium text-gray-700 mb-2">Button Text</label>
                         <input type="text" name="button_text" id="button_text"
                             value="{{ old('button_text', $banner->button_text) }}"
@@ -48,10 +48,10 @@
                         @error('button_text')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
-                    </div>
+                    </div> --}}
 
                     <!-- Button Link -->
-                    <div>
+                    {{-- <div>
                         <label for="button_link" class="block text-sm font-medium text-gray-700 mb-2">Button Link</label>
                         <input type="text" name="button_link" id="button_link"
                             value="{{ old('button_link', $banner->button_link) }}"
@@ -60,9 +60,9 @@
                         @error('button_link')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
-                    </div>
+                    </div> --}}
 
-                   
+
 
                     <!-- Status -->
                     <div>

@@ -154,7 +154,7 @@
                             </h2>
                             <div class="prose prose-lg max-w-none">
                                 <p class="text-gray-600 leading-relaxed mb-6">
-                                    {{ $accommodation->description ?? 'This premium accommodation offers the perfect blend of comfort, luxury, and convenience. Located in a prime area, it provides easy access to local attractions while maintaining a peaceful environment for your stay.' }}
+                                    {!! $accommodation->description ?? '' !!}
                                 </p>
 
 
@@ -270,14 +270,16 @@
                             </div>
 
                             <!-- Enhanced Booking Form -->
-                            <form class="space-y-3 md:space-y-4" id="bookingForm" method="POST" action="{{ route('booking.store', $accommodation) }}">
+                            <form class="space-y-3 md:space-y-4" id="bookingForm" method="POST"
+                                action="{{ route('booking.store', $accommodation) }}">
                                 @csrf
                                 <!-- Personal Information -->
                                 <div>
                                     <label class="block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2">Full
                                         Name</label>
                                     <input type="text" name="full_name"
-                                        value="{{ old('full_name', Auth::guard('customer')->user()->name ?? '') }}" required
+                                        value="{{ old('full_name', Auth::guard('customer')->user()->name ?? '') }}"
+                                        required
                                         class="w-full px-2 py-2 md:px-3 md:py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-xs md:text-sm"
                                         placeholder="Enter your full name">
                                     @error('full_name')
@@ -291,7 +293,8 @@
                                     <label class="block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2">Phone
                                         Number</label>
                                     <input type="tel" name="phone_number"
-                                        value="{{ old('phone_number', Auth::guard('customer')->user()->phonenumber ?? '') }}" required
+                                        value="{{ old('phone_number', Auth::guard('customer')->user()->phonenumber ?? '') }}"
+                                        required
                                         class="w-full px-2 py-2 md:px-3 md:py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-xs md:text-sm"
                                         placeholder="Enter your phone number">
                                     @error('phone_number')
@@ -322,7 +325,8 @@
                                         <input type="date" name="check_out" value="{{ old('check_out') }}"
                                             id="checkoutDate" required
                                             class="w-full px-2 py-2 md:px-3 md:py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-xs md:text-sm">
-                                        <div class="text-xs text-gray-500 mt-1">Must be at least 8 weeks after check-in date</div>
+                                        <div class="text-xs text-gray-500 mt-1">Must be at least 8 weeks after check-in
+                                            date</div>
                                         @error('check_out')
                                             <div class="text-red-600 text-sm">
                                                 * {{ $message }}
@@ -336,9 +340,11 @@
                                     <label class="block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2">Room
                                         Capacity</label>
                                     <input type="number" name="room_capacity" value="{{ old('room_capacity') }}"
-                                        id="room_capacity" required min="1" max="{{ $accommodation->max_guest ?? 1 }}"
+                                        id="room_capacity" required min="1"
+                                        max="{{ $accommodation->max_guest ?? 1 }}"
                                         class="w-full px-2 py-2 md:px-3 md:py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-xs md:text-sm">
-                                    <div class="text-xs text-gray-500 mt-1">Maximum {{ $accommodation->max_guest ?? 1 }} guests allowed</div>
+                                    <div class="text-xs text-gray-500 mt-1">Maximum {{ $accommodation->max_guest ?? 1 }}
+                                        guests allowed</div>
                                     @error('room_capacity')
                                         <div class="text-red-600 text-sm">
                                             * {{ $message }}
@@ -572,7 +578,7 @@
                                     </h3>
 
                                     <p class="text-gray-600 text-xs md:text-sm mb-3 md:mb-4">
-                                        {{ Str::limit($related->description ?? '', 80) }}
+                                        {!! Str::limit($related->description ?? '', 80) !!}
                                     </p>
 
                                     <!-- Room Type -->

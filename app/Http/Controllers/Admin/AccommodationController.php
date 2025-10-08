@@ -263,6 +263,7 @@ class AccommodationController extends Controller
      */
     public function destroy(Accommodation $accommodation)
     {
+        // dd($accommodation);
         // Delete associated images
         if ($accommodation->featured_image) {
             $this->imageservice->imageDelete($accommodation->featured_image);

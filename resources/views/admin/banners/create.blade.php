@@ -13,7 +13,7 @@
             <form action="{{ route('admin.banners.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="">
                     <!-- Title -->
                     <div>
                         <label for="title" class="block text-sm font-medium text-gray-700 mb-2">Title</label>
@@ -26,7 +26,7 @@
                     </div>
 
                     <!-- Subtitle -->
-                    <div>
+                    {{-- <div>
                         <label for="subtitle" class="block text-sm font-medium text-gray-700 mb-2">Subtitle</label>
                         <input type="text" name="subtitle" id="subtitle" value="{{ old('subtitle') }}"
                             class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -34,10 +34,10 @@
                         @error('subtitle')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
-                    </div>
+                    </div> --}}
 
                     <!-- Button Text -->
-                    <div>
+                    {{-- <div>
                         <label for="button_text" class="block text-sm font-medium text-gray-700 mb-2">Button Text</label>
                         <input type="text" name="button_text" id="button_text" value="{{ old('button_text') }}"
                             class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -45,10 +45,10 @@
                         @error('button_text')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
-                    </div>
+                    </div> --}}
 
                     <!-- Button Link -->
-                    <div>
+                    {{-- <div>
                         <label for="button_link" class="block text-sm font-medium text-gray-700 mb-2">Button Link</label>
                         <input type="text" name="button_link" id="button_link" value="{{ old('button_link') }}"
                             class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -56,7 +56,7 @@
                         @error('button_link')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
-                    </div>
+                    </div> --}}
 
                     <!-- Sort Order -->
                     {{-- <div>
@@ -70,7 +70,7 @@
                     </div> --}}
 
                     <!-- Status -->
-                    <div>
+                    {{-- <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
                         <div class="flex items-center">
                             <input checked type="checkbox" name="is_active" id="is_active" value="1"
@@ -83,7 +83,7 @@
                         @error('is_active')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
-                    </div>
+                    </div> --}}
                 </div>
 
                 <!-- Description -->

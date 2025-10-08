@@ -15,8 +15,11 @@
             <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight">
                 {{ $banners->title }}
             </h1>
-            <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">
-                {{ $banners->button_text }}
+
+
+
+            <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-3xl mx-auto">
+                {{ $banners->description }}
             </p>
 
             <!-- Search Form -->
