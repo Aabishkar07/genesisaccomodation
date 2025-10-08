@@ -2,7 +2,11 @@
 @section('body')
 
 <script src="https://www.google.com/recaptcha/enterprise.js?render=6LfihZUrAAAAAL6Slny-3cRTcUDmY8h6JHD_tq9m"></script>
+@php
+    use App\Models\Setting;
+    $settings = Setting::pluck('value', 'key')->toArray();
 
+@endphp
 <section class="py-20 bg-gradient-to-br from-gray-50 via-white to-blue-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Header Section -->
@@ -39,7 +43,7 @@
                                 <h3 class="text-xl font-semibold text-gray-900 mb-2">Our Location</h3>
                                 <p class="text-gray-600 leading-relaxed">
                                     {{-- {{ $setting->address }} --}}
-                                    <span class="text-gray-500">123 Business Street, Suite 100<br>City, State 12345</span>
+                                    <span class="text-gray-500">{{ $settings['contact_address'] }}</span>
                                 </p>
                             </div>
                         </div>
@@ -54,7 +58,7 @@
                                 <h3 class="text-xl font-semibold text-gray-900 mb-2">Phone Number</h3>
                                 <p class="text-gray-600 leading-relaxed">
                                     {{-- {{ $setting->contact_number }} --}}
-                                    <span class="text-gray-500">+1 (555) 123-4567</span>
+                                    <span class="text-gray-500"> {{ $settings['contact_phone'] }}</span>
                                 </p>
                             </div>
                         </div>
@@ -69,7 +73,7 @@
                                 <h3 class="text-xl font-semibold text-gray-900 mb-2">Email Address</h3>
                                 <p class="text-gray-600 leading-relaxed">
                                     {{-- {{ $setting->email }} --}}
-                                    <span class="text-gray-500">hello@company.com</span>
+                                    <span class="text-gray-500"> {{ $settings['contact_email'] }}</span>
                                 </p>
                             </div>
                         </div>

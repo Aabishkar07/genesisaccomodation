@@ -15,8 +15,7 @@
                         <div class="absolute bottom-0 left-0 w-16 h-0.5 bg-primary mt-1"></div>
                     </h2>
                     <h3 class="text-4xl md:text-5xl font-bold text-foreground leading-tight">
-                        Welcome to
-                        <span class="text-primary">Room Finder</span>
+                        {{ $aboutUs->title }}
                     </h3>
                 </div>
 

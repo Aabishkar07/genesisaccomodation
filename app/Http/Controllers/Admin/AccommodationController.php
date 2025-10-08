@@ -169,12 +169,7 @@ class AccommodationController extends Controller
             'meta_description' => 'nullable|string',
             'meta_keywords' => 'nullable|string',
             'meta_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'og_title' => 'nullable|string|max:255',
-            'og_description' => 'nullable|string',
-            'og_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'twitter_title' => 'nullable|string|max:255',
-            'twitter_description' => 'nullable|string',
-            'twitter_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+
         ]);
 
         $data = $request->all();
@@ -234,23 +229,6 @@ class AccommodationController extends Controller
                 $this->imageservice->imageDelete($accommodation->meta_image);
             }
             $data['meta_image'] = $this->imageservice->fileUpload($request->file('meta_image'), 'meta');
-        }
-
-
-        // Handle OG image upload
-        if ($request->hasFile('og_image')) {
-            if ($accommodation->og_image) {
-                $this->imageservice->imageDelete($accommodation->og_image);
-            }
-            $data['og_image'] = $this->imageservice->fileUpload($request->file('og_image'), 'og');
-        }
-
-        // Handle Twitter image upload
-        if ($request->hasFile('twitter_image')) {
-            if ($accommodation->twitter_image) {
-                $this->imageservice->imageDelete($accommodation->twitter_image);
-            }
-            $data['twitter_image'] = $this->imageservice->fileUpload($request->file('twitter_image'), 'twitter');
         }
 
         $accommodation->update($data);
