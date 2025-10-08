@@ -1,152 +1,117 @@
 <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
-    {{-- {/* Background Image with Overlay */} --}}
+    <!-- Background Image with Overlay -->
     <div class="absolute inset-0 z-0">
-        <img src="{{ asset('uploads/' . $banners->image) }}" alt="Modern student hostel accommodation"
-            class="w-full h-full object-cover" />
-        <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/70"></div>
+        <img src="{{ asset('uploads/' . $banners->image) }}"
+             alt="Modern student hostel accommodation"
+             class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/60 to-black/70"></div>
     </div>
 
-    {{-- {/* Content */} --}}
-    <div class="relative z-10  px-4 sm:px-6 lg:px-8 text-center text-white  w-full">
-        <div class="max-w-screen-2xl sm:px-6 lg:px-8  mx-auto">
-            <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+    <!-- Content -->
+    <div class="relative z-10 px-4 sm:px-6 lg:px-8 text-center text-white w-full">
+        <div class="max-w-screen-xl mx-auto space-y-10">
+
+            <!-- Hero Text -->
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight">
                 {{ $banners->title }}
-
             </h1>
-
-
-
-            <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-3xl mx-auto">
+            <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">
                 {{ $banners->button_text }}
             </p>
 
-          <form method="GET" action="{{ route('filteraccommodations') }}" class="mb-8">
-    <div class="bg-white/95 backdrop-blur-md rounded-2xl p-6 shadow-lg border border-gray-200/60">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- Search Form -->
+            <form method="GET" action="{{ route('filteraccommodations') }}" class="mb-12">
+                <div class="bg-white/90 backdrop-blur-xl rounded-2xl p-6 shadow-2xl border border-gray-100">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
-            <!-- Room Type -->
-            <div>
-                <label class="block text-xs font-semibold text-gray-500 mb-1">Room Type</label>
-                <div
-                    class="relative flex items-center gap-2 p-2.5 bg-gray-50 rounded-xl border border-gray-200 hover:border-primary/60 transition-all duration-200">
-                    <svg class="h-5 w-5 text-primary/70 flex-shrink-0" fill="none" stroke="currentColor"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
-                        </path>
-                    </svg>
-                    <select name="room_type"
-                        class="bg-transparent border-none outline-none text-gray-700 w-full text-sm font-medium cursor-pointer pr-6">
-                        <option value="">Select Room</option>
-                        @foreach ($roomTypes as $type)
-                            <option value="{{ $type->id }}" {{ request('room_type') == $type->id ? 'selected' : '' }}>
-                                {{ $type->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                    <svg class="absolute right-3 h-4 w-4 text-gray-400 pointer-events-none" fill="none"
-                        stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M19 9l-7 7-7-7"></path>
-                    </svg>
+                        <!-- Room Type -->
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-2">Room Type</label>
+                            <select name="room_type"
+                                class="w-full text-gray-800 text-sm p-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary/80 outline-none transition">
+                                <option value="">Select Room</option>
+                                @foreach ($roomTypes as $type)
+                                    <option value="{{ $type->id }}" {{ request('room_type') == $type->id ? 'selected' : '' }}>
+                                        {{ $type->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <!-- Price Range -->
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-2">Price Range</label>
+                            <select name="price_range"
+                                class="w-full text-gray-800 text-sm p-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary/80 outline-none transition">
+                                <option value="">Select Price</option>
+                                <option value="0-500" {{ request('price_range') == '0-500' ? 'selected' : '' }}>$0 - $500</option>
+                                <option value="500-1000" {{ request('price_range') == '500-1000' ? 'selected' : '' }}>$500 - $1,000</option>
+                                <option value="1000-1500" {{ request('price_range') == '1000-1500' ? 'selected' : '' }}>$1,000 - $1,500</option>
+                                <option value="1500-2000" {{ request('price_range') == '1500-2000' ? 'selected' : '' }}>$1,500 - $2,000</option>
+                                <option value="2000+" {{ request('price_range') == '2000+' ? 'selected' : '' }}>$2,000+</option>
+                            </select>
+                        </div>
+
+                        <!-- Guests -->
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-2">Guests</label>
+                            <select name="guests"
+                                class="w-full text-gray-800 text-sm p-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary/80 outline-none transition">
+                                <option value="1" {{ request('guests') == '1' ? 'selected' : '' }}>1 Guest</option>
+                                <option value="2" {{ request('guests') == '2' ? 'selected' : '' }}>2 Guests</option>
+                                <option value="3" {{ request('guests') == '3' ? 'selected' : '' }}>3 Guests</option>
+                                <option value="4" {{ request('guests') == '4' ? 'selected' : '' }}>4+ Guests</option>
+                            </select>
+                        </div>
+
+                        <!-- Search Button -->
+                        <div class="flex items-end">
+                            <button type="submit"
+                                class="w-full bg-gradient-to-r from-primary to-secondary text-white font-semibold py-3 px-6 rounded-xl hover:shadow-xl hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-2">
+                                <span>🔍 Search</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </form>
 
-            <!-- Price Range -->
-            <div>
-                <label class="block text-xs font-semibold text-gray-500 mb-1">Price Range</label>
-                <div
-                    class="relative flex items-center gap-2 p-2.5 bg-gray-50 rounded-xl border border-gray-200 hover:border-primary/60 transition-all duration-200">
-                    <svg class="h-5 w-5 text-primary/70 flex-shrink-0" fill="none" stroke="currentColor"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1">
-                        </path>
-                    </svg>
-                    <select name="price_range"
-                        class="bg-transparent border-none outline-none text-gray-700 w-full text-sm font-medium cursor-pointer appearance-none pr-6">
-                        <option value="">Select Price</option>
-                        <option value="0-500" {{ request('price_range') == '0-500' ? 'selected' : '' }}>$0 - $500</option>
-                        <option value="500-1000" {{ request('price_range') == '500-1000' ? 'selected' : '' }}>$500 - $1,000</option>
-                        <option value="1000-1500" {{ request('price_range') == '1000-1500' ? 'selected' : '' }}>$1,000 - $1,500</option>
-                        <option value="1500-2000" {{ request('price_range') == '1500-2000' ? 'selected' : '' }}>$1,500 - $2,000</option>
-                        <option value="2000+" {{ request('price_range') == '2000+' ? 'selected' : '' }}>$2,000+</option>
-                    </select>
-                    <svg class="absolute right-3 h-4 w-4 text-gray-400 pointer-events-none" fill="none"
-                        stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M19 9l-7 7-7-7"></path>
-                    </svg>
-                </div>
-            </div>
+            <!-- Contact Form -->
+            <div class="max-w-2xl mx-auto">
+                <form id="submitform" action="{{ route('contact.store') }}" method="POST"
+                    class="bg-white rounded-2xl shadow-2xl p-8 border border-gray-100 backdrop-blur-lg space-y-5 text-left">
+                    @csrf
+                    <h3 class="text-2xl font-bold text-gray-800">Send us a Message</h3>
+                    <p class="text-gray-500 text-sm">We'll get back to you shortly.</p>
 
-            <!-- Guests -->
-            <div>
-                <label class="block text-xs font-semibold text-gray-500 mb-1">Guests</label>
-                <div
-                    class="relative flex items-center gap-2 p-2.5 bg-gray-50 rounded-xl border border-gray-200 hover:border-primary/60 transition-all duration-200">
-                    <svg class="h-5 w-5 text-primary/70 flex-shrink-0" fill="none" stroke="currentColor"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0zM7 10a2 2 0 11-4 0 2 0z">
-                        </path>
-                    </svg>
-                    <select name="guests"
-                        class="bg-transparent border-none outline-none text-gray-700 w-full text-sm font-medium cursor-pointer appearance-none pr-6">
-                        <option value="1" {{ request('guests') == '1' ? 'selected' : '' }}>1 Guest</option>
-                        <option value="2" {{ request('guests') == '2' ? 'selected' : '' }}>2 Guests</option>
-                        <option value="3" {{ request('guests') == '3' ? 'selected' : '' }}>3 Guests</option>
-                        <option value="4" {{ request('guests') == '4' ? 'selected' : '' }}>4+ Guests</option>
-                    </select>
-                    <svg class="absolute right-3 h-4 w-4 text-gray-400 pointer-events-none" fill="none"
-                        stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M19 9l-7 7-7-7"></path>
-                    </svg>
-                </div>
-            </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input type="text" name="name" placeholder="Full Name" required
+                            class="w-full p-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary/80 outline-none text-gray-700 transition">
+                        <input type="email" name="email" placeholder="Email Address" required
+                            class="w-full p-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary/80 outline-none text-gray-700 transition">
+                    </div>
 
-            <!-- Search Button -->
-            <div class="flex items-end">
-                <button type="submit"
-                    class="w-full bg-gradient-to-r from-primary to-secondary hover:from-primary-dark hover:to-secondary-dark text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 hover:shadow-lg flex items-center justify-center gap-2">
-                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                    </svg>
-                    <span class="text-sm">Search</span>
-                </button>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input type="tel" name="phone" placeholder="Phone Number" required
+                            class="w-full p-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary/80 outline-none text-gray-700 transition">
+                        <input type="text" name="subject" placeholder="Subject" required
+                            class="w-full p-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary/80 outline-none text-gray-700 transition">
+                    </div>
+
+                    <textarea name="message" rows="4" placeholder="Your Message" required
+                        class="w-full p-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary/80 outline-none text-gray-700 resize-none transition"></textarea>
+
+                    <button type="submit"
+                        class="w-full bg-gradient-to-r from-primary to-secondary hover:from-secondary hover:to-primary text-white font-semibold py-3 rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+                        📩 Send Message
+                    </button>
+
+                    <p class="text-xs text-gray-500 text-center mt-3 flex items-center justify-center gap-1">
+                        <i class="bi bi-shield-check text-green-500"></i>
+                        Your information is secure and will never be shared.
+                    </p>
+                </form>
             </div>
 
         </div>
     </div>
-</form>
-
-
-
-
-            {{-- {/* Stats Section */} --}}
-            {{-- <div class="grid grid-cols-3 gap-8 mt-16 max-w-3xl mx-auto">
-                <div class="text-center group">
-                    <div
-                        class="text-3xl md:text-4xl font-bold text-primary-light group-hover:scale-110 transition-transform">
-                        500+</div>
-                    <div class="text-sm text-gray-300 mt-1">Verified Hostels</div>
-                </div>
-                <div class="text-center group">
-                    <div
-                        class="text-3xl md:text-4xl font-bold text-secondary-light group-hover:scale-110 transition-transform">
-                        50K+</div>
-                    <div class="text-sm text-gray-300 mt-1">Happy Students</div>
-                </div>
-                <div class="text-center group">
-                    <div class="text-3xl md:text-4xl font-bold text-accent group-hover:scale-110 transition-transform">
-                        25+</div>
-                    <div class="text-sm text-gray-300 mt-1">Cities Covered</div>
-                </div>
-            </div> --}}
-        </div>
-    </div>
-
-
 </section>
