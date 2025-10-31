@@ -48,23 +48,13 @@
 
             </div>
 
-            <div class="grid grid-cols-2 gap-4 h-96">
+            <div class="grid grid-cols-1 gap-4 h-96">
                 <div class="col-span-1 row-span-2 rounded-2xl overflow-hidden shadow-medium">
                     <img src="{{ asset('uploads/' . $aboutUs->image) }}" alt="Modern bedroom interior"
                         class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
                 </div>
 
-                <div class="rounded-2xl overflow-hidden shadow-medium">
-                    <img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                        alt="Cozy bedroom with warm lighting"
-                        class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
-                </div>
 
-                <div class="rounded-2xl overflow-hidden shadow-medium">
-                    <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                        alt="Modern living space"
-                        class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
-                </div>
             </div>
         </div>
     </div>
