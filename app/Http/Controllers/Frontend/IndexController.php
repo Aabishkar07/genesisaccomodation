@@ -8,6 +8,7 @@ use App\Models\Accommodation;
 use App\Models\Banner;
 use App\Models\Blog;
 use App\Models\Contact;
+use App\Models\Display;
 use App\Models\RoomType;
 use App\Models\Service;
 use App\Models\Testimonial;
@@ -25,8 +26,10 @@ class IndexController extends Controller
         $testimonials = Testimonial::get();
         $accomodations = Accommodation::with('roomType')->where('status', 'active')->orderBy('sort_order', 'asc')->orderBy('created_at', 'desc')->limit(6)->get();
         $blogs = Blog::where('status', 'published')->orderBy('sort_order', 'asc')->orderBy('created_at', 'desc')->limit(6)->get();
+$displayAll = Display::get();
 
-        return view("frontend.home.index", compact('blogs', 'services', 'testimonials', 'accomodations', 'banners', 'roomTypes'));
+
+        return view("frontend.home.index", compact('blogs', 'services', 'testimonials', 'accomodations', 'banners', 'roomTypes','displayAll'));
     }
 
     public function single(Request $request, Blog $blog)

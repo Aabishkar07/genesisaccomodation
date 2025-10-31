@@ -19,6 +19,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
 Route::post('login', [AdminAuthController::class, 'login'])->name('admin.login.post');
 
+// Debug route outside middleware
+Route::get('debug-route', function() {
+    return response()->json(['message' => 'Debug route works', 'timestamp' => now()]);
+});
+
+// Temporary: Move toggle routes outside middleware for testing
+Route::put('accommodations/toggle-display-all', [AccommodationController::class, 'toggleDisplayAll'])->name('admin.accommodations.toggle-display-all');
+Route::put('blogs/toggle-display-all', [BlogController::class, 'toggleDisplayAll'])->name('admin.blogs.toggle-display-all');
+Route::put('testimonials/toggle-display-all', [TestimonialController::class, 'toggleDisplayAll'])->name('admin.testimonials.toggle-display-all');
+
 // Protected admin routes
 Route::middleware(["admin"])->group(function () {
     // Logout route
@@ -74,6 +84,10 @@ Route::middleware(["admin"])->group(function () {
         'update' => 'admin.accommodations.update',
         'destroy' => 'admin.accommodations.destroy',
     ]);
+    // Test route for debugging
+    Route::get('test-route', function() {
+        return response()->json(['message' => 'Test route works']);
+    });
 
     // Room Types
     Route::resource('room_types', RoomTypeController::class)->names([

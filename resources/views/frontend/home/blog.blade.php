@@ -1,7 +1,7 @@
 <div class="p-4">
     <div class="">
 
-        <div class="flex items-center justify-center mb-4">
+        <div class="flex items-center justify-center mb-4 mt-8">
             <div class="border border-blue-600 w-32"></div>
             <span class="px-4 text-primary font-medium text-xl uppercase tracking-wide">Blogs</span>
             <div class="border border-blue-600 w-32"></div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\FileService\ImageService;
 use App\Http\Controllers\Controller;
 use App\Models\Accommodation;
+use App\Models\Display;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -23,8 +24,9 @@ class AccommodationController extends Controller
     public function index()
     {
         $accommodations = Accommodation::with('roomType')->orderBy('sort_order')->paginate(10);
+        $displayAll = Display::getStatus('accommodation');
 
-        return view('admin.accommodations.index', compact('accommodations'));
+        return view('admin.accommodations.index', compact('accommodations', 'displayAll'));
     }
 
     /**
@@ -58,6 +60,7 @@ class AccommodationController extends Controller
             'amenities' => 'nullable|array',
             'status' => 'required|in:active,inactive',
             'sort_order' => 'nullable|integer|min:0',
+            'display' => 'nullable|boolean',
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
             'meta_keywords' => 'nullable|string',
@@ -165,6 +168,7 @@ class AccommodationController extends Controller
             'amenities' => 'nullable|array',
             'status' => 'required|in:active,inactive',
             'sort_order' => 'nullable|integer|min:0',
+            'display' => 'nullable|boolean',
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
             'meta_keywords' => 'nullable|string',
@@ -269,5 +273,21 @@ class AccommodationController extends Controller
         $accommodation->delete();
 
         return redirect()->route('admin.accommodations.index')->with('success', 'Accommodation deleted successfully!');
+    }
+
+
+    public function toggleDisplayAll(Request $request)
+    {
+        $request->validate([
+            'display' => 'required|in:0,1',
+        ]);
+
+        $value = (bool) $request->input('display');
+        Display::setStatus('accommodation', $value);
+
+        $statusText = $value ? 'Active' : 'Inactive';
+        
+        return redirect()->route('admin.accommodations.index')
+            ->with('success', "Accommodation display status updated to {$statusText} successfully!");
     }
 }

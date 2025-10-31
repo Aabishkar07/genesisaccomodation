@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\FileService\ImageService;
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
+use App\Models\Display;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -23,7 +24,8 @@ class BlogController extends Controller
     public function index()
     {
         $blogs = Blog::orderBy('sort_order', 'asc')->orderBy('created_at', 'desc')->paginate(10);
-        return view('admin.blogs.index', compact('blogs'));
+        $displayAll = Display::getStatus('blog');
+        return view('admin.blogs.index', compact('blogs', 'displayAll'));
     }
 
     /**
@@ -200,4 +202,18 @@ public function update(Request $request, Blog $blog)
     return redirect()->route('admin.blogs.index')->with('success', 'Blog deleted successfully!');
 }
 
+    public function toggleDisplayAll(Request $request)
+    {
+        $request->validate([
+            'display' => 'required|in:0,1',
+        ]);
+
+        $value = (bool) $request->input('display');
+        Display::setStatus('blog', $value);
+
+        $statusText = $value ? 'Active' : 'Inactive';
+        
+        return redirect()->route('admin.blogs.index')
+            ->with('success', "Blog display status updated to {$statusText} successfully!");
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\FileService\ImageService;
 use App\Http\Controllers\Controller;
 use App\Models\Testimonial;
+use App\Models\Display;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -22,7 +23,8 @@ class TestimonialController extends Controller
     public function index()
     {
         $testimonials = Testimonial::orderBy('sort_order')->paginate(10);
-        return view('admin.testimonials.index', compact('testimonials'));
+        $displayAll = Display::getStatus('testimonial');
+        return view('admin.testimonials.index', compact('testimonials', 'displayAll'));
     }
 
     /**
@@ -192,4 +194,18 @@ public function destroy(Testimonial $testimonial)
     return redirect()->route('admin.testimonials.index')->with('success', 'Testimonial deleted successfully!');
 }
 
+    public function toggleDisplayAll(Request $request)
+    {
+        $request->validate([
+            'display' => 'required|in:0,1',
+        ]);
+
+        $value = (bool) $request->input('display');
+        Display::setStatus('testimonial', $value);
+
+        $statusText = $value ? 'Active' : 'Inactive';
+        
+        return redirect()->route('admin.testimonials.index')
+            ->with('success', "Testimonial display status updated to {$statusText} successfully!");
+    }
 }

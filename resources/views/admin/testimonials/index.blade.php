@@ -4,14 +4,31 @@
 @section('page-title', 'Testimonials')
 
 @section('content')
-<div class="bg-white rounded-lg shadow-sm">
+  
+    <div class="bg-white rounded-lg shadow-sm">
     <div class="px-6 py-4 border-b border-gray-200">
         <div class="flex items-center justify-between">
             <h3 class="text-lg font-medium text-gray-900">Testimonials</h3>
-            <a href="{{ route('admin.testimonials.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center">
-                <i class="fas fa-plus mr-2"></i>
-                Add Testimonial
-            </a>
+            <div class="flex items-center space-x-3">
+                <div class="flex items-center space-x-3">
+                    <span class="text-sm text-gray-600">Display Section:</span>
+                    <span class="text-sm font-medium {{ !empty($displayAll) && $displayAll ? 'text-green-600' : 'text-red-600' }}">
+                        {{ !empty($displayAll) && $displayAll ? 'Active' : 'Inactive' }}
+                    </span>
+                    <form method="POST" action="{{ route('admin.testimonials.toggle-display-all') }}" class="inline">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" name="display" value="{{ !empty($displayAll) && $displayAll ? '0' : '1' }}">
+                        <button type="submit" class="px-3 py-1 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors">
+                            {{ !empty($displayAll) && $displayAll ? 'Set Inactive' : 'Set Active' }}
+                        </button>
+                    </form>
+                </div>
+                <a href="{{ route('admin.testimonials.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center">
+                    <i class="fas fa-plus mr-2"></i>
+                    Add Testimonial
+                </a>
+            </div>
         </div>
     </div>
 
