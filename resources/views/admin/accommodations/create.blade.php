@@ -143,14 +143,68 @@
                         </div>
                     </div>
 
-                    <div>
+                    {{-- <div>
                         <label for="max_guest" class="block text-sm font-medium text-gray-700 mb-2">Max Guest</label>
                         <input type="number" name="max_guest" id="max_guest" value="{{ old('max_guest') }}"
                             class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         @error('max_guest')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
-                    </div>
+                    </div> --}}
+
+
+<!-- Max Guest Options -->
+<div>
+    <label class="block text-sm font-medium text-gray-700 mb-2">Guest</label>
+    <div class="flex space-x-6">
+        <label class="inline-flex items-center">
+            <input type="radio" name="max_guest" value="single"
+                {{ old('max_guest') == 'single' ? 'checked' : '' }}
+                class="text-blue-600 focus:ring-blue-500 border-gray-300" onclick="toggleMaxGuestInput()">
+            <span class="ml-2 text-gray-700">Single</span>
+        </label>
+
+        <label class="inline-flex items-center">
+            <input type="radio" name="max_guest" value="couple"
+                {{ old('max_guest') == 'couple' ? 'checked' : '' }}
+                class="text-blue-600 focus:ring-blue-500 border-gray-300" onclick="toggleMaxGuestInput()">
+            <span class="ml-2 text-gray-700">Couple</span>
+        </label>
+
+        <label class="inline-flex items-center">
+            <input type="radio" name="max_guest" value="max_guest"
+                {{ old('max_guest') == 'max_guest' ? 'checked' : '' }}
+                class="text-blue-600 focus:ring-blue-500 border-gray-300" onclick="toggleMaxGuestInput()">
+            <span class="ml-2 text-gray-700">Max Guest</span>
+        </label>
+    </div>
+    @error('max_guest')
+        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+    @enderror
+</div>
+
+<!-- Number Input Field (Hidden by Default) -->
+<div id="maxGuestInputField" style="display: none;" class="mt-3">
+    <input type="number" name="max_guest" value="{{ old('max_guest') }}"
+        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+        placeholder="Enter number of guests">
+    @error('max_guest')
+        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+    @enderror
+</div>
+
+<script>
+    function toggleMaxGuestInput() {
+        const selected = document.querySelector('input[name="max_guest"]:checked').value;
+        const inputField = document.getElementById('maxGuestInputField');
+        inputField.style.display = (selected === 'max_guest') ? 'block' : 'none';
+    }
+
+    // Run on page load in case of old values (validation error)
+    document.addEventListener('DOMContentLoaded', toggleMaxGuestInput);
+</script>
+
+
                     <div>
                         <label for="map" class="block text-sm font-medium text-gray-700 mb-2">Map Link</label>
                         <input type="text" name="map" id="map" value="{{ old('map') }}"
@@ -271,6 +325,9 @@
                             </div>
                         </div>
                     </div>
+
+
+
 
                     <!-- Featured Image -->
                     <div class="bg-gray-50 p-4 rounded-lg">

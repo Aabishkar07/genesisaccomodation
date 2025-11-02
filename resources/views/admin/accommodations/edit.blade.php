@@ -104,7 +104,7 @@
                         </div>
                     </div>
 
-                    <div>
+                    {{-- <div>
                         <label for="max_guest" class="block text-sm font-medium text-gray-700 mb-2">Max Guest</label>
                         <input type="number" name="max_guest" id="max_guest"
                             value="{{ old('max_guest', $accommodation->max_guest) }}"
@@ -112,10 +112,97 @@
                         @error('max_guest')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
+                    </div> --}}
+
+
+
+                    <!-- Room Type / Max Guest Selection -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Room Type</label>
+                        <div class="flex space-x-6">
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="max_guest" value="single"
+                                    class="text-blue-600 focus:ring-blue-500 border-gray-300"
+                                    onclick="toggleMaxGuestInput()">
+                                <span class="ml-2 text-gray-700">Single</span>
+                            </label>
+
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="max_guest" value="couple"
+                                    class="text-blue-600 focus:ring-blue-500 border-gray-300"
+                                    onclick="toggleMaxGuestInput()">
+                                <span class="ml-2 text-gray-700">Couple</span>
+                            </label>
+
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="max_guest" value="max_guest" id="maxGuestRadio"
+                                    class="text-blue-600 focus:ring-blue-500 border-gray-300"
+                                    onclick="toggleMaxGuestInput()">
+                                <span class="ml-2 text-gray-700">Max Guest</span>
+                            </label>
+                        </div>
                     </div>
+
+                    <!-- Number Input Field -->
+                    <div id="maxGuestInputField" style="display: none;" class="mt-3">
+                        <label for="max_guest_input" class="block text-sm font-medium text-gray-700 mb-2">Max Guest</label>
+                        <input type="number" name="max_guest_input" id="max_guest_input"
+                            value="{{ old('max_guest', $accommodation->max_guest) }}"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="Enter number of guests">
+                        @error('max_guest')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <script>
+                        function toggleMaxGuestInput() {
+                            const radios = document.querySelectorAll('input[name="max_guest"]');
+                            const inputField = document.getElementById('maxGuestInputField');
+                            const inputNumber = document.getElementById('max_guest_input');
+                            let selected = null;
+
+                            radios.forEach(r => {
+                                if (r.checked) selected = r.value;
+                            });
+
+                            if (selected === 'max_guest') {
+                                inputField.style.display = 'block';
+                                inputNumber.focus();
+                            } else {
+                                inputField.style.display = 'none';
+                                // Update value for 'single' or 'couple'
+                                inputNumber.value = selected;
+                            }
+                        }
+
+                        // On page load, set the correct radio and input display
+                        document.addEventListener('DOMContentLoaded', () => {
+                            const oldValue = "{{ old('max_guest', $accommodation->max_guest ?? '') }}";
+                            const radios = document.querySelectorAll('input[name="max_guest"]');
+                            const inputField = document.getElementById('maxGuestInputField');
+                            const inputNumber = document.getElementById('max_guest_input');
+                            const maxGuestRadio = document.getElementById('maxGuestRadio');
+
+                            if (oldValue === 'single' || oldValue === 'couple') {
+                                radios.forEach(r => {
+                                    if (r.value === oldValue) r.checked = true;
+                                });
+                                inputField.style.display = 'none';
+                                inputNumber.value = oldValue;
+                            } else if (oldValue) {
+                                maxGuestRadio.checked = true;
+                                inputField.style.display = 'block';
+                                inputNumber.value = oldValue;
+                            }
+                        });
+                    </script>
+
+
                     <div>
                         <label for="map" class="block text-sm font-medium text-gray-700 mb-2">Map Link</label>
-                        <input type="text" name="map" id="map" value="{{ old('map', $accommodation->map) }}"
+                        <input type="text" name="map" id="map"
+                            value="{{ old('map', $accommodation->map) }}"
                             class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         @error('map')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -126,7 +213,8 @@
                         <div>
                             <label for="bathroom" class="block text-sm font-medium text-gray-700 mb-2">Total
                                 Bathroom</label>
-                            <input type="number" name="bathroom" id="bathroom" value="{{ old('bathroom', $accommodation->bathroom) }}"
+                            <input type="number" name="bathroom" id="bathroom"
+                                value="{{ old('bathroom', $accommodation->bathroom) }}"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                             @error('bathroom')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -135,7 +223,8 @@
 
                         <div>
                             <label for="bedroom" class="block text-sm font-medium text-gray-700 mb-2">Bedroom</label>
-                            <input type="number" name="bedroom" id="bedroom" value="{{ old('bedroom', $accommodation->bedroom) }}"
+                            <input type="number" name="bedroom" id="bedroom"
+                                value="{{ old('bedroom', $accommodation->bedroom) }}"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                             @error('bedroom')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -175,14 +264,16 @@
                                         'Airport Shuttle',
                                     ];
                                     // Since amenities is cast as array in the model, it's already decoded
-                                    $currentAmenities = is_array($accommodation->amenities) ? $accommodation->amenities : [];
+$currentAmenities = is_array($accommodation->amenities)
+    ? $accommodation->amenities
+    : [];
 
-                                    $customAmenities = [];
-                                    // dd($customAmenities);
+$customAmenities = [];
+// dd($customAmenities);
 
-                                    // Separate common and custom amenities
-                                    // if (is_array($currentAmenities)) {
-                                    //     // dd('DD');
+// Separate common and custom amenities
+// if (is_array($currentAmenities)) {
+//     // dd('DD');
                                     //     foreach ($currentAmenities as $amenity) {
                                     //         if (!in_array($amenity, $commonAmenities)) {
                                     //             $customAmenities[] = $amenity;
@@ -258,7 +349,8 @@
                         @if ($accommodation->featured_image)
                             <div class="mb-4">
                                 <img src="{{ asset('uploads/' . $accommodation->featured_image) }}"
-                                    alt="{{ $accommodation->name }}" class="w-full  h-32 object-cover rounded-lg oldimage">
+                                    alt="{{ $accommodation->name }}"
+                                    class="w-full  h-32 object-cover rounded-lg oldimage">
                             </div>
                         @endif
                         <img id="output" style="width: 100px; margin-bottom: 2px;" />

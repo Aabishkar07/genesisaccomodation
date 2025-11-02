@@ -22,7 +22,7 @@ return new class extends Migration {
             $table->string('postal_code')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
-            $table->integer('max_guest')->nullable();
+            $table->string('max_guest')->nullable();
             $table->integer('bathroom')->nullable();
             $table->integer('bedroom')->nullable();
             $table->longText('map')->nullable();

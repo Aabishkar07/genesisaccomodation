@@ -44,6 +44,8 @@ Route::get('/accommodations', [IndexController::class, 'accommodations'])->name(
 Route::get('/accommodation/{accommodation:slug}', [IndexController::class, 'accommodationSingle'])->name('accommodation.single');
 Route::get('/filteraccommodations', [IndexController::class, 'filteraccommodations'])->name('filteraccommodations');
 
+Route::get('/filter', [IndexController::class, 'filter'])->name('filter');
+
 // Legal Pages Routes
 Route::get('/privacy-policy', [LegalPageController::class, 'privacyPolicy'])->name('privacy-policy');
 Route::get('/terms-conditions', [LegalPageController::class, 'termsConditions'])->name('terms-conditions');

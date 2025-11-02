@@ -24,13 +24,38 @@ class IndexController extends Controller
         $banners = Banner::first();
         $roomTypes = RoomType::get();
         $testimonials = Testimonial::get();
-        $accomodations = Accommodation::with('roomType')->where('status', 'active')->orderBy('sort_order', 'asc')->orderBy('created_at', 'desc')->limit(6)->get();
-        $blogs = Blog::where('status', 'published')->orderBy('sort_order', 'asc')->orderBy('created_at', 'desc')->limit(6)->get();
-$displayAll = Display::get();
+        $accomodations = Accommodation::with('roomType')
+            ->where('status', 'active')
+            ->orderBy('sort_order', 'asc')
+            ->orderBy('created_at', 'desc')
+            ->limit(6)
+            ->get();
+        $blogs = Blog::where('status', 'published')
+            ->orderBy('sort_order', 'asc')
+            ->orderBy('created_at', 'desc')
+            ->limit(6)
+            ->get();
+        $displayAll = Display::get();
 
+        // Distinct cities for dropdown
+        $city = Accommodation::select('city')->distinct()->get();
 
-        return view("frontend.home.index", compact('blogs', 'services', 'testimonials', 'accomodations', 'banners', 'roomTypes','displayAll'));
+        // Max guests for frontend validation
+        $maxGuest = Accommodation::max('max_guest');
+
+        return view("frontend.home.index", compact(
+            'blogs',
+            'services',
+            'testimonials',
+            'accomodations',
+            'banners',
+            'roomTypes',
+            'displayAll',
+            'city',
+            'maxGuest' // Pass maxGuest to the view
+        ));
     }
+
 
     public function single(Request $request, Blog $blog)
     {
@@ -188,6 +213,45 @@ $displayAll = Display::get();
 
         return view('frontend.accommodation.filter', compact('accomodations', 'roomTypes'));
     }
+
+
+   public function filter(Request $request)
+{
+    $query = Accommodation::query()->where('status', 'active');
+
+    // Filter by city
+    if ($request->filled('city')) {
+        $query->where('city', $request->city);
+    }
+
+    // Filter by max guest (show all accommodations that can host at least this many)
+    if ($request->filled('max_guest')) {
+        $maxGuest = $request->max_guest;
+
+        // If it's numeric (e.g. 2 adults)
+        if (is_numeric($maxGuest)) {
+            $query->where('max_guest', '>=', (int)$maxGuest);
+        }
+        // If it's a type (single/couple), handle accordingly
+        else {
+            if ($maxGuest === 'single') {
+                $query->where('max_guest', '>=', 1);
+            } elseif ($maxGuest === 'couple') {
+                $query->where('max_guest', '>=', 2);
+            }
+        }
+    }
+
+    $accomodations = $query->paginate(10)->withQueryString();
+
+    $city = Accommodation::select('city', 'id')->distinct()->get();
+
+    return view('frontend.accommodation.filter', compact('accomodations', 'city'));
+}
+
+
+
+
 
     public function store(Request $request)
     {

@@ -43,6 +43,8 @@ class AccommodationController extends Controller
      */
     public function store(Request $request)
     {
+
+
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
@@ -74,6 +76,7 @@ class AccommodationController extends Controller
         ]);
 
         $data = $request->all();
+
         $data['slug'] = Str::slug($request->name);
 
         // Handle featured image upload
@@ -152,6 +155,8 @@ class AccommodationController extends Controller
      */
     public function update(Request $request, Accommodation $accommodation)
     {
+
+    
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
@@ -286,7 +291,7 @@ class AccommodationController extends Controller
         Display::setStatus('accommodation', $value);
 
         $statusText = $value ? 'Active' : 'Inactive';
-        
+
         return redirect()->route('admin.accommodations.index')
             ->with('success', "Accommodation display status updated to {$statusText} successfully!");
     }

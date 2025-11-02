@@ -1,3 +1,5 @@
+
+
 <section class="py-16 bg-gradient-to-br from-gray-50 to-white">
     <div class=" px-4 sm:px-6 lg:px-8">
         <!-- Section Header -->
@@ -8,6 +10,7 @@
                 <span class="px-6 text-primary font-semibold text-lg uppercase tracking-wider">Our Accommodations</span>
                 <div class="flex-1 h-px bg-gradient-to-r from-transparent via-primary to-transparent"></div>
             </div>
+
 
             <!-- Main Heading -->
                 <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4">
@@ -23,6 +26,9 @@
                 perfect stay.
             </p>
         </div>
+
+                     @include('frontend.home.filter')
+
 
         <!-- Accommodations Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-12 max-w-screen-2xl mx-auto px-4">
